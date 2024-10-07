@@ -410,7 +410,22 @@ $email = isset($employeer[0]['email']) ? $employeer[0]['email'] : '';
 
 </html>
 
-
+<div class="modal fade modal-success" id="generatedownload" role="dialog" style="margin-top: 300px;">
+   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header btnclr">
+            <a href="#" class="close" data-dismiss="modal">&times;</a>
+         </div>
+         <div class="modal-body">
+         	<div class="skeleton-loader"></div>
+            <h1 class="text-center">Your PDF is Almost Ready!</h1>
+			<p class="text-center">Get ready to click and download your document in <span id="countdown" style="font-weight: bold;">5</span> seconds!</p>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -426,23 +441,72 @@ $email = isset($employeer[0]['email']) ? $employeer[0]['email'] : '';
         return;
     }
 
-    const canvas1 = await html2canvas(element1, { scale: 2 });
-    const canvas2 = await html2canvas(element2, { scale: 2 });
+    $('#generatedownload').modal('show');
 
-    const imgData1 = canvas1.toDataURL('image/jpeg', 1.0);
-    const imgData2 = canvas2.toDataURL('image/jpeg', 1.0);
+    let countdown = 5;
+    document.getElementById('countdown').innerText = countdown;
 
-    const pdf = new jspdf.jsPDF({
-        orientation: 'p',
-        unit: 'px',
-        format: [canvas1.width, canvas1.height]
-    });
+    let countdownInterval = setInterval(async () => {
+        countdown--;
+        document.getElementById('countdown').innerText = countdown;
 
-    pdf.addImage(imgData1, 'JPEG', 0, 0, canvas1.width, canvas1.height);
-    pdf.addPage([canvas2.width, canvas2.height], 'p');
-    pdf.addImage(imgData2, 'JPEG', 0, 0, canvas2.width, canvas2.height);
+        if (countdown <= 0) {
+            clearInterval(countdownInterval);
 
-    pdf.save('W3Form.pdf');
+            const canvas1 = await html2canvas(element1, { scale: 2 });
+            const canvas2 = await html2canvas(element2, { scale: 2 });
+
+            const imgData1 = canvas1.toDataURL('image/jpeg', 1.0);
+            const imgData2 = canvas2.toDataURL('image/jpeg', 1.0);
+
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'px',
+                format: [canvas1.width, canvas1.height]
+            });
+
+
+            pdf.addImage(imgData1, 'JPEG', 0, 0, canvas1.width, canvas1.height);
+            pdf.addPage([canvas2.width, canvas2.height], 'p');
+            pdf.addImage(imgData2, 'JPEG', 0, 0, canvas2.width, canvas2.height);
+
+            $('#generatedownload').modal('hide');
+
+            window.location.href = "<?= base_url(); ?>Chrm/payroll_setting";
+
+            var currentDate = new Date();
+            var formattedDate = (currentDate.getMonth() + 1) + '-' + currentDate.getDate() + '-' + currentDate.getFullYear();
+            var formattedTime = currentDate.getHours() + '-' + currentDate.getMinutes() + '-' + currentDate.getSeconds();
+            var formattedDateTime = formattedDate + '_' + formattedTime;
+
+           
+            pdf.save('W3Form_' + formattedDateTime + '.pdf');
+        }
+    }, 1000);  
 }
 
+
 </script>
+
+<style type="text/css">
+	.modal-backdrop {
+	    backdrop-filter: blur(1px);
+	}
+
+	@keyframes skeleton-loading {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.skeleton-loader {
+    width: 100%;
+    height: 20px; /* Adjust height as needed */
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+</style>

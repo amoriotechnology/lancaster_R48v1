@@ -4853,5 +4853,108 @@ public function company_info()
         return false;
     }
 
+    // Paginated Expense Data
+    public function getPaginatedExpense($limit, $offset, $orderField, $orderDirection, $search, $date = null, $chalanno = 'All', $vendortype = 'All', $vendor = 'All')
+    {
+        $user_id = $this->session->userdata("user_id");
+
+        $this->db->select('*');
+        
+        $this->db->from('product_purchase');
+
+        if ($date) {
+            $dates = explode(' to ', $date);
+            $start_date = date('Y-m-d', strtotime($dates[0]));
+            $end_date = date('Y-m-d', strtotime($dates[1]));  
+            $this->db->where('purchase_date >=', $start_date);
+            $this->db->where('purchase_date <=', $end_date);
+        }
+
+        if ($chalanno !== 'All') {
+            $trimmed_chalanno = trim($chalanno);
+            $this->db->like('chalan_no', $trimmed_chalanno);
+        }
+
+        if ($vendortype !== 'All') {
+            $trimmed_vendortype = trim($vendortype);
+            $this->db->like('vtype', $trimmed_vendortype);
+        }
+
+        if ($vendor !== 'All') {
+            $trimmed_vendor = trim($vendor);
+            $this->db->like('supplier_id', $vendor);
+        }
+
+
+        if (!empty($search)) {
+            $this->db->group_start();
+            $this->db->like("chalan_no", $search);
+            $this->db->or_like("purchase_date", $search);
+            $this->db->or_like("supplier_name", $search);
+            $this->db->or_like("middle_name", $search);
+            $this->db->or_like("grand_total_amount", $search);
+            $this->db->group_end();
+        }
+        
+        $this->db->where("create_by", $user_id);
+
+        $this->db->limit($limit, $offset);
+        $this->db->order_by($orderField, $orderDirection);
+        
+        $query = $this->db->get();
+
+        // echo $this->db->last_query(); die;
+
+        if ($query === false) {
+            return false;
+        }
+
+        return $query->result_array();
+    }
+
+    
+    // Total Expense Tax 
+    public function getTotalExpensedata($search, $date, $chalanno = 'All')
+    {
+        $user_id = $this->session->userdata("user_id");
+
+        $this->db->select('*');
+        $this->db->from('product_purchase');
+
+        if ($date) {
+            $dates = explode(' to ', $date);
+            $start_date = date('Y-m-d', strtotime($dates[0]));
+            $end_date = date('Y-m-d', strtotime($dates[1]));  
+            $this->db->where('purchase_date >=', $start_date);
+            $this->db->where('purchase_date <=', $end_date);
+        }
+
+        if ($chalanno !== 'All') {
+            $trimmed_chalanno = trim($chalanno);
+            $this->db->like('chalan_no', $trimmed_chalanno);
+        }
+
+        if (!empty($search)) {
+            $this->db->group_start();
+            $this->db->like("chalan_no", $search);
+            $this->db->or_like("purchase_date", $search);
+            $this->db->or_like("supplier_name", $search);
+            $this->db->or_like("middle_name", $search);
+            $this->db->or_like("grand_total_amount", $search);
+            $this->db->group_end();
+        }
+
+        $this->db->where("create_by", $user_id);
+
+        $query = $this->db->get();
+    
+        if ($query === false) {
+            return false;
+        }
+
+        return $query->num_rows();
+
+    }
+
 
 }
