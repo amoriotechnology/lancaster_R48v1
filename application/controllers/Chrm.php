@@ -96,6 +96,7 @@ public function state_tax_search_summary() {
     $date = $this->input->post('daterangepicker-field');
     $state_summary_employer = $this->Hrm_model->state_summary_employer($tax_choice,$selectState, $date,$emp_name,  $taxType);
     $state_summary_employee = $this->Hrm_model->state_summary_employee($tax_choice,$selectState, $date,$emp_name,  $taxType);
+    // echo "<pre>"; print_r($result); echo "</pre>";
     // Initialize arrays to store contributions
    // Initialize arrays to store contributions
 $employer_contributions = [
@@ -128,7 +129,7 @@ foreach ($state_summary_employer as $row) {
 }
 
 // Organize employee contributions
-foreach ($state_summary_employee as $row) {
+foreach ($state_summary_employee as $row) { 
     $employee_name = trim($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
     $tax_type = $row['tax_type'];
     $tax = trim($row['tax']);
