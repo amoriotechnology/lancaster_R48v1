@@ -810,7 +810,8 @@ function populateTable(response) {
                 taxes.forEach(taxKey => {
                     const taxName = taxKey.split('-')[0];
                     const code = taxKey.split('-')[1];
-                    taxHeaders += "<th colspan='2' style='text-align:center'>" + taxName + "-" + code + "</th>";
+                    var changecode = code === 'PS' ? 'Pennsylvania' : code === 'ML' ? 'Maryland' : 'Code is something else';
+                    taxHeaders += "<th colspan='2' style='text-align:center'>" + taxName + "-" + changecode + "</th>";
                 });
             });
 
