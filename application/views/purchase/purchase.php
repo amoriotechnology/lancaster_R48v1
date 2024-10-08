@@ -43,7 +43,7 @@
       <div class="panel panel-bd lobidrag">
          <div class="panel-heading" style="height: 60px;border: 3px solid #D7D4D6;">
             <div class="col-sm-12">
-                <div class="col-md-3 col-sm-3" style="display: flex; align-items: center;">
+                <div class="col-md-2 col-sm-3" style="display: flex; align-items: center;">
                     <label>Invoice No</label>&nbsp;&nbsp;&nbsp;
                     <select id="customer-name-filter" name="chalanno" class="form-control chalanno">
                         <option value="All">All</option>
@@ -54,7 +54,7 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-3 col-sm-3" style="display: flex; align-items: center;">
+                <div class="col-md-2 col-sm-3" style="display: flex; align-items: center;">
                     <label>Vendor Type</label>&nbsp;&nbsp;&nbsp;
                     <select  name="vendorType" class="form-control vendorType">
                         <option value="All">All</option>
@@ -65,7 +65,7 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-3 col-sm-3" style="display: flex; align-items: center;">
+                <div class="col-md-2 col-sm-3" style="display: flex; align-items: center;">
                     <label>Vendor</label>&nbsp;&nbsp;&nbsp;
                     <select  name="vendor" class="form-control vendor">
                         <option value="All">All</option>
@@ -380,4 +380,6 @@ tbody{
 .error-border {
     border: 2px solid red;
 }
+
+
 </style>
