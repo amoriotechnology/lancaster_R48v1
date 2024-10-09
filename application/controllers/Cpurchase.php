@@ -747,6 +747,7 @@ public function expenseRetrieveData()
     $vendor       = $this->input->post('vendor');
     $items          = $CI->Purchases->getPaginatedExpense($limit,$start,$orderField,$orderDirection,$search,$date,$chalanno,$vendortype,$vendor);
     $totalItems     = $CI->Purchases->getTotalExpensedata($search,$date,$chalanno,$vendortype,$vendor);
+    $servpro        = $CI->Purchases->servicepro($date);
     $data           = [];
     $i              = $start + 1;
     $download       = "";

@@ -382,4 +382,6 @@ tbody{
 .error-border {
     border: 2px solid red;
 }
+
+
 </style>
