@@ -586,7 +586,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
 <?php  foreach($selected_state_tax as $k=>$v){
                                  if($v){
                                  $split=explode('-',$k);
-                                   $title=str_replace("'employee_",'',$split[0]);
+                                 $title=str_replace("'employee_",'',$split[0]);
                                  $rep=str_replace("'",'',$split[1]);
                                  $rep2='';
                                  if($split[2]){
@@ -594,7 +594,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Working State Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Working State Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($selected_state_sum[$rep],3); ?></td>
@@ -611,7 +611,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Working Local Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Working Local Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($selected_local_sum[$rep],3); ?></td>
@@ -628,7 +628,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Working County Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Working County Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($working_county_sum[$rep],3); ?></td>
@@ -645,7 +645,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Other Working Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Other Working Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($other_working_sum[$rep],3); ?></td>
@@ -671,7 +671,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
 
 
                               <tr>
-                                 <td title="<?php   echo "Living State Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Living State Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($selected_living_state_sum[$rep],3); ?></td>
@@ -688,7 +688,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Living Local Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Living Local Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($living_local_sum[$rep],3); ?></td>
@@ -705,7 +705,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Living County Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Living County Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($living_county_sum[$rep],3); ?></td>
@@ -722,7 +722,7 @@ echo round(($OVweekly ? $OVweekly : ($OVbiweekly ? $OVbiweekly : $OVmonthly)), 2
                                  }
                                  ?>
                               <tr>
-                                 <td title="<?php   echo "Other Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $rep2.'-'.$rep;}else {echo $rep;}  ?></td>
+                                 <td title="<?php   echo "Other Tax - ".$title; ?>" style="text-align:left;"><?php if($rep2){echo $title.'-'.$rep;}else {echo $rep;}  ?></td>
                                  <td></td>
                                  <td class="current">  <?php echo "-".round($v,3); ?></td>
                                  <td class="ytd"><?php echo round($other_tax_sum[$rep],3); ?></td>

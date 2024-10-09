@@ -96,9 +96,11 @@ public function state_tax_search_summary() {
         'state_tax' => [],
         'living_state_tax' => []
     ];
+
     $employee_contributions = [
         'state_tax' => [],
         'living_state_tax' => []
+
     ];
 //print_r($state_summary_employer);die();
     foreach ($state_summary_employer as $row) {
@@ -198,6 +200,9 @@ $employee_name = $this->input->post('employee_name');
     header('Content-Type: application/json');
     echo json_encode($merged_array);
 }
+
+
+
 private function fetch_contributions($employee_name,$tax_name, $date) {
     $state_tax_report = $is_employer ?
         $this->Hrm_model->employer_state_tax_report($employee_name,$tax_name, $date) :

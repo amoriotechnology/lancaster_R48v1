@@ -682,59 +682,131 @@ $result = $CI->Purchases->servicepro($date) ;
      
      
      
-    
- public function manage_purchase() {
-         $this->session->unset_userdata('newexpenseid');
-        $date = $this->input->post("daterange");
-        $menu= $this->input->post("options");
-        $CI = & get_instance();
-        $CI->load->model('Purchases');
-        $this->load->library('lpurchase');
-                $CI->load->model('Web_settings');
+// Expense Index Data - Sivashankar
+ public function manage_purchase() 
+ {
+    $this->session->unset_userdata('newexpenseid');
+    $date = $this->input->post("daterange");
+    $menu= $this->input->post("options");
+    $CI = & get_instance();
+    $CI->load->model('Purchases');
+    $this->load->library('lpurchase');
+    $CI->load->model('Web_settings');
 
-        $content1 = $this->lpurchase->purchase_list();
-                $setting_detail = $CI->Web_settings->retrieve_setting_editdata();
+    $content1 = $this->lpurchase->purchase_list();
+    $setting_detail = $CI->Web_settings->retrieve_setting_editdata();
 
-        $expense = $CI->Purchases->newexpense($date);
+    $expense = $CI->Purchases->newexpense($date);
 
-        $expensebro = $expense['rows'][0]['supplier_id'];
+    $expensebro = $expense['rows'][0]['supplier_id'];
 
-       $sup = $CI->db->select('supplier_name')
-       ->from('supplier_information')
-       ->where('supplier_id',$expensebro)
-       ->get()->result_array();
-        $servpro = $CI->Purchases->servicepro($date) ;
+    $sup = $CI->db->select('supplier_name')->from('supplier_information')->where('supplier_id',$expensebro)->get()->result_array();
+    $servpro = $CI->Purchases->servicepro($date) ;
 
-// print_r($servpro);
+    $out = array();
+    foreach ($expense as $key => $value){
+        $out[] = (object)array_merge((array)$servpro[$key], (array)$value);
+    }
 
+    $array = json_decode(json_encode($out), true);
+    $currency_details = $CI->Web_settings->retrieve_setting_editdata();
 
+    $result  = array_merge($servpro,$expense);
 
-$out = array();
-foreach ($expense as $key => $value){
-    $out[] = (object)array_merge((array)$servpro[$key], (array)$value);
+    $data = array(
+        'currency'               =>$currency_details[0]['currency'],
+        'invoice'                =>  $content1,
+        'expense'                => $expense,
+        'servpro'                =>  $servpro,
+        'service_provider_name'  =>$servpro,
+        'supplier_name'          =>$sup,
+        'allinfo'                => $array,
+        'setting_detail' => $setting_detail
+    );
+    $content = $this->load->view('purchase/purchase', $data, true);
+    $this->template->full_admin_html_view($content);
 }
 
-$array = json_decode(json_encode($out), true);
-        $currency_details = $CI->Web_settings->retrieve_setting_editdata();
-  
+// Expense Index Data For Ajax - Sivashankar
+public function expenseRetrieveData()
+{   
+    $CI = & get_instance();
+    $CI->load->model('Purchases');
 
- $result  = array_merge($servpro,$expense);
+    $limit          = $this->input->post("length");
+    $start          = $this->input->post("start");
+    $search         = $this->input->post("search")["value"];
+    $orderField     = $this->input->post("columns")[$this->input->post("order")[0]["column"]]["data"];
+    $orderDirection = $this->input->post("order")[0]["dir"];
+    $date           = $this->input->post("federal_date_search");
+    $chalanno       = $this->input->post('chalanno');
+    $vendortype       = $this->input->post('vendorType');
+    $vendor       = $this->input->post('vendor');
+    $items          = $CI->Purchases->getPaginatedExpense($limit,$start,$orderField,$orderDirection,$search,$date,$chalanno,$vendortype,$vendor);
+    $totalItems     = $CI->Purchases->getTotalExpensedata($search,$date,$chalanno,$vendortype,$vendor);
+    $servpro        = $CI->Purchases->servicepro($date);
+    $data           = [];
+    $i              = $start + 1;
+    $download       = "";
+    $edit           = "";
+    $delete         = "";
+    foreach ($items as $item) {
+        $download = '<a href="' . base_url("Payment_Gateway/Welcome/index/" . $item["purchase_id"]) . 
+            '" class="btnclr btn btn-sm" style="background-color:#424f5c; margin-right: 5px;" data-toggle="tooltip" data-placement="left" title="Payment"><i class="fa fa-credit-card" aria-hidden="true"></i></a>';
 
-        $data = array(
-               'currency'               =>$currency_details[0]['currency'],
-               'invoice'                =>  $content1,
-               'expense'                => $expense,
-               'servpro'                =>  $servpro,
-               'service_provider_name'  =>$servpro,
-               'supplier_name'          =>$sup,
-               'allinfo'                => $array,
-                              'setting_detail' => $setting_detail
+        $url = !empty($item['purchase_id']) ? base_url() . "Cpurchase/purchase_update_form/" . $item['purchase_id'] : base_url() . "Cpurchase/serviceprovider_update_form/" . $item['serviceprovider_id']; 
 
-        );
-        $content = $this->load->view('purchase/purchase', $data, true);
-        $this->template->full_admin_html_view($content);
+        $edit = '<a href="' . $url . '" class="btnclr btn btn-success btn-sm expenselocal-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 
+        $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . 
+                  (!empty($item['purchase_id']) ? base_url() . "Cpurchase/purchase_delete_form/" . $item['purchase_id'] : base_url() . "Cpurchase/servicepro_delete_data/" . $item['serviceprovider_id']) . 
+                  '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+
+        $action = $download . $edit . $delete;
+
+        $row = [
+            'id'      => $i,
+            'chalan_no' => $item['chalan_no'],
+
+            'supplier_id' => (!empty($item['service_provider_name']) && $item['service_provider_name'] !== 'N/A') ? $item['service_provider_name'] : ((!empty($item['supplier_id']) && $item['supplier_id'] !== 'N/A') ? $item['supplier_id'] : 'N/A'),
+
+            'purchase_date' => (!empty($item['purchase_date']) && $item['purchase_date'] !== 'N/A') ? $item['purchase_date'] : ((!empty($item['bill_date']) && $item['bill_date'] !== 'N/A') ? $item['bill_date'] : 'N/A'),
+
+            'vtype' => !empty($item['vtype']) ? $item['vtype'] : "N/A",
+
+            'paid_amount' => (!empty($item['paid_amount']) && $item['paid_amount'] !== 'N/A') ? $currency . " " . $item['paid_amount'] : ((!empty($item['amount_paids']) && $item['amount_paids'] !== 'N/A') ? $currency . " " . $item['amount_paids'] : 'N/A'),
+
+            'balance' => (!empty($item['balance']) && $item['balance'] !== 'N/A') ? $currency . " " . $item['balance'] : ((!empty($item['balances']) && $item['balances'] !== 'N/A') ? $currency . " " . $item['balances'] : 'N/A'),
+
+            'purchase_id' => (!empty($item['purchase_id']) && $item['purchase_id'] !== 'N/A') ? $item['purchase_id'] : ((!empty($item['serviceprovider_id']) && $item['serviceprovider_id'] !== 'N/A') ? $item['serviceprovider_id'] : 'N/A'),
+
+            'payment_terms' => !empty($item['payment_terms']) ? $item['payment_terms'] : "N/A",
+
+            'tax_detail' => !empty($item['tax_detail']) && $item['tax_detail'] !== 'N/A' ? $item['tax_detail'] : (!empty($item['total_tax']) && $item['total_tax'] !== 'N/A' ? $item['total_tax'] : 'N/A'),
+
+            'sp_address' => !empty($item['sp_address']) ? $item['sp_address'] : "N/A",
+
+            'phone_num' => !empty($item['phone_num']) ? $item['phone_num'] : "N/A",
+
+            'account_category' => !empty($item['account_category']) ? $item['account_category'] : "N/A",
+
+            'amount_pay_usd' => !empty($arr['amount_pay_usd']) ? $arr['sub_category'] : "N/A",
+
+            'acc_cat' => !empty($arr['acc_cat']) ? $arr['acc_cat'] : "N/A",
+
+            "action"  => $action,
+        ];
+        $data[] = $row;
+        $i++;
     }
+    $response = [
+        "draw"            => $this->input->post("draw"),
+        "recordsTotal"    => $totalItems,
+        "recordsFiltered" => $totalItems,
+        "data"            => $data,
+    ];
+    echo json_encode($response);
+}
 
 
      public function manage_purchase_order() {

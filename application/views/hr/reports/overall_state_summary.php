@@ -369,6 +369,7 @@
                               </tr>
                            </tfoot>
                         </table>
+
   <p class="work_state" style='font-weight:bold;text-align:center;font-size: xx-large;'><label >WORKING STATE TAX </label></p>
     <table class="work_state table table-bordered" cellspacing="0" width="100%" id="StateTaxTable">
         <thead></thead>
@@ -383,15 +384,95 @@
         <tfoot></tfoot>
     </table>
 
+
+</div>
+
+<!-- City Tax -->
+<div class="city_tax">
+   <p  style='font-weight:bold;text-align:center;font-size: xx-large;'><label style='font-weight:bold;text-align:center;'>CITY TAX </label></p>
+   <table class="table table-bordered" cellspacing="0" width="100%" id="CityTax">
+      <thead class="btnclr">
+         <tr>
+            <th>S.No</th>
+            <th>Employee Name</th>
+            <th>Employee Tax</th>
+            <th>Working Local Tax</th>
+            <th>Working Local Tax</th>
+            <th>Living Local Tax</th>
+            <th>Month</th>
+            <th>Timesheet ID</th>
+            <th>Living Location Tax - Employee Contributions</th>
+         </tr>
+      </thead>
+      <tbody>
+         <?php 
+         if($getEmployeeContributions > 0){
+         $c=1;
+         foreach ($getEmployeeContributions as $employeeData){ ?>
+               <tr>
+                  <td><?php  echo $c; ?></td>
+                  <td><?php echo $employeeData['first_name'] . ' ' . $employeeData['last_name']; ?></td>
+                  <td><?php echo $employeeData['employee_tax']; ?></td>
+                  <td><?php echo $employeeData['local_tax']; ?></td>
+                  <td><?php echo $employeeData['living_local_tax']; ?></td>
+                  <td><?php echo $employeeData['month']; ?></td>
+                  <td><?php echo $employeeData['time_sheet_id']; ?></td>
+                  <td><?php echo round($employeeData['amount'],3); ?></td>
+               </tr>
+         <?php $c++; } }else{ ?>
+            <tr>
+              <td colspan="9" class="text-center">No Data Found</td>
+            </tr>
+         <?php } ?>
+      </tbody>
+   </table>
+</div>
+
+<!-- County Tax -->
+<div class="county_tax">
+   <p  style='font-weight:bold;text-align:center;font-size: xx-large;'><label style='font-weight:bold;text-align:center;'>COUNTY TAX </label></p>
+   <table class="table table-bordered" cellspacing="0" width="100%" id="CountyTax">
+      <thead class="btnclr">
+         <tr>
+            <th>S.No</th>
+            <th>Employee Name</th>
+            <th>Employee Tax</th>
+            <th>Working Local Tax</th>
+            <th>Working Local Tax</th>
+            <th>Living Local Tax</th>
+            <th>Month</th>
+            <th>Timesheet ID</th>
+            <th>Living Location Tax - Employee Contributions</th>
+         </tr>
+      </thead>
+      <tbody>
+         <?php 
+         if($getEmployeeContributions > 0){
+         $c=1;
+         foreach ($getEmployeeContributions as $employeeData){ ?>
+               <tr>
+                  <td><?php  echo $c; ?></td>
+                  <td><?php echo $employeeData['first_name'] . ' ' . $employeeData['last_name']; ?></td>
+                  <td><?php echo $employeeData['employee_tax']; ?></td>
+                  <td><?php echo $employeeData['local_tax']; ?></td>
+                  <td><?php echo $employeeData['living_local_tax']; ?></td>
+                  <td><?php echo $employeeData['month']; ?></td>
+                  <td><?php echo $employeeData['time_sheet_id']; ?></td>
+                  <td><?php echo round($employeeData['amount'],3); ?></td>
+               </tr>
+         <?php $c++; } }else{ ?>
+            <tr>
+              <td colspan="9" class="text-center">No Data Found</td>
+            </tr>
+         <?php } ?>
+      </tbody>
+   </table>
 </div>
 
 
-
-
-
 </div>
-               </div>
-   </section>
+</div>
+</section>
  
  <input type="hidden" value="Sale/New Sale" id="url"/>
  
@@ -726,7 +807,8 @@ function populateTable(response) {
                 taxes.forEach(taxKey => {
                     const taxName = taxKey.split('-')[0];
                     const code = taxKey.split('-')[1];
-                    taxHeaders += "<th colspan='2' style='text-align:center'>" + taxName + "-" + code + "</th>";
+                    var changecode = code === 'PS' ? 'Pennsylvania' : code === 'ML' ? 'Maryland' : 'Code is something else';
+                    taxHeaders += "<th colspan='2' style='text-align:center'>" + taxName + "-" + changecode + "</th>";
                 });
             });
 
@@ -888,6 +970,27 @@ $(document).ready(function() {
        addTableToWorkbook('.living_state', 'Data Table 3');
 
        XLSX.writeFile(wb, 'data_tables.xlsx');
+   });
+});
+
+
+$(document).ready(function() {
+   $('#CityTax').DataTable({
+      "pageLength": 10,  
+      "searching": true, 
+      "ordering": true,  
+      "lengthChange": true, 
+      "info": true, 
+      "paging": true 
+   });
+
+   $('#CountyTax').DataTable({
+      "pageLength": 10,  
+      "searching": true, 
+      "ordering": true,  
+      "lengthChange": true, 
+      "info": true, 
+      "paging": true 
    });
 });
 

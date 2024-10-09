@@ -533,10 +533,12 @@ function populateTable(response) {
         // Create table headers dynamically
         var taxHeaders = "<tr class='btnclr'><th rowspan='2' style='border-bottom:none;text-align:center'>Employee Name</th><th rowspan='2' style='border-bottom:none;text-align:center'>Gross</th><th rowspan='2' style='border-bottom:none;text-align:center'>Net</th>";
 
+
         Object.keys(taxTypeMap).forEach(function (taxType) {
             var taxes = taxTypeMap[taxType];
             var displayTaxType = (taxType === "living_state_tax") ? "LIVING STATE TAX" : "WORKING STATE TAX";
             taxHeaders += "<th colspan='" + (2 * taxes.length) + "' style='text-align:center'>" + displayTaxType + "</th>";
+
         });
 
         taxHeaders += "</tr><tr class='btnclr'>";
