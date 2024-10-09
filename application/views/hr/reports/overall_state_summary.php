@@ -182,7 +182,7 @@
                         <tr style='text-align:center;font-weight:bold;' class="filters">
                            <td style='visibility:hidden' class="search_dropdown" style="color: black;">
                               <span>Tax Choice </span>
-                              <select id="tax_Choice" name='taxChouce' class="tax_choice form-control" >
+                              <select id="tax_Choice" name='tax_choice' class="tax_choice form-control" >
                                <option value="All">All</option>
                                  <option value="living_state_tax">Living</option>
                                  <option value="state_tax">Working</option>
@@ -212,11 +212,11 @@
                             </td>
                             <td class="search_dropdown" style="color: black;">
                               <span><?php echo 'Tax Type'; ?></span>
-                              <select id="taxtyp-filter" name="tax_choice" class="form-control">
+                              <select id="taxtyp-filter" name="taxtyp" class="form-control">
                                  <option value="All">All</option>
                                  <option value="federal">Federal Tax</option>
-                                 <option value="state_tax">Working State Tax</option>
-                                  <option value="living_state_tax">Living State Tax</option>
+                                 <option value="working_state">Working State Tax</option>
+                                  <option value="living_state">Living State Tax</option>
                                
                               </select>
                            </td>
@@ -276,15 +276,14 @@
           
 <div id="tablesContainer" style='padding-left:20px;padding-right:20px;'>
  <div class="panel panel-bd lobidrag">
-     <div class="federal">
-     <p style='font-weight:bold;text-align:center;font-size: xx-large;'><label >FEDERAL TAX</label></p>
-      <table class=" table table-bordered" cellspacing="0" width="100%" id="federal_summary">
+     <p class="federal" style='font-weight:bold;text-align:center;font-size: xx-large;'><label >FEDERAL TAX</label></p>
+      <table class="federal table table-bordered" cellspacing="0" width="100%" id="federal_summary">
                            <thead class="sortableTable">
                               <tr class="sortableTable__header btnclr">
                                  <th rowspan="2" class="1 value" data-col="1" style="height: 45.0114px; text-align:center; "> <?php echo 'S.NO'?> </th>
                                  <th rowspan="2" class="2 value" data-col="2" style="text-align:center; width: 250px;"> <?php echo 'Employee Name'?> </th>
-                                 <th rowspan="2" class="3 value" data-col="3" style="text-align:center;width: 120px; "> <?php echo 'Employee Tax'?> </th>
-                               
+                                 <th rowspan="2" class="3 value" data-col="3" style="text-align:center;width: 120px; "> <?php echo 'Gross'?> </th>
+                                              <th rowspan="2" class="3 value" data-col="3" style="text-align:center;width: 120px; "> <?php echo 'Net'?> </th>
                                  <th colspan="2" class="4 value" data-col="4" style="text-align:center;width: 200px;"> <?php echo ('Federal Income Tax')?> </th>
                                  <th colspan="2" class="4 value" data-col="4" style="text-align:center;width: 200px;"> <?php echo ('Social Security Tax')?> </th>
                                  <th colspan="2" class="4 value" data-col="4" style="text-align:center;width: 200px;"> <?php echo ('Medicare Tax')?> </th>
@@ -307,12 +306,12 @@
                                  $count=1;
                                  if(empty($tax)){  
                                   $i=0;
-                                    foreach($fed_tax as $f_tax){   ?> 
+                                    foreach($fed_tax as $f_tax){    ?> 
                               <tr>
                                  <td> <?php echo $count; ?> </td>
                                  <td> <?php echo  $f_tax['first_name']." ".$f_tax['middle_name']." ".$f_tax['last_name']; ?> </td>
-                                 <td> <?php echo  $f_tax['employee_tax']; ?> </td>
-                                
+                                 <td> <?php echo  $f_tax['gross']; ?> </td>
+                                 <td> <?php echo  $f_tax['net']; ?> </td>
                                  <td> <?php echo  round($f_tax['f_ftax_sum'],2); ?> </td>
                                  <td> <?php if($mergedArray[$i]['f_ftax_sum_er']){echo  round($mergedArray[$i]['f_ftax_sum_er'],2); }else{echo '0';}?> </td>
                                  <td> <?php echo  round($f_tax['s_stax_sum'],2); ?> </td>
@@ -329,13 +328,12 @@
                               <?php
                                  $employeeContributionTotal_f = 0;
                                  $employerContributionTotal_ff = 0;
-                                 $i=0;
+                                   $i=0;
                                  foreach($fed_tax as $f_tax) {
                                      $employeeContributionTotal_f += $f_tax['f_ftax_sum'];
                                      $employerContributionTotal_ff += ($mergedArray[$i]['f_ftax_sum_er']) ? $mergedArray[$i]['f_ftax_sum_er'] : 0;
-                                 $i++; 
-                                }
-                                 $employeeContributionTotal_s = 0;
+                                $i++; }
+                                   $employeeContributionTotal_s = 0;
                                  $employerContributionTotal_ss = 0;
                                    $i=0;
                                  foreach($fed_tax as $f_tax) {
@@ -371,18 +369,15 @@
                               </tr>
                            </tfoot>
                         </table>
-                        </div>
-                        <div class="work_state">
-  <p  style='font-weight:bold;text-align:center;font-size: xx-large;'><label >WORKING STATE TAX </label></p>
-    <table class="table table-bordered" cellspacing="0" width="100%" id="StateTaxTable">
+  <p class="work_state" style='font-weight:bold;text-align:center;font-size: xx-large;'><label >WORKING STATE TAX </label></p>
+    <table class="work_state table table-bordered" cellspacing="0" width="100%" id="StateTaxTable">
         <thead></thead>
         <tbody></tbody>
         <tfoot></tfoot>
     </table>
-    </div>
-    <div class="living_state">
-    <p  style='font-weight:bold;text-align:center;font-size: xx-large;'><label style='font-weight:bold;text-align:center;'>LIVING STATE TAX </label></p>
-    <table class="table table-bordered" cellspacing="0" width="100%" id="LivingStateTaxTable">
+    
+    <p class="living_state" style='font-weight:bold;text-align:center;font-size: xx-large;'><label style='font-weight:bold;text-align:center;'>LIVING STATE TAX </label></p>
+    <table class="living_state table table-bordered" cellspacing="0" width="100%" id="LivingStateTaxTable">
         <thead></thead>
         <tbody></tbody>
         <tfoot></tfoot>
@@ -519,7 +514,6 @@ $(document).ready(function () {
     
     $('#fetch_tax').submit(function (event) {
         event.preventDefault();
-        debugger;
         var formData = $(this).serialize();
    var taxtpe=$('#taxtyp-filter').val();
    console.log(taxtpe, 'taxtpe');
@@ -529,43 +523,36 @@ $(document).ready(function () {
             url: "<?php echo base_url('Chrm/state_tax_search_summary'); ?>",
             data: formData,
        success: function (response) {
+          $("#federal_summary tbody").empty();
                 $('#tablesContainer').css('display','block');
+                        populateTable(response);
+               federal_summary();
+           
+                if(taxtpe == 'federal'){
+                    $('.federal').show();
+                          $('.work_state').hide();
+         $('.living_state').hide();
+         $('#StateTaxTable_wrapper').css('display','none');
+         $('#LivingStateTaxTable_wrapper').css('display','none');
                     
-            if(taxtpe === 'federal'){
-    $('.federal').show();
-    $('.work_state').hide();
-    $('.living_state').hide();
-    federal_summary();
-     $('#StateTaxTable_wrapper').css('display', 'none');
-      $('#federal_summary_wrapper').css('display', 'block');
-    // $('#LivingStateTaxTable_wrapper').css('display', 'none');
-} else if(taxtpe === 'state_tax') {
-    $('.work_state').show();
-    $('.living_state').hide();
-    $('.federal').hide();
-        populateTable(response);
-    // $('#LivingStateTaxTable_wrapper').css('display', 'none');
-     $('#federal_summary_wrapper').css('display', 'none');
-      $('#StateTaxTable_wrapper').css('display', 'block');
-} else if(taxtpe === 'living_state_tax') {
-    $('.work_state').hide();
-    $('.federal').hide();
-    $('.living_state').show();  
-        populateTable(response);
-    // $('#StateTaxTable_wrapper').css('display', 'none');
-     $('#federal_summary_wrapper').css('display', 'none');
-      $('#StateTaxTable_wrapper').css('display', 'block');
-} else {
-     
-    $('.work_state').show();
-    $('.federal').show();
-    $('.living_state').show();  
-     populateTable(response);
-    federal_summary();
-     $('#federal_summary_wrapper').css('display', 'block');
-      $('#StateTaxTable_wrapper').css('display', 'block');
-}
-
+                }else if(taxtpe == 'working_state')
+                {
+                 $('.work_state').show();
+         $('.living_state').hide();
+          $('.federal').hide();
+          $('#LivingStateTaxTable_wrapper').css('display','none');
+                }
+                else if( taxtpe == 'living_state'){
+                   $('.work_state').hide();
+                    $('.federal').hide();
+                $('.living_state').show();   
+                $('#StateTaxTable_wrapper').css('display','none');
+                }else{
+                   $('.work_state').show();
+                    $('.federal').show();
+         $('.living_state').show();  
+                }
+                
             },
             error: function (xhr, status, error) {
                 console.error("Error:", xhr.responseText);
@@ -586,22 +573,23 @@ function federal_summary(){
         data: dataString,
         success: function(response) {
             console.log(response);
-            
+            debugger;
             var employeeData = response.aggregated_employe; 
             var employerData = response.aggregated_employer; 
-
+  $('#federal_summary').DataTable().destroy(); 
             // Clear table body first
             var tbody = $("#federal_summary tbody").empty();
 
             // Display employee and employer contributions side by side for each tax type
             for (var i = 0; i < employeeData.length; i++) {
                 var employee = employeeData[i];
-                var employer = employerData[i] || {};
+                var employer = employerData[i] || {}; // Handle missing data gracefully
                 
                 var row = "<tr>";
                 row += "<td style='text-align: center;'>" + (i + 1) + "</td>";
                 row += "<td style='text-align: center;'>" + (employee['first_name'] || '') + " " +(employee['middle_name'] || '')+" "+ (employee['last_name'] || '') + "</td>";
-                row += "<td style='text-align: center;'>" + (employee['employee_tax'] || '') + "</td>";
+                row += "<td style='text-align: center;'>" + (employee['gross'] ? parseFloat(employee['gross']).toFixed(2) : '0.00') + "</td>";
+                   row += "<td style='text-align: center;'>" + (employee['net'] ? parseFloat(employee['net']).toFixed(2) : '0.00') + "</td>";
                 row += "<td style='text-align: center;'>" + (employee['fftax'] ? parseFloat(employee['fftax']).toFixed(2) : '0.00') + "</td>";
                 row += "<td style='text-align: center;'>" + (employer['fftax'] ? parseFloat(employer['fftax']).toFixed(2) : '0.00') + "</td>";
                 row += "<td style='text-align: center;'>" + (employee['sstax'] ? parseFloat(employee['sstax']).toFixed(2) : '0.00') + "</td>";
@@ -616,6 +604,8 @@ function federal_summary(){
 
             // Display totals
             var totalEmployeeContribution = {
+                'gross': 0,
+                 'net': 0,
                 'FederalIncomeTax': 0,
                 'SocialSecurityTax': 0,
                 'MedicareTax': 0,
@@ -631,9 +621,10 @@ function federal_summary(){
             // Calculate totals
             for (var i = 0; i < employeeData.length; i++) {
                 var employee = employeeData[i];
-                var employer = employerData[i] || {}; 
-                 console.log(employee, "employee");
-                totalEmployeeContribution['FederalIncomeTax'] += parseFloat(employee['fftax']) || 0;
+                var employer = employerData[i] || {}; // Handle missing data gracefully
+                 totalEmployeeContribution['gross'] += parseFloat(employee['gross']) || 0;
+                  totalEmployeeContribution['net'] += parseFloat(employee['net']) || 0;
+             totalEmployeeContribution['FederalIncomeTax'] += parseFloat(employee['fftax']) || 0;
                 totalEmployeeContribution['SocialSecurityTax'] += parseFloat(employee['sstax']) || 0;
                 totalEmployeeContribution['MedicareTax'] += parseFloat(employee['mmtax']) || 0;
                 totalEmployeeContribution['UnemploymentTax'] += parseFloat(employee['u_utax']) || 0;
@@ -647,7 +638,9 @@ function federal_summary(){
             var tfoot = $("#federal_summary tfoot").empty();
             // Append total row
             var totalRow = "<tr class='btnclr'>";
-            totalRow += "<td style='text-align:end;' colspan='3'>Total </td>";
+            totalRow += "<td style='text-align:end;' colspan='2'>Total </td>";
+             totalRow += "<td>" + totalEmployeeContribution['gross'].toFixed(2) + "</td>";
+              totalRow += "<td>" + totalEmployeeContribution['net'].toFixed(2) + "</td>";
             totalRow += "<td>" + totalEmployeeContribution['FederalIncomeTax'].toFixed(2) + "</td>";
             totalRow += "<td>" + totalEmployerContribution['FederalIncomeTax'].toFixed(2) + "</td>";
             totalRow += "<td>" + totalEmployeeContribution['SocialSecurityTax'].toFixed(2) + "</td>";
@@ -658,9 +651,9 @@ function federal_summary(){
             totalRow += "<td>" + totalEmployerContribution['UnemploymentTax'].toFixed(2) + "</td>";
             totalRow += "</tr>";
             tfoot.append(totalRow);
-            if ($.fn.DataTable.isDataTable('#federal_summary')) {
-                $('#federal_summary').DataTable().destroy(); 
-            }
+            // if ($.fn.DataTable.isDataTable('#federal_summary')) {
+            //     $('#federal_summary').DataTable().destroy(); 
+            // }
             $('#federal_summary').DataTable({
                 paging: true,
                 searching: true,
@@ -720,6 +713,7 @@ function populateTable(response) {
         // Create table headers dynamically
         if (Object.keys(taxTypeMap).length > 0) {
             let taxHeaders = "<tr class='btnclr'><th rowspan='2' style='border-bottom:none;text-align:center'>S.No</th><th rowspan='2' style='border-bottom:none;text-align:center'>Employee Name</th>";
+       taxHeaders += "<th rowspan='2' style='border-bottom:none;text-align:center'>Gross</th><th rowspan='2' style='border-bottom:none;text-align:center'>Net</th>";
             Object.keys(taxTypeMap).forEach(taxType => {
                 const taxes = taxTypeMap[taxType];
                 const displayTaxType = (taxType === "living_state_tax") ? "LIVING STATE TAX" : "WORKING STATE TAX";
@@ -736,7 +730,7 @@ function populateTable(response) {
                 });
             });
 
-            taxHeaders += "</tr><tr class='btnclr'><th></th><th></th>"; // Add empty cell for S.No
+            taxHeaders += "</tr><tr class='btnclr'><th></th><th></th><th></th><th></th>"; // Add empty cell for S.No
             Object.keys(taxTypeMap).forEach(taxType => {
                 const taxes = taxTypeMap[taxType];
                 taxes.forEach(() => {
@@ -758,7 +752,8 @@ function populateTable(response) {
                     consolidatedContributions[employeeName][taxKey] = { employee: "0.000", employer: "0.000" };
                 }
                 consolidatedContributions[employeeName][taxKey].employer = parseFloat(item.total_amount).toFixed(3) || "0.000";
-            });
+            
+               });
 
             employeeContributions.forEach(item => {
                 const employeeName = item.employee_name;
@@ -766,11 +761,16 @@ function populateTable(response) {
                 if (!consolidatedContributions[employeeName]) {
                     consolidatedContributions[employeeName] = {};
                 }
+                  if (!consolidatedContributions[employeeName]) {
+                consolidatedContributions[employeeName] = { gross: item.gross || 0, net: item.net || 0 };
+            }
                 if (!consolidatedContributions[employeeName][taxKey]) {
                     consolidatedContributions[employeeName][taxKey] = { employee: "0.000", employer: "0.000" };
                 }
                 consolidatedContributions[employeeName][taxKey].employee = parseFloat(item.total_amount).toFixed(3) || "0.000";
-            });
+           consolidatedContributions[employeeName].gross = item.gross || consolidatedContributions[employeeName].gross;
+            consolidatedContributions[employeeName].net = item.net || consolidatedContributions[employeeName].net;
+               });
 
             // Populate rows for each employee
             const tbody = table.find("tbody");
@@ -780,6 +780,8 @@ function populateTable(response) {
                 const row = $("<tr>");
                 row.append("<td>" + serialNumber++ + "</td>"); // Add serial number
                 row.append("<td>" + employeeName + "</td>");
+                row.append("<td>$" + parseFloat(contributions.gross).toFixed(3) + "</td>"); // Add Gross column
+            row.append("<td>$" + parseFloat(contributions.net).toFixed(3) + "</td>"); // Add Net column
 
                 Object.keys(taxTypeMap).forEach(taxType => {
                     const taxes = taxTypeMap[taxType];
@@ -795,15 +797,26 @@ function populateTable(response) {
 
             // Populate footer with total contributions
             const tfoot = table.find("tfoot");
+            let totalGross = 0;
+let totalNet = 0;
+Object.keys(consolidatedContributions).forEach(employeeName => {
+    const contributions = consolidatedContributions[employeeName];
+    totalGross += parseFloat(contributions.gross);
+    totalNet += parseFloat(contributions.net);
+});
             const footerRow = $("<tr class='btnclr'>").append("<td colspan='2'>Total</td>");
+            footerRow.append("<td>$" + totalGross.toFixed(3) + "</td>");
+footerRow.append("<td>$" + totalNet.toFixed(3) + "</td>");
 
             Object.keys(taxTypeMap).forEach(taxType => {
                 const taxes = taxTypeMap[taxType];
                 taxes.forEach(taxKey => {
                     let totalEmployeeContribution = 0;
                     let totalEmployerContribution = 0;
+                    
                     Object.keys(consolidatedContributions).forEach(employeeName => {
                         const contribution = consolidatedContributions[employeeName][taxKey];
+             
                         if (contribution) {
                             totalEmployeeContribution += parseFloat(contribution.employee);
                             totalEmployerContribution += parseFloat(contribution.employer);
@@ -835,11 +848,30 @@ function populateTable(response) {
    var rowCount = $('#livingStateTaxTable tr').length;
     stateTaxTable.DataTable();
    // if(rowCount >= 2){
-      livingStateTaxTable.DataTable();
+      // livingStateTaxTable.DataTable();
     //}
 }
 
+// Generate Xlsx Format
 
+// function generateExcel(el) {
+//     var clon = el.clone();
+//     var html = clon.wrap('<div>').parent().html();
+
+//     //add more symbols if needed...
+//     while (html.indexOf('á') != -1) html = html.replace(/á/g, '&aacute;');
+//     while (html.indexOf('é') != -1) html = html.replace(/é/g, '&eacute;');
+//     while (html.indexOf('í') != -1) html = html.replace(/í/g, '&iacute;');
+//     while (html.indexOf('ó') != -1) html = html.replace(/ó/g, '&oacute;');
+//     while (html.indexOf('ú') != -1) html = html.replace(/ú/g, '&uacute;');
+//     while (html.indexOf('º') != -1) html = html.replace(/º/g, '&ordm;');
+//     html = html.replace(/<td>/g, "<td>&nbsp;");
+
+//     window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+// }
+// $("#download").click(function (event) {
+//  	generateExcel($("#ProfarmaInvList"));
+// });
 
 $(document).ready(function() {
    $('#download').click(function() {
@@ -873,7 +905,7 @@ th,td{
    }
    .dropdown{
     position: relative;
-    left: 1247px !important;
+    left: 1193px !important;
     bottom: 68px !important;
    }
 </style>
