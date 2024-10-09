@@ -96,7 +96,6 @@ public function state_tax_search_summary() {
     $date = $this->input->post('daterangepicker-field');
     $state_summary_employer = $this->Hrm_model->state_summary_employer($tax_choice,$selectState, $date,$emp_name,  $taxType);
     $state_summary_employee = $this->Hrm_model->state_summary_employee($tax_choice,$selectState, $date,$emp_name,  $taxType);
-    // echo "<pre>"; print_r($result); echo "</pre>";
     // Initialize arrays to store contributions
    // Initialize arrays to store contributions
 $employer_contributions = [
@@ -204,6 +203,9 @@ $employee_name = $this->input->post('employee_name');
     header('Content-Type: application/json');
     echo json_encode($merged_array);
 }
+
+
+
 private function fetch_contributions($employee_name,$tax_name, $date) {
     $state_tax_report = $is_employer ?
         $this->Hrm_model->employer_state_tax_report($employee_name,$tax_name, $date) :
