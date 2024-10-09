@@ -1032,19 +1032,21 @@ public function trucking_list($date=null) {
 
  //purchase Edit Data
 public function purchase_edit_data($purchase_id) {
+   // echo $purchase_id; die();
         $CI = & get_instance();
         $CI->load->model('Purchases');
         $CI->load->model('Suppliers');
         $CI->load->model('Web_settings');
         $CI->load->model('Products');
         $CI->load->model('Invoices');       
-        $bank_list        = $CI->Web_settings->bank_list();
+        $bank_list = $CI->Web_settings->bank_list();
         
                    $setting_detail = $CI->Web_settings->retrieve_setting_editdata();
                    
                    $retrieveattachments = $CI->Purchases->retrieve_EditAttachments($purchase_id);
 
         $purchase_detail = $CI->Purchases->retrieve_purchase_editdata($purchase_id);
+        
  
         $expense_edit = $CI->Purchases->getEditExpensesData($purchase_detail[0]['chalan_no']);
         $payment_type_dropdown = $CI->Purchases->payment_type_dropdown();
@@ -1081,13 +1083,13 @@ public function purchase_edit_data($purchase_id) {
         // print_r($country_code);
 
         $data = array(
-                'supplier_block_no'=>$supplier_block_no,
-                   'bundle' => $product_bundle,
+            'supplier_block_no'=>$supplier_block_no,
+            'bundle' => $product_bundle,
             'curn_info_default' =>$curn_info_default[0]['currency_name'],
             'currency' => $currency_details[0]['currency'],
             'all_tax' =>$taxfield1,
             'po'  => $po_number,
-             'price'  =>$sale_costpersqft_per[1]['price'],
+            'price'  =>$sale_costpersqft_per[1]['price'],
             'all_supplier'  => $all_supplier,
             'product_list'  => $all_product_list,
             'edit_purchasedata' => $edit_purchasedata,
@@ -1096,12 +1098,10 @@ public function purchase_edit_data($purchase_id) {
             'chalan_no'     => $purchase_detail[0]['chalan_no'],
             'supplier_name' => $purchase_detail[0]['supplier_name'],
             'supplier_id'   => $purchase_detail[0]['supplier_id'],
-
             'phone_num'   => $purchase_detail[0]['phone_num'],
             'ven_add'   => $purchase_detail[0]['ven_add'],
             'po_number'   => $purchase_detail[0]['po_number'],
-
-             'description'   => $purchase_detail[0]['description'],
+            'description'   => $purchase_detail[0]['description'],
             'grand_total'   => $purchase_detail[0]['grand_total_amount'],
             'purchase_details' => $purchase_detail[0]['purchase_details'],
             'purchase_date' => $purchase_detail[0]['purchase_date'],
@@ -1118,7 +1118,7 @@ public function purchase_edit_data($purchase_id) {
             'bank_list'     => $bank_list,
             'supplier_selected' => $supplier_selected,
             'discount_type' => $currency_details[0]['discount_type'],
-             'paytype'       => $purchase_detail[0]['payment_type'],
+            'paytype'       => $purchase_detail[0]['payment_type'],
            'total_tax'       => $purchase_detail[0]['total_tax'],
            'packing_id'    => $purchase_detail[0]['packing_id'],
            'isf_filling'    => $purchase_detail[0]['isf_filling'],
@@ -1173,7 +1173,7 @@ public function purchase_edit_data($purchase_id) {
 
         );
         // product_list
-//   print_r( $data);
+//  print_r( $data);
 
         $chapterList = $CI->parser->parse('purchase/edit_purchase_form', $data, true);
         return $chapterList;
@@ -1187,6 +1187,7 @@ public function purchase_edit_data($purchase_id) {
  
   //purchase Edit Data
 public function servprovider_edit_data($serviceprovider_id) {
+     // echo $purchase_id; die();
         $CI = & get_instance();
         $CI->load->model('Purchases');
         $CI->load->model('Suppliers');

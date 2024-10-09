@@ -2101,459 +2101,8 @@ public function ret_company_info() {
     }
 
     //Count purchase
-
-//  public function purchase_entry() {
-//         $purchase_id = date('YmdHis');
-//         $chalan_no =$this->input->post('invoice_no',TRUE);
-//         $p_id = $this->input->post('product_id',TRUE);
-//         $supplier_id = $this->input->post('supplier_id',TRUE);
-//         $supinfo =$this->db->select('*')->from('supplier_information')->where('supplier_id',$supplier_id)->get()->row();
-//         $sup_head = $supinfo->supplier_id.'-'.$supinfo->supplier_name;
-//         $sup_coa = $this->db->select('*')->from('acc_coa')->where('HeadName',$sup_head)->get()->row();
-//      //   echo $this->db->last_query();
-//         $receive_by=$this->session->userdata('user_id');
-//         $receive_date=date('Y-m-d');
-//         $createdate=date('Y-m-d H:i:s');
-//         $paid_amount = $this->input->post('paid_amount',TRUE);
-//         $due_amount = $this->input->post('due_amount',TRUE);
-//         $discount = $this->input->post('discount',TRUE);
-//           $bank_id = $this->input->post('bank_id',TRUE);
-//         if(!empty($bank_id)){
-//          $bankname = $this->db->select('bank_name')->from('bank_add')->where('bank_id',$bank_id)->get()->row()->bank_name;
-//          $bankcoaid = $this->db->select('HeadCode')->from('acc_coa')->where('HeadName',$bankname)->get()->row()->HeadCode;
-//       }else{
-//           $bankcoaid = '';
-//       }
-//       if(!empty($_FILES['attachments']['name'])){
-//         $config['upload_path'] = 'my-assets/productnewimg/';
-//         $config['allowed_types'] = 'jpg|jpeg|png|gif';
-//         $config['file_name'] = $_FILES['attachments']['name'];
-//         //Load upload library and initialize here configuration
-//         $this->load->library('upload',$config);
-//         $this->upload->initialize($config);
-//         if($this->upload->do_upload('attachments')){
-//             $uploadData = $this->upload->data();
-//             $profile_img = $uploadData['file_name'];
-//         }else{
-//             $profile_img = '';
-//         }
-//     }else{
-//         $profile_img = '';
-//     }
-//         //supplier & product id relation ship checker.
-//         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
-//             $product_id = $p_id[$i];
-//             $value = $this->product_supplier_check($product_id, $supplier_id);
-//             if ($value == 0) {
-//                 $this->session->set_flashdata('message', display('product_and_supplier_did_not_match'));
-//             }
-//         }
-//         $msg='';
-//         if($this->input->post('message_invoice',TRUE)){
-// $msg=$this->input->post('message_invoice',TRUE);
-//         }else{
-//           $msg='Product Purchased on '.$this->input->post('bill_date',TRUE);
-//         }
-//       $data = array(
-//              'purchase_id'        => $purchase_id,
-//              'create_by'       =>  $this->session->userdata('user_id'),
-//              'chalan_no'          => $this->input->post('invoice_no',TRUE),
-//              'supplier_id'        => $this->input->post('supplier_id',TRUE),
-//              'total_amt' => $this->input->post('overall_total',TRUE),
-//              'grand_total_amount' => $this->input->post('gtotal',TRUE),
-//              'g_weight'   =>$this->input->post('hidden_weight',TRUE),
-//              'total_discount'     => $this->input->post('discount',TRUE),
-//              'purchase_date'      => $this->input->post('bill_date',TRUE),
-//              'purchase_details'   => $this->input->post('purchase_details',TRUE),
-//              'payment_due_date'   => $this->input->post('payment_due_date',TRUE),
-//              'remarks'            => $this->input->post('remark',TRUE),
-//              'message_invoice'    => $msg,
-//              'total_tax'  =>  $this->input->post('tax_details',TRUE),
-//              'packing_id' => $this->input->post('packing_id',TRUE),
-//              'etd'   => $this->input->post('etd',TRUE),
-//              'eta'   => $this->input->post('eta',TRUE),
-//              'gtotal_preferred_currency'  => $this->input->post('vendor_gtotal',TRUE),
-//              'shipping_line'   => $this->input->post('shipping_line',TRUE),
-//              'container_no'   => $this->input->post('container_no',TRUE),
-//              'bl_number'   => $this->input->post('bl_number',TRUE),
-//              'isf_filling'   => $this->input->post('isf_no',TRUE),
-//              'paid_amount'    => $this->input->post('amount_paid',TRUE),
-//              'balance'    => $this->input->post('balance',TRUE),
-//              'payment_id'    => $this->input->post('payment_id',TRUE),
-//              'status'             => 1,
-//              'bank_id'            =>  $this->input->post('bank_id',TRUE),
-//              'packing_id'            =>  $this->input->post('packing_id',TRUE),
-//              'total_amt'  => $this->input->post('Over_all_Total',TRUE),
-//              'payment_type'       =>  $this->input->post('paytype_drop',TRUE),
-//              'total_gross' =>  $this->input->post('total_gross',TRUE),
-//              'total_net' =>  $this->input->post('total_net',TRUE),
-//              'total_weight' => $this->input->post('total_weight',TRUE),
-//              'payment_terms'       =>  $this->input->post('payment_terms',TRUE),
-//              'Port_of_discharge'       =>  $this->input->post('Port_of_discharge',TRUE),
-//              'amount_pay_usd'=>$this->input->post('paid_convert'),
-//              'due_amount_usd'=>$this->input->post('bal_convert'),
-//              'image'              =>  $profile_img,
-//         );
-//         $purchase_id_1 = $this->db->where('chalan_no',$this->input->post('invoice_no',TRUE));
-//         $q=$this->db->get('product_purchase');
-//         $row = $q->row_array();
-//     if(!empty($row['purchase_id'])){
-//         $this->session->set_userdata("purchase_1",$row['purchase_id']);
-//   $this->db->where('purchase_id', $this->session->userdata("purchase_1"));
-//   $this->db->delete('product_purchase');
-   
-//         $this->db->insert('product_purchase', $data);//echo $this->db->last_query();
-     
-//   }
-//     else{
-//     $this->db->insert('product_purchase', $data);//echo $this->db->last_query();
-   
-//     }
-//     $purchase_id_2 = $this->db->select('purchase_id')->from('product_purchase')->where('chalan_no',$this->input->post('invoice_no',TRUE))->get()->row()->purchase_id;
-//     $this->session->set_userdata("purchase_2",$purchase_id_2);
-//     $purchasecoatran = array(
-//           'VNo'            =>  $purchase_id,
-//           'Vtype'          =>  'Purchase',
-//           'VDate'          =>  $this->input->post('bill_date',TRUE),
-//           'COAID'          =>  $sup_coa->HeadCode,
-//           'Narration'      =>  'Supplier .'.$supinfo->supplier_name,
-//           'Debit'          =>  0,
-//           'Credit'         =>  $this->input->post('grand_total_price',TRUE),
-//           'IsPosted'       =>  1,
-//           'CreateBy'       =>  $receive_by,
-//           'CreateDate'     =>  $receive_date,
-//           'IsAppove'       =>  1
-//         );
-//           ///Inventory Debit
-//       $coscr = array(
-//       'VNo'            =>  $purchase_id,
-//       'Vtype'          =>  'Purchase',
-//       'VDate'          =>  $this->input->post('bill_date',TRUE),
-//       'COAID'          =>  10107,
-//       'Narration'      =>  'Inventory Debit For Supplier '.$supinfo->supplier_name,
-//       'Debit'          =>  $this->input->post('grand_total_price',TRUE),
-//       'Credit'         =>  0,//purchase price asbe
-//       'IsPosted'       => 1,
-//       'CreateBy'       => $receive_by,
-//       'CreateDate'     => $createdate,
-//       'IsAppove'       => 1
-//     );
-//       // Expense for company
-//          $expense = array(
-//       'VNo'            => $purchase_id,
-//       'Vtype'          => 'Purchase',
-//       'VDate'          => $this->input->post('bill_date',TRUE),
-//       'COAID'          => 402,
-//       'Narration'      => 'Company Credit For  '.$supinfo->supplier_name,
-//       'Debit'          => $this->input->post('grand_total_price',TRUE),
-//       'Credit'         => 0,//purchase price asbe
-//       'IsPosted'       => 1,
-//       'CreateBy'       => $receive_by,
-//       'CreateDate'     => $createdate,
-//       'IsAppove'       => 1
-//     );
-//              $cashinhand = array(
-//       'VNo'            =>  $purchase_id,
-//       'Vtype'          =>  'Purchase',
-//       'VDate'          =>  $this->input->post('bill_date',TRUE),
-//       'COAID'          =>  1020101,
-//       'Narration'      =>  'Cash in Hand For Supplier '.$supinfo->supplier_name,
-//       'Debit'          =>  0,
-//       'Credit'         =>  $paid_amount,
-//       'IsPosted'       =>  1,
-//       'CreateBy'       =>  $receive_by,
-//       'CreateDate'     =>  $createdate,
-//       'IsAppove'       =>  1
-//     );
-//      $supplierdebit = array(
-//           'VNo'            =>  $purchase_id,
-//           'Vtype'          =>  'Purchase',
-//           'VDate'          =>  $this->input->post('bill_date',TRUE),
-//           'COAID'          =>  $sup_coa->HeadCode,
-//           'Narration'      =>  'Supplier .'.$supinfo->supplier_name,
-//           'Debit'          =>  $paid_amount,
-//           'Credit'         =>  0,
-//           'IsPosted'       =>  1,
-//           'CreateBy'       =>  $receive_by,
-//           'CreateDate'     =>  $receive_date,
-//           'IsAppove'       =>  1
-//         );
-//               // bank ledger
-//  $bankc = array(
-//       'VNo'            =>  $purchase_id,
-//       'Vtype'          =>  'Purchase',
-//       'VDate'          =>  $this->input->post('bill_date',TRUE),
-//       'COAID'          =>  $bankcoaid,
-//       'Narration'      =>  'Paid amount for Supplier  '.$supinfo->supplier_name,
-//       'Debit'          =>  0,
-//       'Credit'         =>  $paid_amount,
-//       'IsPosted'       =>  1,
-//       'CreateBy'       =>  $receive_by,
-//       'CreateDate'     =>  $createdate,
-//       'IsAppove'       =>  1
-//     );
-// // Bank summary for credit
-//       //new end
-//         $this->db->insert('acc_transaction',$coscr);
-//         $this->db->insert('acc_transaction',$purchasecoatran);
-//         $this->db->insert('acc_transaction',$expense);
-//         if($this->input->post('paytype_drop',TRUE) == 'CASH'){
-//           if(!empty($paid_amount)){
-//         $this->db->insert('acc_transaction',$cashinhand);
-//         $this->db->insert('acc_transaction',$supplierdebit);
-//         }
-//         }else {
-//           if(!empty($paid_amount)){
-//         $this->db->insert('acc_transaction',$bankc);
-//         $this->db->insert('acc_transaction',$supplierdebit);
-//       }
-//     }
-//           $prodt                = $this->input->post('prodt',TRUE);
-//           $product_id =$this->input->post('product_id',TRUE);
-//           $desc =$this->input->post('description',TRUE);
-//           $thickness=$this->input->post('thickness',TRUE);
-//           $supplier_b_no=$this->input->post('supplier_block_no',TRUE);
-//           $supplier_slab_no=$this->input->post('supplier_slab_no',TRUE);
-//           $gross_width=$this->input->post('gross_width',TRUE);
-//           $gross_height=$this->input->post('gross_height',TRUE);
-//           $gross_sq_ft=$this->input->post('gross_sq_ft',TRUE);
-//           $bundle_no=$this->input->post('bundle_no',TRUE);
-//           $net_width=$this->input->post('net_width',TRUE);
-//           $net_height=$this->input->post('net_height',TRUE);
-//           $net_sq_ft=$this->input->post('net_sq_ft',TRUE);
-//             $cost_sq_ft=$this->input->post('cost_sq_ft',TRUE);
-//             $cost_sq_slab=$this->input->post('cost_sq_slab',TRUE);
-//             $sales_amt_sq_ft=$this->input->post('sales_amt_sq_ft',TRUE);
-//             $sales_slab_amt=$this->input->post('sales_slab_amt',TRUE);
-//             $weight=$this->input->post('weight',TRUE);
-//             $origin=$this->input->post('origin',TRUE);
-//             $tableid=$this->input->post('tableid',TRUE);
-//             $total_amt=$this->input->post('total_amt',TRUE);
-//             $total=$this->input->post('total',TRUE);
-//             $overall_gross=$this->input->post('overall_gross',TRUE);
-//             $overall_net=$this->input->post('overall_net',TRUE);
-//             $description =$this->input->post('description',TRUE);
-
-//             $slab_no =$this->input->post('slab_no',TRUE);
-
-
-//             $this->db->where('purchase_id', $this->session->userdata("purchase_1"));
-//             $this->db->delete('product_purchase_details');
-      
-//         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
-//           $data1 = array(
-//                 'purchase_detail_id' => $this->generator(15),
-//                 'purchase_id'        => $this->session->userdata("purchase_2"),
-//                 'product_id'         => $product_id[$i],
-//                 'thickness'             => $thickness[$i],
-//                 'supplier_block_no'  =>  $supplier_b_no[$i],
-//                 'supplier_slab_no'  => $supplier_slab_no[$i],
-//                 'gross_width'  => $gross_width[$i],
-//                 'gross_height'  => $gross_height[$i],
-//                 'gross_sq_ft_1'  =>$gross_sq_ft[$i],
-//                 'bundle_no'  =>$bundle_no[$i],
-//                 'total'  => $total_amt[$i],
-//                 'tableid'   => $tableid[$i],
-//                 'product_name'   => $prodt[$i],
-//                 'net_width'  => $net_width[$i],
-//                 'net_height'  => $net_height[$i],
-//                 'net_sq_ft'  => $net_sq_ft[$i],
-//                 'cost_sq_ft'  => $cost_sq_ft[$i],
-//                 'cost_sq_slab'  =>   $cost_sq_slab[$i],
-//                 'sales_amt_sq_ft ' => $sales_amt_sq_ft[$i],
-//                 'sales_slab_amt'   => $sales_slab_amt[$i],
-//                 'weight'  =>   $weight[$i],
-//                 'origin'  =>$origin[$i],
-//                 'slab_no'  =>$slab_no[$i],
-//                 'description'       => $description[$i],
-//                 'create_by'          =>  $this->session->userdata('user_id'),
-//                 'status'             => 1
-//             );
-//           $this->db->insert('product_purchase_details', $data1);
-      
-
-
-//             $expense_get_info = array(
-//                 'create_by'           => $this->session->userdata('user_id'),                       
-//                 'product_id'          =>$product_id[$i],
-//                 'bundle_no'  =>$bundle_no[$i],
-//                 'slab_no'  => $slab_no[$i]              
-//              );
-
-//             $this->db->where($expense_get_info);
-//             $query1 = $this->db->get('product_details');
-//             // echo $this->db->last_query();
-//             // $num_rows = mysqli_num_rows($query);
-//             // print_r($num_rows); die();
-//             // echo     $query->num_rows();
-
-
-//             if ($query1->num_rows() <= 0) {
-//                 $expense_get_info2 = array(
-//                     'product_id'         => $product_id[$i],
-//                     'thickness'             => $thickness[$i],
-//                     'supplier_block_no'  =>  $supplier_b_no[$i],
-//                     'supplier_slab_no'  => $supplier_slab_no[$i],
-//                     'g_width'  => $gross_width[$i],
-//                     'g_height'  => $gross_height[$i],
-//                     'gross_sqft'  =>$gross_sq_ft[$i],
-//                     'bundle_no'  =>$bundle_no[$i],
-//                     'total_amt'  => $total_amt[$i],
-//                     'slab_no'  =>$slab_no[$i],
-//                     'n_width'  => $net_width[$i],
-//                     'n_height'  => $net_height[$i],
-//                     'net_sqft'  => $net_sq_ft[$i],
-//                     'cost_sqft'  => $cost_sq_ft[$i],
-//                     'cost_slab'  =>   $cost_sq_slab[$i],
-//                     'sales_price_sqft ' => $sales_amt_sq_ft[$i],
-//                     'sales_slab_price'   => $sales_slab_amt[$i],
-//                     'weight'  =>   $weight[$i],
-//                     'origin'  =>$origin[$i],
-//                     'description_table'       => $description[$i],
-//                     'create_by'          =>  $this->session->userdata('user_id'),
-//                     'status'             => 1
-//                  );
-//                 // Check if the record already exists
-//                 // $this->db->where($expense_get_info2);
-//                 // $query2 = $this->db->get('product_purchase_details');
-//                 $this->db->insert('product_details', $expense_get_info2);
-//                 // echo $this->db->last_query();
-//                 //   print_r($expense_get_info2);
-//                 // echo "<br/>";
-
-//                 } 
-
-                    
-//                 }
-//                 // for ($i = 0, $n = count($p_id); $i < $n; $i++) {
-//                 //     $data1 = array(
-//                 //          'purchase_detail_id' => $this->generator(15),
-//                 //          'purchase_id'        => $this->session->userdata("purchase_2"),
-//                 //          'product_id'         => $product_id[$i],
-//                 //          'thickness'             => $thickness[$i],
-//                 //          'supplier_block_no'  =>  $supplier_b_no[$i],
-//                 //          'supplier_slab_no'  => $supplier_slab_no[$i],
-//                 //          'gross_width'  => $gross_width[$i],
-//                 //          'gross_height'  => $gross_height[$i],
-//                 //          'gross_sq_ft_1'  =>$gross_sq_ft[$i],
-//                 //          'bundle_no'  =>$bundle_no[$i],
-//                 //          'total'  => $total_amt[$i],
-//                 //          'tableid'   => $tableid[$i],
-//                 //          'product_name'   => $prodt[$i],
-//                 //          'net_width'  => $net_width[$i],
-//                 //          'net_height'  => $net_height[$i],
-//                 //          'net_sq_ft'  => $net_sq_ft[$i],
-//                 //          'cost_sq_ft'  => $cost_sq_ft[$i],
-//                 //          'cost_sq_slab'  =>   $cost_sq_slab[$i],
-//                 //          'sales_amt_sq_ft ' => $sales_amt_sq_ft[$i],
-//                 //          'sales_slab_amt'   => $sales_slab_amt[$i],
-//                 //          'weight'  =>   $weight[$i],
-//                 //          'origin'  =>$origin[$i],
-//                 //          'slab_no'  =>$slab_no[$i],       
-//                 //          'description'       => $description[$i],
-//                 //          'create_by'          =>  $this->session->userdata('user_id'),
-//                 //          'status'             => 1
-//                 //      );
-//                 //     $this->db->insert('product_purchase_details', $data1);
-               
-//                 //     }
-//                     for ($i = 0, $n = count($p_id); $i < $n; $i++) {
-//                      $expense_get_info = array(
-//                          'create_by'           => $this->session->userdata('user_id'),                       
-//                          'product_id'          =>$product_id[$i],
-//                          'bundle_no'  =>$bundle_no[$i],
-//                          'slab_no'  => $slab_no[$i]              
-//                       );
-         
-//                      $this->db->where($expense_get_info);
-//                      $query1 = $this->db->get('product_details');
-//                      // echo $this->db->last_query();
-//                      // $num_rows = mysqli_num_rows($query);
-//                      // print_r($num_rows); die();
-//                      // echo     $query->num_rows();
-          
-//                 if ($query1->num_rows() > 0) {
-
-//                     $expense_get_info = array(
-
-//                         'product_id'         => $product_id[$i],
-//                         'thickness'             => $thickness[$i],
-//                         'supplier_block_no'  =>  $supplier_b_no[$i],
-//                         'supplier_slab_no'  => $supplier_slab_no[$i],
-//                         'g_width'  => $gross_width[$i],
-//                         'g_height'  => $gross_height[$i],
-//                         // 'gross_sqft'  =>$gross_sq_ft[$i],
-//                         'bundle_no'  =>$bundle_no[$i],
-//                         // 'total_amt'  => $total_amt[$i],
-//                         'slab_no'  =>$slab_no[$i],
-//                         'n_width'  => $net_width[$i],
-//                         'n_height'  => $net_height[$i],
-//                         // 'net_sqft'  => $net_sq_ft[$i],
-//                         // 'cost_sqft'  => $cost_sq_ft[$i],
-//                         // 'cost_slab'  =>   $cost_sq_slab[$i],
-//                         // 'sales_price_sqft ' => $sales_amt_sq_ft[$i],
-//                         // 'sales_slab_price'   => $sales_slab_amt[$i],
-//                         'weight'  =>   $weight[$i],
-//                         'origin'  =>$origin[$i],
-//                         'description_table'       => $description[$i],
-//                         'create_by'          =>  $this->session->userdata('user_id'),
-//                         'status'             => 1
-//                      );
-
-//                     $this->db->where($expense_get_info);
-//                     $query3 = $this->db->get('product_details');
-//                     // echo $this->db->last_query(); 
-//                     //   $num_rows1 = mysqli_num_rows($query3);
-//                     //   print_r($expense_get_info);
-//                     // echo "<br/>";
-//                     if($query3->num_rows() <=0){    
-//                     $expense_get_info4 = array(
-
-//                         'product_id'         => $product_id[$i],
-//                         'thickness'             => $thickness[$i],
-//                         'supplier_block_no'  =>  $supplier_b_no[$i],
-//                         'supplier_slab_no'  => $supplier_slab_no[$i],
-//                         'g_width'  => $gross_width[$i],
-//                         'g_height'  => $gross_height[$i],
-//                         // 'gross_sqft'  =>$gross_sq_ft[$i],
-//                         'bundle_no'  =>$bundle_no[$i],
-//                         // 'total_amt'  => $total_amt[$i],
-//                         'slab_no'  =>$slab_no[$i],
-//                         'n_width'  => $net_width[$i],
-//                         'n_height'  => $net_height[$i],
-//                         // 'net_sqft'  => $net_sq_ft[$i],
-//                         // 'cost_sqft'  => $cost_sq_ft[$i],
-//                         // 'cost_slab'  =>   $cost_sq_slab[$i],
-//                         // 'sales_price_sqft ' => $sales_amt_sq_ft[$i],
-//                         // 'sales_slab_price'   => $sales_slab_amt[$i],
-//                         'weight'  =>   $weight[$i],
-//                         'origin'  =>$origin[$i],
-//                         'description_table'       => $description[$i],
-//                         'create_by'          =>  $this->session->userdata('user_id'),
-//                         'invoice_id'          => $this->input->post('invoice_no',TRUE),
-//                         'status'             => 1,
-//                         'expenses'           => 'expenses'
-//                      );
-//                   $this->db->insert('product_details_history', $expense_get_info4);
-//                 //   echo $this->db->last_query(); die();
-//                   }
-
-
-
-
-//         }
-//     }
-//         return $purchase_id."/".$chalan_no;
-//     }
-
-
-
-
-
-
-
- public function purchase_entry() {
-    
+ public function purchase_entry() { 
+  //print_r($_POST) ;die();
      $pur_id=$this->input->post('purchase_id',TRUE);
       $purchase_id='';
      if(empty($pur_id)){
@@ -2570,7 +2119,7 @@ public function ret_company_info() {
         $supinfo =$this->db->select('*')->from('supplier_information')->where('supplier_id',$supplier_id)->get()->row();
         $sup_head = $supinfo->supplier_id.'-'.$supinfo->supplier_name;
         $sup_coa = $this->db->select('*')->from('acc_coa')->where('HeadName',$sup_head)->get()->row();
-     //   echo $this->db->last_query();
+       // echo $this->db->last_query();
         $receive_by=$this->session->userdata('user_id');
         $receive_date=date('Y-m-d');
         $createdate=date('Y-m-d H:i:s');
@@ -2827,7 +2376,7 @@ $description =$this->input->post('description',TRUE);
          for ($i = 0, $n = count($desc); $i < $n; $i++) {
            $data1 = array(
                 'purchase_detail_id' => $this->generator(15),
-                'purchase_id'        => $this->session->userdata("purchase_2"),
+                'purchase_id'        => $purchase_id,
                 'product_id'         => $product_id[$i],
                 'thickness'             => $thickness[$i],
                 'supplier_block_no'  =>  $supplier_b_no[$i],
@@ -3404,7 +2953,7 @@ if($this->input->post('paytype') == 2){
 
       $this->db->insert('service_provider_detail', $data1);
          //echo $this->db->last_query(); die();
-      
+       
 
 
 }
@@ -4015,7 +3564,7 @@ echo "<img src='$path' />";
        // $this->db->order_by('a.purchase_details', 'asc');
         $query = $this->db->get();
 
-    //  echo $this->db->last_query(); die();
+   //echo $this->db->last_query(); die();
   
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -4915,7 +4464,9 @@ public function company_info()
     
     // Total Expense Tax 
     public function getTotalExpensedata($search, $date, $chalanno = 'All')
-    {
+
+  
+        {
         $user_id = $this->session->userdata("user_id");
 
         $this->db->select('*');
@@ -4950,7 +4501,7 @@ public function company_info()
     
         if ($query === false) {
             return false;
-        }
+        }      
 
         return $query->num_rows();
 

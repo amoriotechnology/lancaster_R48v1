@@ -682,7 +682,7 @@ $result = $CI->Purchases->servicepro($date) ;
      
      
      
-// Expense Index Data - Sivashankar
+// Expense Index Data - Sivashankaran
  public function manage_purchase() 
  {
     $this->session->unset_userdata('newexpenseid');
@@ -727,11 +727,14 @@ $result = $CI->Purchases->servicepro($date) ;
     $this->template->full_admin_html_view($content);
 }
 
-// Expense Index Data For Ajax - Sivashankar
+// Expense Index Data For Ajax - Sivashankaran
 public function expenseRetrieveData()
 {   
     $CI = & get_instance();
     $CI->load->model('Purchases');
+    $CI->load->model('Web_settings');
+    $currency_details = $CI->Web_settings->retrieve_setting_editdata();
+    $currency = $currency_details[0]['currency'];
 
     $limit          = $this->input->post("length");
     $start          = $this->input->post("start");
@@ -750,6 +753,7 @@ public function expenseRetrieveData()
     $edit           = "";
     $delete         = "";
     foreach ($items as $item) {
+        
         $download = '<a href="' . base_url("Payment_Gateway/Welcome/index/" . $item["purchase_id"]) . 
             '" class="btnclr btn btn-sm" style="background-color:#424f5c; margin-right: 5px;" data-toggle="tooltip" data-placement="left" title="Payment"><i class="fa fa-credit-card" aria-hidden="true"></i></a>';
 
@@ -773,9 +777,14 @@ public function expenseRetrieveData()
 
             'vtype' => !empty($item['vtype']) ? $item['vtype'] : "N/A",
 
-            'paid_amount' => (!empty($item['paid_amount']) && $item['paid_amount'] !== 'N/A') ? $currency . " " . $item['paid_amount'] : ((!empty($item['amount_paids']) && $item['amount_paids'] !== 'N/A') ? $currency . " " . $item['amount_paids'] : 'N/A'),
+            'grand_total_amount' => (!empty($item['grand_total_amount']) && $item['grand_total_amount'] !== 'N/A') ? $currency . " " . $item['grand_total_amount'] : ((!empty($item['total']) && $item['total'] !== 'N/A') ? $currency . " " . $item['total'] : '0.00'),
 
-            'balance' => (!empty($item['balance']) && $item['balance'] !== 'N/A') ? $currency . " " . $item['balance'] : ((!empty($item['balances']) && $item['balances'] !== 'N/A') ? $currency . " " . $item['balances'] : 'N/A'),
+            'paid_amount' => (!empty($item['paid_amount']) && $item['paid_amount'] !== 'N/A') ? $currency . " " . $item['paid_amount'] : ((!empty($item['amount_paids']) && $item['amount_paids'] !== 'N/A') ? $currency . " " . $item['amount_paids'] : '0.00'),
+            // 'paid_amount' => (!empty($item['paid_amount']) ? $currency . " " . $item['paid_amount'] 
+            //      : (!empty($item['amount_paids']) ? $currency . " " . $item['amount_paids'] : 'N/A')),
+
+
+            'balance' => (!empty($item['balance']) && $item['balance'] !== 'N/A') ? $currency . " " . $item['balance'] : ((!empty($item['balances']) && $item['balances'] !== 'N/A') ? $currency . " " . $item['balances'] : '0.00'),
 
             'purchase_id' => (!empty($item['purchase_id']) && $item['purchase_id'] !== 'N/A') ? $item['purchase_id'] : ((!empty($item['serviceprovider_id']) && $item['serviceprovider_id'] !== 'N/A') ? $item['serviceprovider_id'] : 'N/A'),
 
@@ -1505,7 +1514,6 @@ public function uploadCsv_Serviceprovider_second()
 
     //Insert purchase
     public function insert_purchase() {
-
         $CI = & get_instance();
         $CI->auth->check_admin_auth();
         $CI->load->model('Purchases');
@@ -1739,7 +1747,7 @@ public function uploadCsv_Serviceprovider_second()
 
 
 public function insert_service_provider() {
-// die("dies");
+//die("dies");
         $CI = & get_instance();
         $CI->auth->check_admin_auth();
         $CI->load->model('Purchases');

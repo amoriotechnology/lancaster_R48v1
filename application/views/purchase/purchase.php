@@ -42,9 +42,11 @@
       <?php $this->session->unset_userdata('error_message');}?>
       <div class="panel panel-bd lobidrag">
          <div class="panel-heading" style="height: 60px;border: 3px solid #D7D4D6;">
-            <div class="col-sm-12">
+
+            <div class="col-md-12 col-sm-12">
                 <div class="col-md-3 col-sm-3" style="display: flex; align-items: center;">
-                    <label>Invoice No</label>&nbsp;&nbsp;&nbsp;
+                    <a href="<?php echo base_url('Cpurchase') ?>" class="btnclr btn btn-default dropdown-toggle boxes filip-horizontal"   style="height:fit-content;"  ><i class="far fa-file-alt"> </i> <?php echo display('Create Expense') ?> </a>
+                    &nbsp;&nbsp;&nbsp; <label>Invoice No</label>&nbsp;&nbsp;&nbsp;
                     <select id="customer-name-filter" name="chalanno" class="form-control chalanno">
                         <option value="All">All</option>
                         <?php
@@ -54,7 +56,7 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-3 col-sm-3" style="display: flex; align-items: center;">
+                <div class="col-md-4 col-sm-3" style="display: flex; align-items: center;">
                     <label>Vendor Type</label>&nbsp;&nbsp;&nbsp;
                     <select  name="vendorType" class="form-control vendorType">
                         <option value="All">All</option>
@@ -64,9 +66,7 @@
                         <option value="<?php echo $expense['vtype']; ?>"><?php echo $expense['vtype']; ?></option>
                         <?php } ?>
                     </select>
-                </div>
-                <div class="col-md-3 col-sm-3" style="display: flex; align-items: center;">
-                    <label>Vendor</label>&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp; <label>Vendor</label>&nbsp;&nbsp;&nbsp;
                     <select  name="vendor" class="form-control vendor">
                         <option value="All">All</option>
                         <?php
@@ -75,7 +75,7 @@
                         <option value="<?php echo $expense['supplier_id']; ?>"><?php echo $expense['supplier_id']; ?></option>
                         <?php } ?>
                     </select>
-                </div>
+                </div>              
                 <div class="col-md-3 col-sm-3">
                     <div class="search">
                       <span class="fa fa-search"></span>
@@ -83,7 +83,8 @@
                     </div>
                     <input type="button" id="searchtrans" name="btnSave" class="btn btnclr" value="Search" style="margin-bottom: 5px; margin-left: 10px;"/>
                 </div>
-            </div>   
+            </div> 
+
          </div>
          <div class="row">
             <div class="col-sm-12">
@@ -173,6 +174,7 @@ $(".sidebar-mini").addClass('sidebar-collapse') ;
          { "data": "supplier_id" },
          { "data": "purchase_date" },
          { "data": "vtype" },
+         { "data": "grand_total_amount" },
          { "data": "paid_amount" },
          { "data": "balance" },
          { "data": "purchase_id" },
@@ -183,7 +185,7 @@ $(".sidebar-mini").addClass('sidebar-collapse') ;
          { "data": "account_category" },
          { "data": "amount_pay_usd" },
          { "data": "acc_cat" },
-         { "data": "amount_pay_usd" },
+
          { "data": "action" },
          ],
         "columnDefs": [{
