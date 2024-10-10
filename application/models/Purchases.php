@@ -2721,105 +2721,70 @@ $this->db->insert('expense_packing_list_detail', $data1);
 
 
  
-public function servicepro($date=null) {
-  if($date) {
-$split = array_map(
-function($value) {
-return implode(' ', $value);
-},
-array_chunk(explode('-', $date), 3)
-);
-$start = str_replace(' ', '-', $split[0]);
-$end = str_replace(' ', '-', $split[1]);
-$start = rtrim($start, "-");
-$end= preg_replace('/' . '-' . '/', '', $end, 1);
-}
-$query = '';
-$data = array();
-$records_per_page = 10;
-$start_from = 0;
-$current_page_number = 0;
-if(isset($_POST["rowCount"]))
-{
-$records_per_page = $_POST["rowCount"];
-}
-else
-{
-$records_per_page = 10;
-}
-if(isset($_POST["current"]))
-{
-$current_page_number = $_POST["current"];
-}
-else
-{
-$current_page_number = 1;
-}
-$start_from = ($current_page_number - 1) * $records_per_page;
-$usertype = $this->session->userdata('user_type');
-
-  //  $this->db->select('a.*,b.*');
-  //       $this->db->from('purchase_order a');
-  //       $this->db->join('purchase_order_details b', 'b.purchase_order_detail_id = a.purchase_order_id');
-  //       $this->db->where('a.create_by',$this->session->userdata('user_id'));
-
-
- $this->db->select('*');
-$this->db->from('service');
- $this->db->where('create_by',$this->session->userdata('user_id'));
- 
-if($date) {
-if(!empty($start) && !empty($end)){
-   $this->db->where('service_provider_detail >=',$start);
-$this->db->where('total <=',$end);
-}
-}
-if(!empty($_POST["searchPhrase"]))
-{
-$query .= 'WHERE (id LIKE "%'.$_POST["searchPhrase"].'%" ';
- //$query .= 'OR a.purchase_date LIKE "%'.$_POST["searchPhrase"].'%" ';
-$query .= 'OR sp_address LIKE "%'.$_POST["searchPhrase"].'%" ';
-$query .= 'OR bill_number LIKE "%'.$_POST["searchPhrase"].'%" ) ';
-}
-$order_by = '';
-if(isset($_POST["sort"]) && is_array($_POST["sort"]))
-{
-foreach($_POST["sort"] as $key => $value)
-{
- $order_by .= " $key $value, ";
-}
-}
-else
-{
-$query .= 'ORDER BY id DESC ';
-}
-// if($order_by != '')
-//  {
-//   $query .= ' ORDER BY ' . substr($order_by, 0, -2);
-//   }
-if($records_per_page != -1)
-{
-$query .= " LIMIT " . $start_from . ", " . $records_per_page;
-}
-  $query = $this->db->get();
-//   echo $this->db->last_query();
-$result = $this->db->query($query);
-$result = $query->result_array();
-foreach($result as $row)
-{
-$data[] = $row;
-}
-$this->db->select('*');
-$this->db->from('service');
-$query1 = $this->db->get();
-$result1 = $query1->result_array();
-// echo $this->db->last_query();
-$total_records = $query1->num_rows();
-$output = array(
-'rows'   => $data
-);
-return $output;
-}
+    public function servicepro($date = null) {
+        // Initialize variables
+        $data = [];
+        $records_per_page = isset($_POST["rowCount"]) ? $_POST["rowCount"] : 10;
+        $current_page_number = isset($_POST["current"]) ? $_POST["current"] : 1;
+        $start_from = ($current_page_number - 1) * $records_per_page;
+    
+        // User type from session
+        $usertype = $this->session->userdata('user_type');
+    
+        // Build the base query
+        $this->db->select('*');
+        $this->db->from('service');
+        $this->db->where('create_by', $this->session->userdata('user_id'));
+    
+        // Handle date filtering if provided
+        if ($date) {
+            $split = array_map('implode', array_fill(0, 1, ' '), array_chunk(explode('-', $date), 3));
+            $start = rtrim(str_replace(' ', '-', $split[0]), '-');
+            $end = preg_replace('/-/', '', $split[1], 1);
+    
+            if (!empty($start) && !empty($end)) {
+                $this->db->where('service_provider_detail >=', $start);
+                $this->db->where('total <=', $end);
+            }
+        }
+    
+        // Handle search functionality
+        if (!empty($_POST["searchPhrase"])) {
+            $this->db->group_start(); // Start a group for the OR conditions
+            $this->db->like('id', $_POST["searchPhrase"]);
+            $this->db->or_like('sp_address', $_POST["searchPhrase"]);
+            $this->db->or_like('bill_number', $_POST["searchPhrase"]);
+            $this->db->group_end(); // End the group
+        }
+    
+        // Handle sorting functionality
+        if (isset($_POST["sort"]) && is_array($_POST["sort"])) {
+            foreach ($_POST["sort"] as $key => $value) {
+                $this->db->order_by($key, $value);
+            }
+        } else {
+            $this->db->order_by('id', 'DESC'); // Default order
+        }
+    
+        // Limit results for pagination
+        if ($records_per_page != -1) {
+            $this->db->limit($records_per_page, $start_from);
+        }
+    
+        // Execute the query
+        $query = $this->db->get();
+        $data = $query->result_array(); // Fetch results
+    
+        // Get total records for pagination
+        $total_records = $this->db->from('service')->where('create_by', $this->session->userdata('user_id'))->count_all_results();
+    
+        // Prepare output
+        return [
+            'rows' => $data,
+            'total' => $total_records // Return total records for pagination
+        ];
+    }
+    
 
 
 
@@ -2834,6 +2799,7 @@ public function service_provider($serviceprovider_id) {
         $this->db->where('a.create_by',$this->session->userdata('user_id'));
          $this->db->where('a.serviceprovider_id',$serviceprovider_id);
       $query = $this->db->get();
+      //echo $this->db->last_query();
 
       return $query->result_array();
   }
@@ -2880,7 +2846,7 @@ $data = array(
             'gtotals'  => $this->input->post('gtotals',TRUE),
             'vendor_gtotals'  => $this->input->post('vendor_gtotals',TRUE),
             'amount_paids'  => $this->input->post('amount_paids',TRUE),
-            'balances'  => $this->input->post('balances',TRUE),
+            'balances' => is_numeric($this->input->post('balances', TRUE)) ? $this->input->post('balances', TRUE) : '0.00',
             'payment_id'  => $this->input->post('payment_id_service',TRUE),
             'create_by'     =>  $this->session->userdata('user_id'),
             
@@ -4403,109 +4369,264 @@ public function company_info()
     }
 
     // Paginated Expense Data
-    public function getPaginatedExpense($limit, $offset, $orderField, $orderDirection, $search, $date = null, $chalanno = 'All', $vendortype = 'All', $vendor = 'All')
-    {
-        $user_id = $this->session->userdata("user_id");
+    // public function getPaginatedExpense($limit, $offset, $orderField, $orderDirection, $search, $date = null, $chalanno = 'All', $vendortype = 'All', $vendor = 'All')    // {
+    //     $user_id = $this->session->userdata("user_id");
 
-        $this->db->select('*');
+    //     $this->db->select('*');
         
+    //     $this->db->from('product_purchase');
+
+    //     if ($date) {
+    //         $dates = explode(' to ', $date);
+    //         $start_date = date('Y-m-d', strtotime($dates[0]));
+    //         $end_date = date('Y-m-d', strtotime($dates[1]));  
+    //         $this->db->where('purchase_date >=', $start_date);
+    //         $this->db->where('purchase_date <=', $end_date);
+    //     }
+
+    //     if ($chalanno !== 'All') {
+    //         $trimmed_chalanno = trim($chalanno);
+    //         $this->db->like('chalan_no', $trimmed_chalanno);
+    //     }
+
+    //     if ($vendortype !== 'All') {
+    //         $trimmed_vendortype = trim($vendortype);
+    //         $this->db->like('vtype', $trimmed_vendortype);
+    //     }
+
+    //     if ($vendor !== 'All') {
+    //         $trimmed_vendor = trim($vendor);
+    //         $this->db->like('supplier_id', $vendor);
+    //     }
+
+
+    //     if (!empty($search)) {
+    //         $this->db->group_start();
+    //         $this->db->like("chalan_no", $search);
+    //         $this->db->or_like("purchase_date", $search);
+    //         $this->db->or_like("supplier_name", $search);
+    //         $this->db->or_like("middle_name", $search);
+    //         $this->db->or_like("grand_total_amount", $search);
+    //         $this->db->group_end();
+    //     }
+        
+    //     $this->db->where("create_by", $user_id);
+
+    //     $this->db->limit($limit, $offset);
+    //     $this->db->order_by($orderField, $orderDirection);
+        
+    //     $query = $this->db->get();
+
+    //     // echo $this->db->last_query(); die;
+
+    //     if ($query === false) {
+    //         return false;
+    //     }
+
+    //     return $query->result_array();
+    // }
+  
+
+    public function getTotalPurchases($search, $date="") {
+        $this->db->select('id');
         $this->db->from('product_purchase');
-
-        if ($date) {
-            $dates = explode(' to ', $date);
-            $start_date = date('Y-m-d', strtotime($dates[0]));
-            $end_date = date('Y-m-d', strtotime($dates[1]));  
-            $this->db->where('purchase_date >=', $start_date);
-            $this->db->where('purchase_date <=', $end_date);
-        }
-
-        if ($chalanno !== 'All') {
-            $trimmed_chalanno = trim($chalanno);
-            $this->db->like('chalan_no', $trimmed_chalanno);
-        }
-
-        if ($vendortype !== 'All') {
-            $trimmed_vendortype = trim($vendortype);
-            $this->db->like('vtype', $trimmed_vendortype);
-        }
-
-        if ($vendor !== 'All') {
-            $trimmed_vendor = trim($vendor);
-            $this->db->like('supplier_id', $vendor);
-        }
-
-
-        if (!empty($search)) {
+        if ($search != "") {
             $this->db->group_start();
-            $this->db->like("chalan_no", $search);
-            $this->db->or_like("purchase_date", $search);
-            $this->db->or_like("supplier_name", $search);
-            $this->db->or_like("middle_name", $search);
-            $this->db->or_like("grand_total_amount", $search);
+            $this->db->like('chalan_no', $search);
             $this->db->group_end();
         }
+        if (!empty($date)) {
+            $dates = explode(' to ', $date);
+            if (count($dates) == 2) {
+                $start_date = date('Y-m-d', strtotime($dates[0]));
+                $end_date = date('Y-m-d', strtotime($dates[1]));  
+                $this->db->where("purchase_date >=", $start_date);
+                $this->db->where("purchase_date <=", $end_date);
+            }
+        }
         
-        $this->db->where("create_by", $user_id);
+        $this->db->where('create_by',$this->session->userdata('user_id'));
+     $query1 = $this->db->get_compiled_select();
+      $this->db->select('id');
+        $this->db->from('service');
+        if ($search != "") {
+            $this->db->group_start();
+            $this->db->like('serviceprovider_id', $search);
+            $this->db->group_end();
+        }
+        if (!empty($date)) {
+            $dates = explode(' to ', $date);
+            if (count($dates) == 2) {
+                $start_date = date('Y-m-d', strtotime($dates[0]));
+                $end_date = date('Y-m-d', strtotime($dates[1]));
+                $this->db->where("bill_date >=", $start_date);
+                $this->db->where("bill_date <=", $end_date);
+            }
+        }
+        $this->db->where('create_by', $this->session->userdata('user_id'));
+      $query2 = $this->db->get_compiled_select();
+     $total_query = $this->db->query("($query1) UNION ALL ($query2)");
+        return $total_query->num_rows();
+    }
+    
 
-        $this->db->limit($limit, $offset);
-        $this->db->order_by($orderField, $orderDirection);
+    public function getPaginatedPurchases($limit, $offset, $orderField, $orderDirection, $search, $date = null, $chalanno = 'All', $vendortype = 'All', $vendor = 'All') {
+        // First Query for 'product_purchase' table
+        $this->db->select('a.id, a.purchase_id, a.chalan_no, a.supplier_id, a.total_amt, a.grand_total_amount, a.total_tax, a.paid_amount, a.balance, a.payment_id, a.purchase_date, a.payment_due_date,a.vtype as source, a.payment_terms,a.phone_num,a.account_category,a.amount_pay_usd,
+            (SELECT b.supplier_name FROM supplier_information b WHERE a.supplier_id = b.supplier_id) AS supplier_name');
+        $this->db->from('product_purchase a');
         
-        $query = $this->db->get();
-
-        // echo $this->db->last_query(); die;
-
-        if ($query === false) {
-            return false;
+        if ($search != "") {
+            $this->db->group_start();
+            $this->db->like('a.chalan_no', $search);
+            $this->db->group_end();
+        }
+    
+        if (!empty($date)) {
+            $dates = explode(' to ', $date);
+            if (count($dates) == 2) {
+                $start_date = date('Y-m-d', strtotime($dates[0]));
+                $end_date = date('Y-m-d', strtotime($dates[1]));
+                $this->db->where("a.purchase_date >=", $start_date);
+                $this->db->where("a.purchase_date <=", $end_date);
+            }
+        }
+        
+        if (!empty($chalanno)) {
+            if ($chalanno !== 'All') {
+                $trimmed_chalanno = trim($chalanno);
+                $this->db->like('a.chalan_no', $trimmed_chalanno);
+            }
+        }
+        
+        if (!empty($vendortype)) {
+            if ($vendortype !== 'All') {
+                $trimmed_vendortype = trim($vendortype);
+                $this->db->like('a.vtype', $trimmed_vendortype);
+            }
         }
 
+        if (!empty($vendor)) {
+            if ($vendor !== 'All') {
+                $trimmed_vendor = trim($vendor);
+                $this->db->like('a.supplier_id', $trimmed_vendor);
+            }
+        }
+        
+        $this->db->where('a.create_by', $this->session->userdata('user_id'));
+        $query1 = $this->db->get_compiled_select();
+        
+        // Second Query for 'service' table
+        $this->db->select('a.id, a.serviceprovider_id as purchase_id, a.bill_number as chalan_no, a.service_provider_name, a.total, a.gtotals as grand_total_amount, a.tax_detail as total_tax, a.amount_paids as paid_amount, a.balances as balance, a.payment_id, a.bill_date as purchase_date, a.due_date as payment_due_date, a.vtype as source,a.sp_address,a.phone_num ,a.acc_cat_name,a.acc_cat,
+            (SELECT b.supplier_name FROM supplier_information b WHERE a.service_provider_name = b.supplier_name) AS supplier_name');
+        $this->db->from('service a');
+        
+        if ($search != "") {
+            $this->db->group_start();
+            $this->db->like('a.serviceprovider_id', $search);
+            $this->db->group_end();
+        }
+    
+        if (!empty($date)) {
+            $dates = explode(' to ', $date);
+            if (count($dates) == 2) {
+                $start_date = date('Y-m-d', strtotime($dates[0]));
+                $end_date = date('Y-m-d', strtotime($dates[1]));
+                $this->db->where("a.bill_date >=", $start_date);
+                $this->db->where("a.bill_date <=", $end_date);
+            }
+        }
+
+        if (!empty($chalanno)) {
+            if ($chalanno !== 'All') {
+                $trimmed_chalanno = trim($chalanno);
+                $this->db->like('a.bill_number', $trimmed_chalanno);
+            }
+        }
+
+        if (!empty($vendortype)) {
+            if ($vendortype !== 'All') {
+                $trimmed_vendortype = trim($vendortype);
+                $this->db->like('a.vtype', $trimmed_vendortype);
+            }
+        }
+
+        if (!empty($vendor)) {
+            if ($vendor !== 'All') {
+                $trimmed_vendor = trim($vendor);
+                $this->db->like('a.service_provider_name', $trimmed_vendor);
+            }
+        }
+        
+        $this->db->where('a.create_by', $this->session->userdata('user_id'));
+        $query2 = $this->db->get_compiled_select();
+        
+        // Combine both queries with UNION ALL
+        $combined_query = "($query1) UNION ALL ($query2) ORDER BY $orderField $orderDirection LIMIT $limit OFFSET $offset";
+        
+        // Execute the combined query
+        $query = $this->db->query($combined_query);
+        
+        // Debugging SQL query
+        
+        // Check for errors
+        if (!$query) {
+            $error = $this->db->error();
+            echo "Error Code: " . $error['code'];
+            echo "Error Message: " . $error['message'];
+            return [];
+        }
+    
         return $query->result_array();
     }
+    
+
+
+
 
     
     // Total Expense Tax 
-    public function getTotalExpensedata($search, $date, $chalanno = 'All')
+    // public function getTotalExpensedata($search, $date, $chalanno = 'All')  
+    //     {
+    //     $user_id = $this->session->userdata("user_id");
 
-  
-        {
-        $user_id = $this->session->userdata("user_id");
+    //     $this->db->select('*');
+    //     $this->db->from('product_purchase');
 
-        $this->db->select('*');
-        $this->db->from('product_purchase');
+    //     if ($date) {
+    //         $dates = explode(' to ', $date);
+    //         $start_date = date('Y-m-d', strtotime($dates[0]));
+    //         $end_date = date('Y-m-d', strtotime($dates[1]));  
+    //         $this->db->where('purchase_date >=', $start_date);
+    //         $this->db->where('purchase_date <=', $end_date);
+    //     }
 
-        if ($date) {
-            $dates = explode(' to ', $date);
-            $start_date = date('Y-m-d', strtotime($dates[0]));
-            $end_date = date('Y-m-d', strtotime($dates[1]));  
-            $this->db->where('purchase_date >=', $start_date);
-            $this->db->where('purchase_date <=', $end_date);
-        }
+    //     if ($chalanno !== 'All') {
+    //         $trimmed_chalanno = trim($chalanno);
+    //         $this->db->like('chalan_no', $trimmed_chalanno);
+    //     }
 
-        if ($chalanno !== 'All') {
-            $trimmed_chalanno = trim($chalanno);
-            $this->db->like('chalan_no', $trimmed_chalanno);
-        }
+    //     if (!empty($search)) {
+    //         $this->db->group_start();
+    //         $this->db->like("chalan_no", $search);
+    //         $this->db->or_like("purchase_date", $search);
+    //         $this->db->or_like("supplier_name", $search);
+    //         $this->db->or_like("middle_name", $search);
+    //         $this->db->or_like("grand_total_amount", $search);
+    //         $this->db->group_end();
+    //     }
 
-        if (!empty($search)) {
-            $this->db->group_start();
-            $this->db->like("chalan_no", $search);
-            $this->db->or_like("purchase_date", $search);
-            $this->db->or_like("supplier_name", $search);
-            $this->db->or_like("middle_name", $search);
-            $this->db->or_like("grand_total_amount", $search);
-            $this->db->group_end();
-        }
+    //     $this->db->where("create_by", $user_id);
 
-        $this->db->where("create_by", $user_id);
-
-        $query = $this->db->get();
+    //     $query = $this->db->get();
     
-        if ($query === false) {
-            return false;
-        }      
+    //     if ($query === false) {
+    //         return false;
+    //     }      
 
-        return $query->num_rows();
+    //     return $query->num_rows();
 
-    }
+    // }
 
 
 }

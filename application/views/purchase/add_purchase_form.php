@@ -1559,7 +1559,7 @@
                                        <tr>
                                           <th class="text-center" width="15%"><?php  echo  ('Service Name');?> </th>
                                           <th class="text-center"><?php  echo  display('description'); ?> </th>
-                                          <th class="text-center"><?php  echo  ('Quantity');?> </th>
+                                          <th class="text-center"><?php  echo  ('Quantity');?></th>
                                           <th class="text-center"><?php echo display('amount'); ?> </th>
                                           <th class="text-center"><?php echo display('action') ?></th>
                                        </tr>
@@ -1583,8 +1583,8 @@
                                           <td class="text-right">
                                              <input type="text" name="quality[]" id="quality_1"   min="0" class="form-control text-right" value=""  tabindex="6"/>
                                           </td>
-                                          <td>
-                                             <span class="input-symbol-euro"> <input class="total_price form-control mobile_price" type="text"  style="width: 317px;"  name="total_price[]" id="total_price_1"  placeholder="0.00"  /></span>
+                                          <td style="width:10%">
+                                              <input class="total_price form-control mobile_price" type="text"  style="width: 150px !important;"  name="total_price[]" id="total_price_1"  placeholder="0.00"  />
                                           </td>
                                           <td style="text-align:center;">
                                              <!-- <button  class=' btn btn-danger' type='button' value='Delete'><i class="fa fa-trash"></i></button> -->
