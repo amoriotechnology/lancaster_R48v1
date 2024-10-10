@@ -847,7 +847,7 @@ public function expenseRetrieveData() {
         //  }else{
         // $delete = '<a style="margin-right: 5px;" onClick=deleteExpensedata('.$item["purchase_id"].') class="btnclr btn btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i></a>' ;
         // }
-        if (!empty($item['purchase_id'])) {
+        if ($item['source'] == 'Product Supplier') {
             $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . base_url() . 'Cpurchase/purchase_delete_form/' . $item['purchase_id'] . '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
         } else {
             $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . base_url() . 'Cpurchase/servicepro_delete_data/' . $item['purchase_id'] . '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
