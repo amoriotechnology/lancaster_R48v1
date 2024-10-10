@@ -322,7 +322,7 @@ public function state_summary_employer($tax_choice = null, $selectState = null, 
     $this->db->where('a.create_by', $user_id);
     $this->db->group_by('a.timesheet_id,  a.cheque_date,d.code, c.id, c.first_name, c.middle_name, c.last_name, d.tax_type, d.weekly, d.biweekly, d.monthly, d.tax, d.amount');
     $query = $this->db->get();
-//  echo $this->db->last_query(); die;
+ // echo $this->db->last_query(); die;
     return $query->result_array();
 }
 

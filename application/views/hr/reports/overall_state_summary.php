@@ -810,12 +810,12 @@ function populateTable(response) {
                 taxes.forEach(taxKey => {
                     const taxName = taxKey.split('-')[0];
                     const code = taxKey.split('-')[1];
-                    var changecode = code === 'PS' ? 'Pennsylvania' : code === 'ML' ? 'Maryland' : 'Code is something else';
+                    var changecode = code === 'PS' ? 'Pennsylvania' : code === 'ML' ? 'Maryland' : '';
                     taxHeaders += "<th colspan='2' style='text-align:center'>" + taxName + "-" + changecode + "</th>";
                 });
             });
 
-            taxHeaders += "</tr><tr class='btnclr'><th></th><th></th>"; // Add empty cell for S.No
+            taxHeaders += "</tr><tr class='btnclr'><th></th><th></th>"; 
             Object.keys(taxTypeMap).forEach(taxType => {
                 const taxes = taxTypeMap[taxType];
                 taxes.forEach(() => {
