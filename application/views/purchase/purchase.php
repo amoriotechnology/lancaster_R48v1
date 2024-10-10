@@ -43,6 +43,7 @@
       <div class="panel panel-bd lobidrag">
          <div class="panel-heading" style="height: 60px;border: 3px solid #D7D4D6;">
             <div class="col-sm-12">
+            <a href="<?php echo base_url('Cpurchase') ?>" class="btnclr btn btn-default dropdown-toggle boxes filip-horizontal"   style="height:fit-content;"  ><i class="far fa-file-alt"> </i> <?php echo display('Create Expense') ?> </a>
                 <div class="col-md-2 col-sm-3" style="display: flex; align-items: center;">
                     <label>Invoice No</label>&nbsp;&nbsp;&nbsp;
                     <select id="customer-name-filter" name="chalanno" class="form-control chalanno">
@@ -58,11 +59,8 @@
                     <label>Vendor Type</label>&nbsp;&nbsp;&nbsp;
                     <select  name="vendorType" class="form-control vendorType">
                         <option value="All">All</option>
-                        <?php
-                          foreach ($expenses as $expense) {
-                          ?>
-                        <option value="<?php echo $expense['vtype']; ?>"><?php echo $expense['vtype']; ?></option>
-                        <?php } ?>
+                        <option value="Service Provider">Service Provider</option>
+                        <option value="Product Supplier">Product Supplier</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-sm-3" style="display: flex; align-items: center;">
@@ -75,7 +73,7 @@
                         <option value="<?php echo $expense['supplier_id']; ?>"><?php echo $expense['supplier_id']; ?></option>
                         <?php } ?>
                     </select>
-                </div>
+                </div>              
                 <div class="col-md-3 col-sm-3">
                     <div class="search">
                       <span class="fa fa-search"></span>
@@ -83,7 +81,8 @@
                     </div>
                     <input type="button" id="searchtrans" name="btnSave" class="btn btnclr" value="Search" style="margin-bottom: 5px; margin-left: 10px;"/>
                 </div>
-            </div>   
+            </div> 
+
          </div>
          <div class="row">
             <div class="col-sm-12">
@@ -173,6 +172,7 @@ $(".sidebar-mini").addClass('sidebar-collapse') ;
          { "data": "supplier_id" },
          { "data": "purchase_date" },
          { "data": "vtype" },
+         { "data": "grand_total_amount" },
          { "data": "paid_amount" },
          { "data": "balance" },
          { "data": "purchase_id" },
@@ -183,7 +183,7 @@ $(".sidebar-mini").addClass('sidebar-collapse') ;
          { "data": "account_category" },
          { "data": "amount_pay_usd" },
          { "data": "acc_cat" },
-         { "data": "amount_pay_usd" },
+
          { "data": "action" },
          ],
         "columnDefs": [{
@@ -217,14 +217,6 @@ $(".sidebar-mini").addClass('sidebar-collapse') ;
         "pageLength": 10,
         "colReorder": true,
         "stateSave": true,
-        "footerCallback": function(row, data, start, end, display) {
-            var api = this.api();
-            var total = 0;
-            api.column(6, { page: 'current' }).data().each(function(value, index) {
-                total += parseFloat(value.replace(/,/g, '')) || 0;
-            });
-            $(api.column(6).footer()).html('$' + total.toFixed(2));
-        },
         "stateSaveCallback": function(settings, data) {
             localStorage.setItem('expense', JSON.stringify(data));
         },

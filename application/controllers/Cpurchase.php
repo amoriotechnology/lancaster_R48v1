@@ -9,7 +9,7 @@ class Cpurchase extends CI_Controller {
         parent::__construct();
         $this->db->query('SET SESSION sql_mode = ""');
             $this->load->model(array(
-            'accounts_model','Web_settings'
+            'accounts_model','Web_settings','Purchases'
         )); 
     }
     
@@ -682,9 +682,8 @@ $result = $CI->Purchases->servicepro($date) ;
      
      
      
-// Expense Index Data - Sivashankar
- public function manage_purchase() 
- {
+// Expense Index Data - Sivashankaran
+ public function manage_purchase()  {
     $this->session->unset_userdata('newexpenseid');
     $date = $this->input->post("daterange");
     $menu= $this->input->post("options");
@@ -702,6 +701,7 @@ $result = $CI->Purchases->servicepro($date) ;
 
     $sup = $CI->db->select('supplier_name')->from('supplier_information')->where('supplier_id',$expensebro)->get()->result_array();
     $servpro = $CI->Purchases->servicepro($date) ;
+    //print_r($servpro); die();
 
     $out = array();
     foreach ($expense as $key => $value){
@@ -727,80 +727,163 @@ $result = $CI->Purchases->servicepro($date) ;
     $this->template->full_admin_html_view($content);
 }
 
-// Expense Index Data For Ajax - Sivashankar
-public function expenseRetrieveData()
-{   
-    $CI = & get_instance();
-    $CI->load->model('Purchases');
+// Expense Index Data For Ajax - Sivashankaran
+// public function expenseRetrieveData()
+// {   
+//     $CI = & get_instance();
+//     $CI->load->model('Purchases');  
+//     $CI->load->model('Web_settings');
+//     $currency_details = $CI->Web_settings->retrieve_setting_editdata();
+//     $currency = $currency_details[0]['currency'];
+    
+//     $limit          = $this->input->post("length");
+//     $start          = $this->input->post("start");
+//     $search         = $this->input->post("search")["value"];
+//     $orderField     = $this->input->post("columns")[$this->input->post("order")[0]["column"]]["data"];
+//     $orderDirection = $this->input->post("order")[0]["dir"];
+//     $date           = $this->input->post("federal_date_search");
+//     $chalanno       = $this->input->post('chalanno');
+//     $vendortype       = $this->input->post('vendorType');
+//     $vendor       = $this->input->post('vendor');
+//     $items          = $CI->Purchases->getPaginatedExpense($limit,$start,$orderField,$orderDirection,$search,$date,$chalanno,$vendortype,$vendor);
+//     //  print_r($items);die();
+//     $totalItems     = $CI->Purchases->getTotalExpensedata($search,$date,$chalanno,$vendortype,$vendor);
+//    // print_r($totalItems);die();
+//     $servpro        = $CI->Purchases->servicepro($date);
+//     print_r( $servpro); die();
+//     $download       = "";
+//     $edit           = "";
+//     $delete         = "";   
+ 
+//     $data = [];
+//     $i = $start+1;
+//     foreach ($items as $item)
+//     {
+        
+//         $download = '<a href="' . base_url("Payment_Gateway/Welcome/index/" . $item["purchase_id"]) . 
+//             '" class="btnclr btn btn-sm" style="background-color:#424f5c; margin-right: 5px;" data-toggle="tooltip" data-placement="left" title="Payment"><i class="fa fa-credit-card" aria-hidden="true"></i></a>';
 
-    $limit          = $this->input->post("length");
-    $start          = $this->input->post("start");
-    $search         = $this->input->post("search")["value"];
-    $orderField     = $this->input->post("columns")[$this->input->post("order")[0]["column"]]["data"];
-    $orderDirection = $this->input->post("order")[0]["dir"];
+//         $url = !empty($item['purchase_id']) ? base_url() . "Cpurchase/purchase_update_form/" . $item['purchase_id'] : base_url() . "Cpurchase/serviceprovider_update_form/" . $item['serviceprovider_id']; 
+
+//         $edit = '<a href="' . $url . '" class="btnclr btn btn-success btn-sm expenselocal-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+
+//         $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . 
+//                   (!empty($item['purchase_id']) ? base_url() . "Cpurchase/purchase_delete_form/" . $item['purchase_id'] : base_url() . "Cpurchase/servicepro_delete_data/" . $item['serviceprovider_id']) . 
+//                   '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+
+//         $action = $download . $edit . $delete;
+
+//         $row = [
+//             'id'      => $i,
+//             'chalan_no' => $item['chalan_no'],
+
+//             'supplier_id' => (!empty($item['service_provider_name']) && $item['service_provider_name'] !== 'N/A') ? $item['service_provider_name'] : ((!empty($item['supplier_id']) && $item['supplier_id'] !== 'N/A') ? $item['supplier_id'] : 'N/A'),
+
+//             'purchase_date' => (!empty($item['purchase_date']) && $item['purchase_date'] !== 'N/A') ? $item['purchase_date'] : ((!empty($item['bill_date']) && $item['bill_date'] !== 'N/A') ? $item['bill_date'] : 'N/A'),
+
+//             'vtype' => !empty($item['vtype']) ? $item['vtype'] : "N/A",
+
+//             'grand_total_amount' => (!empty($item['grand_total_amount']) && $item['grand_total_amount'] !== 'N/A') ? $currency . " " . $item['grand_total_amount'] : ((!empty($item['total']) && $item['total'] !== 'N/A') ? $currency . " " . $item['total'] : '0.00'),
+
+//             'paid_amount' => (!empty($item['paid_amount']) && $item['paid_amount'] !== 'N/A') ? $currency . " " . $item['paid_amount'] : ((!empty($item['amount_paids']) && $item['amount_paids'] !== 'N/A') ? $currency . " " . $item['amount_paids'] : '0.00'),
+
+//             'balance' => (!empty($item['balance']) && $item['balance'] !== 'N/A') ? $currency . " " . $item['balance'] : ((!empty($item['balances']) && $item['balances'] !== 'N/A') ? $currency . " " . $item['balances'] : '0.00'),
+
+//             'purchase_id' => (!empty($item['purchase_id']) && $item['purchase_id'] !== 'N/A') ? $item['purchase_id'] : ((!empty($item['serviceprovider_id']) && $item['serviceprovider_id'] !== 'N/A') ? $item['serviceprovider_id'] : 'N/A'),
+
+//             'payment_terms' => !empty($item['payment_terms']) ? $item['payment_terms'] : "N/A",
+
+//             'tax_detail' => !empty($item['tax_detail']) && $item['tax_detail'] !== 'N/A' ? $item['tax_detail'] : (!empty($item['total_tax']) && $item['total_tax'] !== 'N/A' ? $item['total_tax'] : 'N/A'),
+
+//             'sp_address' => !empty($item['sp_address']) ? $item['sp_address'] : "N/A",
+
+//             'phone_num' => !empty($item['phone_num']) ? $item['phone_num'] : "N/A",
+
+//             'account_category' => !empty($item['account_category']) ? $item['account_category'] : "N/A",
+
+//             'amount_pay_usd' => !empty($arr['amount_pay_usd']) ? $arr['sub_category'] : "N/A",
+
+//             'acc_cat' => !empty($arr['acc_cat']) ? $arr['acc_cat'] : "N/A",
+
+//             "action"  => $action,
+//         ];
+//         $data[] = $row;
+//         $i++;
+//     }
+//     $response = [
+//         "draw"            => $this->input->post("draw"),
+//         "recordsTotal"    => $totalItems,
+//         "recordsFiltered" => $totalItems,
+//         "data"            => $data,
+//         "serviceProvider" => $servpro,
+//     ];
+//     echo json_encode($response);
+// }
+
+public function expenseRetrieveData() {    
+    $limit          = $this->input->post('length');
+    $start          = $this->input->post('start');
+    $search         = $this->input->post('search')['value'];
+    $orderField     = $this->input->post('columns')[$this->input->post('order')[0]['column']]['data'] =='sl' ? 'create_date' : $this->input->post('columns')[$this->input->post('order')[0]['column']]['data'];
+    $orderDirection = $this->input->post('order')[0]['dir'];
     $date           = $this->input->post("federal_date_search");
     $chalanno       = $this->input->post('chalanno');
-    $vendortype       = $this->input->post('vendorType');
+    $vendortype       = $this->input->post('vendortype');
     $vendor       = $this->input->post('vendor');
-    $items          = $CI->Purchases->getPaginatedExpense($limit,$start,$orderField,$orderDirection,$search,$date,$chalanno,$vendortype,$vendor);
-    $totalItems     = $CI->Purchases->getTotalExpensedata($search,$date,$chalanno,$vendortype,$vendor);
-    $servpro        = $CI->Purchases->servicepro($date);
+    $totalItems     = $this->Purchases->getTotalPurchases($search,$date);
+    $items          = $this->Purchases->getPaginatedPurchases($limit,$start,$orderField,$orderDirection,$search,$date,$chalanno,$vendortype,$vendor);
+
     $data           = [];
-    $i              = $start + 1;
-    $download       = "";
-    $edit           = "";
-    $delete         = "";
+    $i              = $start + 1;   
+   
     foreach ($items as $item) {
-        $download = '<a href="' . base_url("Payment_Gateway/Welcome/index/" . $item["purchase_id"]) . 
-            '" class="btnclr btn btn-sm" style="background-color:#424f5c; margin-right: 5px;" data-toggle="tooltip" data-placement="left" title="Payment"><i class="fa fa-credit-card" aria-hidden="true"></i></a>';
-
-        $url = !empty($item['purchase_id']) ? base_url() . "Cpurchase/purchase_update_form/" . $item['purchase_id'] : base_url() . "Cpurchase/serviceprovider_update_form/" . $item['serviceprovider_id']; 
-
-        $edit = '<a href="' . $url . '" class="btnclr btn btn-success btn-sm expenselocal-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
-
-        $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . 
-                  (!empty($item['purchase_id']) ? base_url() . "Cpurchase/purchase_delete_form/" . $item['purchase_id'] : base_url() . "Cpurchase/servicepro_delete_data/" . $item['serviceprovider_id']) . 
-                  '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
-
-        $action = $download . $edit . $delete;
-
+        if($item['source'] == 'Product Supplier') {
+        $edit   = '<a href="' . base_url('Cpurchase/purchase_update_form/' . $item['purchase_id']) . '" class="btnclr btn btn-sm" style="margin-right: 5px;"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+        }else{
+        $edit   = '<a href="' . base_url('Cpurchase/serviceprovider_update_form/' . $item['purchase_id']) . '" class="btnclr btn btn-sm" style="margin-right: 5px;"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+        }
+        //  if($item['invoice_id'] != ''){
+        // $delete = '<a style="margin-right: 5px;" onClick=deleteExpensedata('.$item["purchase_id"].') class="btnclr btn btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i></a>' ;
+        //  }else{
+        // $delete = '<a style="margin-right: 5px;" onClick=deleteExpensedata('.$item["purchase_id"].') class="btnclr btn btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i></a>' ;
+        // }
+        if ($item['source'] == 'Product Supplier') {
+            $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . base_url() . 'Cpurchase/purchase_delete_form/' . $item['purchase_id'] . '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+        } else {
+            $delete = '<a class="btnclr btn btn-sm" onclick="return confirm(\'' . display('are_you_sure') . '\')" href="' . base_url() . 'Cpurchase/servicepro_delete_data/' . $item['purchase_id'] . '"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+        }
+        
+        //serviceprovider_update_form $mail = '<a href="' . base_url('Cinvoice/invoice_update_form?id=' . $encodedId. '&invoice_id=' . $item['invoice_id']) . '" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
+        $mail = '<a data-toggle="modal" data-target="#sendemailmodal" onClick=sendEmailproforma('.$item["purchase_id"].') class="btnclr btn btn-sm" style="margin-right: 5px;"><i class="fa fa-envelope" aria-hidden="true"></i></a>';
+       if($item['invoice_id'] != ''){
+        $download = '<a href="' . base_url('Cinvoice/invoice_inserted_data?id=' .  '&invoice_id=' . $item['purchase_id']) . '" class="btnclr btn btn-sm" ><i class="fa fa-download" aria-hidden="true"></i></a>';
+       }else{
+          $download = '<a href="' . base_url('Cinvoice/invoice_inserted_data?id=' . '&invoice_id=' . $item['purchase_id']) . '" class="btnclr btn btn-sm" ><i class="fa fa-download" aria-hidden="true"></i></a>';
+       }
         $row = [
-            'id'      => $i,
-            'chalan_no' => $item['chalan_no'],
-
-            'supplier_id' => (!empty($item['service_provider_name']) && $item['service_provider_name'] !== 'N/A') ? $item['service_provider_name'] : ((!empty($item['supplier_id']) && $item['supplier_id'] !== 'N/A') ? $item['supplier_id'] : 'N/A'),
-
-            'purchase_date' => (!empty($item['purchase_date']) && $item['purchase_date'] !== 'N/A') ? $item['purchase_date'] : ((!empty($item['bill_date']) && $item['bill_date'] !== 'N/A') ? $item['bill_date'] : 'N/A'),
-
-            'vtype' => !empty($item['vtype']) ? $item['vtype'] : "N/A",
-
-            'paid_amount' => (!empty($item['paid_amount']) && $item['paid_amount'] !== 'N/A') ? $currency . " " . $item['paid_amount'] : ((!empty($item['amount_paids']) && $item['amount_paids'] !== 'N/A') ? $currency . " " . $item['amount_paids'] : 'N/A'),
-
-            'balance' => (!empty($item['balance']) && $item['balance'] !== 'N/A') ? $currency . " " . $item['balance'] : ((!empty($item['balances']) && $item['balances'] !== 'N/A') ? $currency . " " . $item['balances'] : 'N/A'),
-
-            'purchase_id' => (!empty($item['purchase_id']) && $item['purchase_id'] !== 'N/A') ? $item['purchase_id'] : ((!empty($item['serviceprovider_id']) && $item['serviceprovider_id'] !== 'N/A') ? $item['serviceprovider_id'] : 'N/A'),
-
-            'payment_terms' => !empty($item['payment_terms']) ? $item['payment_terms'] : "N/A",
-
-            'tax_detail' => !empty($item['tax_detail']) && $item['tax_detail'] !== 'N/A' ? $item['tax_detail'] : (!empty($item['total_tax']) && $item['total_tax'] !== 'N/A' ? $item['total_tax'] : 'N/A'),
-
-            'sp_address' => !empty($item['sp_address']) ? $item['sp_address'] : "N/A",
-
-            'phone_num' => !empty($item['phone_num']) ? $item['phone_num'] : "N/A",
-
-            'account_category' => !empty($item['account_category']) ? $item['account_category'] : "N/A",
-
-            'amount_pay_usd' => !empty($arr['amount_pay_usd']) ? $arr['sub_category'] : "N/A",
-
-            'acc_cat' => !empty($arr['acc_cat']) ? $arr['acc_cat'] : "N/A",
-
-            "action"  => $action,
+            'id'               => $i,           
+            "chalan_no"         => $item['chalan_no'],
+            "supplier_id"       => $item['supplier_id'],
+            "purchase_date"    => $item['purchase_date'],
+            "vtype"  =>$item['source'],
+            "grand_total_amount"  => $item['grand_total_amount'],
+            "paid_amount"           => $item['paid_amount'],
+            "balance"             => $item['balance'],
+            "purchase_id"       => $item['purchase_id'],
+            "payment_terms"   => $item['payment_terms'],
+            "tax_detail"   => $item['total_tax'],
+            "sp_address" => $item['sp_address'],
+            "phone_num" => $item['phone_num'],
+            "account_category" => $item['account_category'],
+            "amount_pay_usd" => $item['amount_pay_usd'],
+            "acc_cat" => $item['acc_cat'],        
+            'action'          => $download .'&nbsp;'. $edit . $mail . $delete,
         ];
         $data[] = $row;
         $i++;
     }
     $response = [
-        "draw"            => $this->input->post("draw"),
+        "draw"            => $this->input->post('draw'),
         "recordsTotal"    => $totalItems,
         "recordsFiltered" => $totalItems,
         "data"            => $data,
@@ -1506,7 +1589,6 @@ public function uploadCsv_Serviceprovider_second()
 
     //Insert purchase
     public function insert_purchase() {
-
         $CI = & get_instance();
         $CI->auth->check_admin_auth();
         $CI->load->model('Purchases');
@@ -1740,7 +1822,7 @@ public function uploadCsv_Serviceprovider_second()
 
 
 public function insert_service_provider() {
-// die("dies");
+//die("dies");
         $CI = & get_instance();
         $CI->auth->check_admin_auth();
         $CI->load->model('Purchases');

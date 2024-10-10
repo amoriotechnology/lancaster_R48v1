@@ -62,9 +62,8 @@
    .ui-front{
    display:none;
    }
-
    .select2-selection__rendered{
-      display:none;
+   display:none;
    }
    .removebundle, .addbundle{
    padding: 10px 12px 10px 12px;
@@ -91,21 +90,14 @@
    border-radius: 0;
    margin-bottom: 0;
    }
-   
-   
-   
-input[type=number] {
-  -moz-appearance: textfield;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-   
-   
-   
+   input[type=number] {
+   -moz-appearance: textfield;
+   }
+   input::-webkit-outer-spin-button,
+   input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+   }
 </style>
 <!-- Product Purchase js -->
 <script src="<?php echo base_url()?>my-assets/js/admin_js/json/product_purchase.js.php" ></script>
@@ -155,19 +147,10 @@ input::-webkit-inner-spin-button {
                   </label>
                   <div class="col-sm-2">
                      <select name="po" class="form-control"  id="po" tabindex="3" >
-                         
-                         
-                         
-                  <option value="product_supplier" selected> <?php echo ('Product Supplier'); ?></option>
+                        <option value="product_supplier" selected> <?php echo ('Product Supplier'); ?></option>
                         <option value="service_provider"><?php echo display('Service Provider');?> </option>
-                  
-                  
-                  
                      </select>
                   </div>
-
-                  
-
                   <div class="col-sm-4"  style="width: 880px;" >   </div>
                   <div class="col-sm-2">
                      <a   href="<?php echo base_url('Cpurchase/manage_purchase') ?>" class="btnclr btn  m-b-5 m-r-2"><i class="ti-align-justify"         > </i> <?php echo display('manage_expense'); ?> </a>
@@ -184,7 +167,6 @@ input::-webkit-inner-spin-button {
                      <div class="with_po">
                         <form id="insert_purchase"  method="post">
                         </form>
-
                         <script>
                            $(document).ready(function(){
                                                           $('.button_hide').hide();
@@ -538,15 +520,15 @@ input::-webkit-inner-spin-button {
                            $('#balance').val(bal_amt);
                            
                            });
-
-
-
+                           
+                           
+                           
                            $(document).on('click', '.delete1', function(){
                            
                            
-// debugger;
-// alert('1111');
-
+                           // debugger;
+                           // alert('1111');
+                           
                            var tid=$(this).closest('table').attr('id');
                            localStorage.setItem("delete_table",tid);
                            console.log(localStorage.getItem("delete_table"));
@@ -630,27 +612,27 @@ input::-webkit-inner-spin-button {
                            
                            
                            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
                            
                            });
-
-
-
-
-
+                           
+                           
+                           
+                           
+                           
                            
                            $('#total_net').val(total_net.toFixed(2)).trigger('change');
                            var overall_gs=0;
@@ -1103,247 +1085,137 @@ input::-webkit-inner-spin-button {
                      </div>
                      <div id='product_supplier' class="without_po">
                         <!-- <form id="insert_purchase1"  method="post"> -->
-                          
-
                         <form id="insert_purchase1"  method="post">
                            <div class="row">
                               <div class="col-sm-6">
                                  <br/>
-
-
-
-
-
-
                                  <div class="form-group row">
-                              <label for="supplier_sss" class="col-sm-4 col-form-label"><?php echo  display('Vendor');?>
-                              <i class="text-danger"></i>
-                              </label>
-                              <div class="col-sm-8">
-                               
-                               <input type="text"  name="supplier_id"  id="supplier_id" class="form-control " style="border:2px solid #d7d4d6;width:98%;"  >
-
-                              </div>
-                           
-                           </div>
-                        </div>
-
-
-                               <div class="col-sm-6">
-                           <div class="form-group row">
-                           <label for="date" class="col-sm-4 col-form-label" style="margin-top:22px;" ><?php echo ('Date');?>
-                               </label>
-                              <div class="col-sm-8">
-                                  
-                                     <?php
-                                 $date = date('Y-m-d');
-                                 ?>
-                                 
-                                 
-                                 <input type="date"  style="width:100%;border:2px solid #d7d4d6;margin-top:22px;"   tabindex="2" class="form-control datepicker" name="bill_date"  placeholder="Expenses/Billdate"  value="<?php echo $date; ?>"   id="date"  />
-                              </div>
-                              
-                              
-                              
-                         
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                           </div>
-                        </div>
-                     </div>
-                     
-                     
-                     
-
-
-
-                     <div class="row">
-                   
-
-                      <div class="col-sm-6">
-                    
-
-                        <div class="form-group row">
-                              <label for="vendor_add" class="col-sm-4 col-form-label"> <?php echo display('Vendor Address');?>
-                              <i class="text-danger"></i>
-                              </label>
-                              <div class="col-sm-8">
-                          
-                                 <input type="text"   name="vendor_add" class="form-control"   style="width: 98%;border: 2px solid #d7d4d6;"    />
-
-                              </div>
-                           </div>
-                                    <div class="form-group row">
-                              <label for="vtype" class="col-sm-4 col-form-label"><?php echo ('Vendor Type');?>
-                              <i class="text-danger"></i>
-                              </label>
-                              <div class="col-sm-8">
-                                 <input type="text"   name="vtype" class="form-control" value="Product Supplier" readonly  style="width: 98%;border: 2px solid #d7d4d6;"    />
-                              </div>
-
-
-
-                              </div>
-
-                              <div class="form-group row">
-                              <label for="supplier_sss" class="col-sm-4 col-form-label"><?php echo ('Phone No');?>
-                              <i class="text-danger"></i>
-                              </label>
-                              <div class="col-sm-8">
-                                 <input type="number"   name="vendor_type" class="form-control"   style="width: 98%;border: 2px solid #d7d4d6;"    />
-                              </div>
-                           </div>
-
- 
-
-                           <div class="form-group row">
-                              <label for="supplier_sss" class="col-sm-4 col-form-label"><?php echo ('Po Number');?>
-                              <i class="text-danger"></i>
-                              </label>
-                              <div class="col-sm-8">
-
-                              <select name="po_number"  id="po_number" class="form-control"  style="width:98%;" >                          
-                                 
-                                 
-                                                                     <option value="" selected="selected"><?php echo  ('Select the Po Number') ?></option>                            
-
-                                    <?php foreach($po as $po){?>  
-                                       
-
-                                    <option value="<?= $po['chalan_no']; ?>"><?= $po['chalan_no']; ?></option>                          
-                                    <?php } ?>
-                                    </select>
-                              </div>
-                           </div>
-
-                        </div>
-				  
-				       <div class="col-sm-6">
-                           <div class="form-group row">
-                           <label for="date" class="col-sm-4 col-form-label"><?php echo display('invoice_no');  ?></label>
-                             
-                              <div class="col-sm-8">
-                              <input  class=" form-control" type="" size="50"     style="border:2px solid #d7d4d6;"   name="invoice_no" id="invoice_no"   value="" tabindex="4" />
-
-                              </div>
-                           </div>
-
-                           <div class="form-group row">
-                           <label for="adress" class="col-sm-4 col-form-label"><?php  echo display('payment_type'); ?>
-                              </label>
-                              <div class="col-sm-8">
-
-                               <input type="text"   name="paytype_drop" id="paytype_drop" style="width:100%;border:2px solid #d7d4d6;" class=" form-control"   >
-
-                               </div>
-                        </div>
-
-
-
-     <div class="form-group row">
-
-                              <label for="billing_address" class="col-sm-4     col-form-label"><?php echo display('Payment Terms');?>
-                              <i class="text-danger"></i></label>
-                              <div class="col-sm-8">
-
-                              <input type="text"   name="payment_terms" id="payment_terms" style="width:100%;border:2px solid #d7d4d6;" class=" form-control"   >
-                                 </div>
-                              </div>
-                              
-                              
-                              
-                              
-                              
-                                <div class="row">
-                        <div class="col-sm-6">
-                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label"><?php echo display('Attachments') ?></label>
-                                    <div class="col-sm-6">
-                                       <p>
-                                          <label for="attachment">
-                                          <a class="btnclr btn   text-light" role="button" aria-disabled="false" style="margin-left: 148px;"   ><i class="fa fa-upload"></i>&nbsp; Choose Files</a>
-                                          </label>
-                                          <input type="file" name="files[]" class="upload" id="attachment" style="visibility: hidden; position: absolute;" multiple/>
-                                       </p>
-                                       <p id="files-area"  style="margin-left:144px">
-                                          <span id="filesList">
-                                          <span id="files-names"></span>
-                                          </span>
-                                       </p>
+                                    <label for="supplier_sss" class="col-sm-4 col-form-label"><?php echo  display('Vendor');?>
+                                    <i class="text-danger"></i>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <input type="text"  name="supplier_id"  id="supplier_id" class="form-control " style="border:2px solid #d7d4d6;width:98%;"  >
                                     </div>
                                  </div>
                               </div>
-                     </div>
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                        </div>
-                     </div>
-
-
-                   
-                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-                              <input type="hidden"    class="payment_id" name="payment_id"/>
-                               <input type="hidden" id="hidden_weight" name="hidden_weight"/>
-
-                   
-
-
- 
-
-
-
-
+                              <div class="col-sm-6">
+                                 <div class="form-group row">
+                                    <label for="date" class="col-sm-4 col-form-label" style="margin-top:22px;" ><?php echo ('Date');?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <?php
+                                          $date = date('Y-m-d');
+                                          ?>
+                                       <input type="date"  style="width:100%;border:2px solid #d7d4d6;margin-top:22px;"   tabindex="2" class="form-control datepicker" name="bill_date"  placeholder="Expenses/Billdate"  value="<?php echo $date; ?>"   id="date"  />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group row">
+                                    <label for="vendor_add" class="col-sm-4 col-form-label"> <?php echo display('Vendor Address');?>
+                                    <i class="text-danger"></i>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <input type="text"   name="vendor_add" class="form-control"   style="width: 98%;border: 2px solid #d7d4d6;"    />
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
+                                    <label for="vtype" class="col-sm-4 col-form-label"><?php echo ('Vendor Type');?>
+                                    <i class="text-danger"></i>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <input type="text"   name="vtype" class="form-control" value="Product Supplier" readonly  style="width: 98%;border: 2px solid #d7d4d6;"    />
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
+                                    <label for="supplier_sss" class="col-sm-4 col-form-label"><?php echo ('Phone No');?>
+                                    <i class="text-danger"></i>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <input type="number"   name="vendor_type" class="form-control"   style="width: 98%;border: 2px solid #d7d4d6;"    />
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
+                                    <label for="supplier_sss" class="col-sm-4 col-form-label"><?php echo ('Po Number');?>
+                                    <i class="text-danger"></i>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <select name="po_number"  id="po_number" class="form-control"  style="width:98%;" >
+                                          <option value="" selected="selected"><?php echo  ('Select the Po Number') ?></option>
+                                          <?php foreach($po as $po){?>  
+                                          <option value="<?= $po['chalan_no']; ?>"><?= $po['chalan_no']; ?></option>
+                                          <?php } ?>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group row">
+                                    <label for="date" class="col-sm-4 col-form-label"><?php echo display('invoice_no');  ?></label>
+                                    <div class="col-sm-8">
+                                       <input  class=" form-control" type="" size="50"     style="border:2px solid #d7d4d6;"   name="invoice_no" id="invoice_no"   value="" tabindex="4" />
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
+                                    <label for="adress" class="col-sm-4 col-form-label"><?php  echo display('payment_type'); ?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                       <input type="text"   name="paytype_drop" id="paytype_drop" style="width:100%;border:2px solid #d7d4d6;" class=" form-control"   >
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
+                                    <label for="billing_address" class="col-sm-4     col-form-label"><?php echo display('Payment Terms');?>
+                                    <i class="text-danger"></i></label>
+                                    <div class="col-sm-8">
+                                       <input type="text"   name="payment_terms" id="payment_terms" style="width:100%;border:2px solid #d7d4d6;" class=" form-control"   >
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                       <div class="form-group row">
+                                          <label class="col-sm-4 col-form-label"><?php echo display('Attachments') ?></label>
+                                          <div class="col-sm-6">
+                                             <p>
+                                                <label for="attachment">
+                                                <a class="btnclr btn   text-light" role="button" aria-disabled="false" style="margin-left: 148px;"   ><i class="fa fa-upload"></i>&nbsp; Choose Files</a>
+                                                </label>
+                                                <input type="file" name="files[]" class="upload" id="attachment" style="visibility: hidden; position: absolute;" multiple/>
+                                             </p>
+                                             <p id="files-area"  style="margin-left:144px">
+                                                <span id="filesList">
+                                                <span id="files-names"></span>
+                                                </span>
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+                           <input type="hidden"    class="payment_id" name="payment_id"/>
+                           <input type="hidden" id="hidden_weight" name="hidden_weight"/>
                            <div class="table-responsive">
                               <div id="content">
-                                  
-                          
                                  <!-- <table class="cscheTable table normalinvoice table-bordered table-hover" id="normalinvoice_1"   style="border:2px solid #d7d4d6;" > -->
-                                    
                                  <table class="cscheTable table normalinvoice table-bordered table-hover"  id="normalinvoice_1"  style="border:2px solid #d7d4d6;" >
-
-                                  <thead>
-                                 
-                                 
-                                     <tr>
-                                 <th     class="text-center"   style="width:300px;"  ><?php echo  ('Product Name') ?></th>
-                                 <th     class="text-center"  style="width:300px;" ><?php echo  ('Height') ?></th>
-                                 <th     class="text-center"  style="width:300px;"><?php echo  ('Length') ?></th>
-                                 <th     class="text-center"  style="width:300px;" ><?php echo  ('Square Feet') ?></th>  
-                                 
-                                                                  <th     class="text-center"  style="width:300px;" ><?php echo  ('Quantity') ?></th>
-
-                                 <th     class="text-center"  style="width:300px;" ><?php echo ('Rate') ?></th>
-                                 <th     class="text-center" style="width:300px;" ><?php echo display('total') ?></th>
-                                 <th     class="text-center" style="width:300px;"><?php echo display('Action') ?></th>
-                                 </tr>
-                                 
-                                 
-                                 
-                                 
-                                 
-                                 </thead>
-                                 
-                               
-                           
-                          <tbody class="tbody" id="addPurchaseItem_1">
-                             <tr>
-                               
-
-                             <td class="span3 supplier">
+                                    <thead>
+                                       <tr>
+                                          <th     class="text-center"   style="width:300px;"  ><?php echo  ('Product Name') ?></th>
+                                          <th     class="text-center"  style="width:300px;" ><?php echo  ('Height') ?></th>
+                                          <th     class="text-center"  style="width:300px;"><?php echo  ('Length') ?></th>
+                                          <th     class="text-center"  style="width:300px;" ><?php echo  ('Square Feet') ?></th>
+                                          <th     class="text-center"  style="width:300px;" ><?php echo  ('Quantity') ?>&nbsp;<span class="text-danger">*</span></th>
+                                          <th     class="text-center"  style="width:300px;" ><?php echo ('Rate') ?>&nbsp;<span class="text-danger">*</span></th>
+                                          <th     class="text-center" style="width:300px;" ><?php echo display('total') ?></th>
+                                          <th     class="text-center" style="width:300px;"><?php echo display('Action') ?></th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="tbody" id="addPurchaseItem_1">
+                                       <tr>
+                                          <td class="span3 supplier">
                                              <input type="hidden" name="tableid[]" id="tableid_1"/>
                                              <input  list="magicHouses" type="text"  tabindex="2" class="form-control " name="prodt[]"  id="product_name"/>
                                              <datalist id="magicHouses">
@@ -1351,95 +1223,54 @@ input::-webkit-inner-spin-button {
                                                    foreach($product_list as $tx){?>
                                                 <option value="<?php echo $tx['product_name'].'-'.$tx['product_model'];?>">  <?php echo $tx['product_name'].'-'.$tx['product_model'];  ?></option>
                                                 <?php } ?>
-                                             </datalist>    
+                                             </datalist>
                                              <input type='hidden' class='common_product autocomplete_hidden_value  product_id_1' name='product_id[]' id='SchoolHiddenId_1' />
                                           </td>
-
-
-                                        
-
-
-                                <td>
-                                   <input type="text" id="bundle_no_1" name="bundle_no[]"  class="bundle_no form-control" />
-                                </td>
-
-                                <td>
-                                   <input type="text" id="description_1" name="description[]" class="description form-control" />
-                                </td>
-
-                                <td>
-                                   <input type="text" name="thickness[]" id="thickness_1"  readonly class="sqfeet form-control"/>
-                                </td> 
-
-
-  <td>
-                                             <input type="text" id="supplier_slab_no_1" name="supplier_slab_no[]"  class="supplier_slab_no form-control" />
+                                          <td>
+                                             <input type="text" id="bundle_no_1" name="bundle_no[]"  class="bundle_no form-control" />
                                           </td>
-                          
-
-
-                                <td>
-                                 <input type="text" id="supplier_b_no_1" name="supplier_block_no[]"  class="rte form-control" />
-                                 </td>
-                             
-                                <td >
-                                 <span class="input-symbol-euro"> <input class="sum_amount form-control" type="text"    name="total_amount[]" id="total_price_1"  style="width:189px;"  placeholder="0.00"  /></span>
-                                </td>
-
-
-
-
-                                <td style="text-align:center;">
-                              
-                             
-                                   <button class='btn-cSche add addRowButton btn btnclr' type='button' value='Add Row'><i class="fa fa-plus"></i></button>
-                                   &nbsp;<button class='delete btn btn-danger' type='button'   id="delete_1"  value='Delete'><i class="fa fa-trash"></i></button>
-          
-                             
-                                 </td>
-                             </tr>
-                          </tbody>
-                          <tfoot>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            <tr style="height:50px;">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-
-                                <td colspan="4">
-                                   <span class="input-symbol-euro">    <input type="text" id="Over_all_Total"  name="total[]"    class="ov_total form-control"   style="width:189px;"  value="0.00"  readonly="readonly"  /> </span>
-                                </td>
-                             </tr> 
-                          </tfoot>
-                       </table>
-
-
-                     </div>
-
-
- 
-                     <table class="table table-bordered table-hover"  style="border:2px solid #d7d4d6;" >
-
-
-                     <!--<table class="taxtab table table-bordered table-hover" style="border:2px solid #d7d4d6;max-width:1480px;margin-left:45px;" > -->
-                         <tr>
+                                          <td>
+                                             <input type="text" id="description_1" name="description[]" class="description form-control" />
+                                          </td>
+                                          <td>
+                                             <input type="text" name="thickness[]" id="thickness_1"  readonly class="sqfeet form-control"/>
+                                          </td>
+                                          <td>
+                                             <input type="text" id="supplier_slab_no_1" name="supplier_slab_no[]"  class="supplier_slab_no form-control" />
+                                            <small class="error-msg" style="display: none; color: red;"></small>
+                                          </td>
+                                          <td>
+                                             <input type="text" id="supplier_b_no_1" name="supplier_block_no[]"  class="rte form-control" />
+                                             <small class="error-msg" style="display: none; color: red;"></small>
+                                          </td>
+                                          <td >
+                                             <span class="input-symbol-euro"> <input class="sum_amount form-control" type="text"    name="total_amount[]" id="total_price_1"  style="width:189px;"  placeholder="0.00"  /></span>
+                                          </td>
+                                          <td style="text-align:center;">
+                                             <button class='btn-cSche add addRowButton btn btnclr' type='button' value='Add Row'><i class="fa fa-plus"></i></button>
+                                             &nbsp;<button class='delete btn btn-danger' type='button'   id="delete_1"  value='Delete'><i class="fa fa-trash"></i></button>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                    <tfoot>
+                                       <tr style="height:50px;">
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td colspan="4">
+                                             <span class="input-symbol-euro">    <input type="text" id="Over_all_Total"  name="total[]"    class="ov_total form-control"   style="width:189px;"  value="0.00"  readonly="readonly"  /> </span>
+                                          </td>
+                                       </tr>
+                                    </tfoot>
+                                 </table>
+                              </div>
+                              <table class="table table-bordered table-hover"  style="border:2px solid #d7d4d6;" >
+                                 <!--<table class="taxtab table table-bordered table-hover" style="border:2px solid #d7d4d6;max-width:1480px;margin-left:45px;" > -->
+                                 <tr>
                                     <td class="hiden" style="width:28%;border:none;text-align:end;font-weight:bold;">
-                                     
                                     </td>
                                     <td class="hiden btnclr" style="width:12%;text-align-last: center;padding:5px;border:none;font-weight:bold;color:white;">
                                     </td>
@@ -1458,18 +1289,9 @@ input::-webkit-inner-spin-button {
                                  </tr>
                               </table>
                               <input type="hidden" id="paid_convert" name="paid_convert"/>   <input type="hidden" id="bal_convert" name="bal_convert"/>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                               <!-- <table border="0"   class="overall table table-bordered table-hover"         style="border: 3px solid #d7d4d6;margin-left:45px;"  > -->
-                               
                               <table class="table table-bordered table-hover  "  style="border:2px solid #d7d4d6;" >
-
-                              <tr>
+                                 <tr>
                                     <td   style="vertical-align:top;text-align:right;border:none;"></td>
                                     <td  style="text-align:right;border:none;"></td>
                                     <td  style="text-align:right;border:none;"></td>
@@ -1484,48 +1306,39 @@ input::-webkit-inner-spin-button {
                                  <tr>
                                     <td  colspan="2" style="vertical-align:top;text-align:right;border:none;"><b> </b></td>
                                     <td colspan="1" style="border:none;"> </td>
-                                    
                                     <td colspan="3" style="text-align:right;border:none;"><b><?php  echo display('GRAND TOTAL');?> :</b></td>
                                     <td colspan="1" style="border:none;">  <span class="input-symbol-euro">    <span class="input-symbol-euro">   <input type="text" id="gtotal"   class="form-control" style="width:150px;" name="gtotal" value="0.00"  readonly="readonly" /></td>
                                  </tr>
-                                   <tr>
+                                 <tr>
                                     <td  colspan="2" style="vertical-align:top;text-align:right;border:none;"><b> </b></td>
                                     <td colspan="1" style="border:none;"> </td>
                                     <td colspan="4" style="text-align:right;border:none;"><b>  </b></td>
-                                    <td colspan="1" style="border:none;">  
-                                     
-                                    
-                                    <table>
-
-
+                                    <td colspan="1" style="border:none;">
+                                       <table>
                                           <!-- <tr>
                                              <td class="cus" name="cus" style="width: 40px;"></td>
                                              <td>&nbsp</td>
                                              <td> </td>
-                                          </tr> -->
+                                             </tr> -->
                                        </table>
                                     </td>
                                  </tr>
                                  <tr>
                                     <td colspan="2"  style="vertical-align:top;text-align:right;border:none;"><b> </b></td>
                                     <td colspan="1" style="border:none;"> </td>
-                                  
                                     <td colspan="3" class="amt" style="text-align:right;border:none;"><b><?php  echo display('Amount Paid');?> :</b></td>
                                     <td style="border:none;">
                                        <table border="0">
                                           <tr class="amt">
-                                            
                                              <td><span class="input-symbol-euro">   <input  type="text" class="form-control"  style="width:150px;" readonly id="amount_paid" style="width:-webkit-fill-available;"  name="amount_paid"  required   /></td>
                                           </tr>
                                        </table>
                                     </td>
                                  </tr>
-                                 
                                  <tr>
-                                 <td style="border:none" >
-                                 </td>
+                                    <td style="border:none" >
+                                    </td>
                                  </tr>
-                                 
                                  <tr    style="height:50px" >
                                     <td colspan="2"  style="vertical-align:top;text-align:right;border:none;"></td>
                                     <td colspan="1" style="border:none;"></td>
@@ -1533,25 +1346,15 @@ input::-webkit-inner-spin-button {
                                     <td class="amt" style="border:none;" colspan="1">
                                        <table border="0">
                                           <tr class="amt">
-                                            
                                              <td style="border:none;">
-                                              <span class="input-symbol-euro">   <input  type="text"  class="form-control"  style="width:150px;" readonly id="balance"  name="balance"  required   />                     
+                                                <span class="input-symbol-euro">   <input  type="text"  class="form-control"  style="width:150px;" readonly id="balance"  name="balance"  required   />                     
                                              </td>
                                           </tr>
                                        </table>
-
-
-
-                                       
                                     </td>
                                  </tr>
                                  </td>
                                  </tr>
-
-
-
-
-
                                  <input type="hidden" id="final_gtotal"  name="final_gtotal" />
                                  <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url();?>"/></td>
                                  <tr style="border-right:none;border-left:none;border-bottom:none;border-top:none">
@@ -1587,23 +1390,10 @@ input::-webkit-inner-spin-button {
                                  <div class="form-group row" style="   margin-top: 1%;">
                                     <table>
                                        <tr>
-                                         
-                                     
                                           <td> 
-                                          <input type='submit' id="insert_purchase1"   name="add-packing-list"  class='btnclr final_submit btn' value="submit"/>
-                                          
+                                             <input type='submit' id="insert_purchase1"   name="add-packing-list"  class='btnclr final_submit btn' value="submit"/>
                                           </td>
-                              
-                                          
-                                          
-                                          
-                                          
-                                          
                                        </tr>
-                                       
-                                       
-                                       
-                                       
                                     </table>
                                  </div>
                               </div>
@@ -1617,12 +1407,9 @@ input::-webkit-inner-spin-button {
                                  <div class="col-sm-6">
                                     <div class="form-group row">
                                        <label for="service_provider_name" class="col-sm-4 col-form-label"><?php  echo  display('Service Provider Name');?>
-                                        </label>
+                                       </label>
                                        <div class="col-sm-8">
-                                        
-                                       <input type="text" tabindex="2" class="form-control" name="service_provider_name" id="service_provider_name"  style="border:2px solid #d7d4d6;"  />
-
-                                      
+                                          <input type="text" tabindex="2" class="form-control" name="service_provider_name" id="service_provider_name"  style="border:2px solid #d7d4d6;"  />
                                        </div>
                                     </div>
                                  </div>
@@ -1644,25 +1431,15 @@ input::-webkit-inner-spin-button {
                               <div class="row">
                                  <div class="col-sm-6">
                                     <div class="form-group row">
-                                 
-
                                        <label for="bill_date" class="col-sm-4 col-form-label"><?php  echo  display('Bill Date');?>
-                                        </label>
+                                       </label>
                                        <div class="col-sm-8">
                                           <input type="date" tabindex="2" class="form-control" name="bill_date" id="bill_date"  style="border:2px solid #d7d4d6;"   />
                                        </div>
-
-
                                     </div>
                                  </div>
-
-
                                  <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-                               
-                               
                                  <div class="col-sm-6">
-                                   
-
                                     <div class="form-group row">
                                        <label for="bill_number" class="col-sm-4 col-form-label"><?php  echo  display('Bill Number');?>    
                                        </label>
@@ -1670,18 +1447,12 @@ input::-webkit-inner-spin-button {
                                           <input type="text"   tabindex="2" class="form-control " name="bill_num"  id="bill_number"  style="border:2px solid #d7d4d6;"     />
                                        </div>
                                     </div>
-
-
                                  </div>
                               </div>
-
-
-                              
                               <div class="row">
                                  <div class="col-sm-6">
                                     <div class="form-group row">
-                                     
-                                    <label for="payment_terms" class="col-sm-4 col-form-label"><?php  echo  display('Payment Terms');?> </label>
+                                       <label for="payment_terms" class="col-sm-4 col-form-label"><?php  echo  display('Payment Terms');?> </label>
                                        <div class="col-sm-7">
                                           <select   name="pay_terms" id="payment_terms" style="width:100%;border:2px solid #d7d4d6;" class="spayment_terms form-control"   placeholder='Payment Terms' id="payment_terms">
                                              <option value=""><?php echo display('Select Payment Terms');?></option>
@@ -1704,32 +1475,18 @@ input::-webkit-inner-spin-button {
                                        <div class="col-sm-1">
                                           <a href="#" class="btnclr client-add-btn btn mobile_vendor" aria-hidden="true"   style="margin-left:24px;" data-toggle="modal" data-target="#payment_type_new" ><i class="fa fa-plus"></i></a>
                                        </div>
-
-
-
                                     </div>
                                  </div>
-
-
                                  <div class="col-sm-6">
-                                 <div class="form-group row">
+                                    <div class="form-group row">
                                        <label for="bill_number" class="col-sm-4 col-form-label"><?php  echo  ('Phone Number');?>  
                                        </label>
                                        <div class="col-sm-8">
                                           <input type="number"   tabindex="2" class="form-control " name="phone_num" style="border:2px solid #d7d4d6;"   id="phone_num"  />
                                        </div>
                                     </div>
-
-
-                                 </div> 
+                                 </div>
                               </div>
-
-
-
-
-
-
-
                               <div class="row">
                                  <div class="col-sm-6">
                                     <div class="form-group row">
@@ -1787,14 +1544,14 @@ input::-webkit-inner-spin-button {
                                        </div>
                                     </div>
                                  </div>
-                                  <div class="col-sm-6">
-                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label"><?php echo display('Attachments') ?></label>
-                                    <div class="col-sm-8">
-                                       <input type="file" name="files[]" id="attachment_services" class="form-control" multiple/>
+                                 <div class="col-sm-6">
+                                    <div class="form-group row">
+                                       <label class="col-sm-4 col-form-label"><?php echo display('Attachments') ?></label>
+                                       <div class="col-sm-8">
+                                          <input type="file" name="files[]" id="attachment_services" class="form-control" multiple/>
+                                       </div>
                                     </div>
                                  </div>
-                              </div>
                               </div>
                               <div class="table-responsive">
                                  <table class="cscheTable  table table-bordered table-hover serviceprovider" id="service_1" style="border:2px solid #d7d4d6;" >
@@ -1802,7 +1559,7 @@ input::-webkit-inner-spin-button {
                                        <tr>
                                           <th class="text-center" width="15%"><?php  echo  ('Service Name');?> </th>
                                           <th class="text-center"><?php  echo  display('description'); ?> </th>
-                                          <th class="text-center"><?php  echo  ('Quantity');?> </th>
+                                          <th class="text-center"><?php  echo  ('Quantity');?></th>
                                           <th class="text-center"><?php echo display('amount'); ?> </th>
                                           <th class="text-center"><?php echo display('action') ?></th>
                                        </tr>
@@ -1826,42 +1583,23 @@ input::-webkit-inner-spin-button {
                                           <td class="text-right">
                                              <input type="text" name="quality[]" id="quality_1"   min="0" class="form-control text-right" value=""  tabindex="6"/>
                                           </td>
-                                          <td>
-                                             <span class="input-symbol-euro"> <input class="total_price form-control mobile_price" type="text"  style="width: 317px;"  name="total_price[]" id="total_price_1"  placeholder="0.00"  /></span>
+                                          <td style="width:10%">
+                                              <input class="total_price form-control mobile_price" type="text"  style="width: 150px !important;"  name="total_price[]" id="total_price_1"  placeholder="0.00"  />
                                           </td>
                                           <td style="text-align:center;">
                                              <!-- <button  class=' btn btn-danger' type='button' value='Delete'><i class="fa fa-trash"></i></button> -->
-                                        
                                              <button class='btn-cSche add addRowButton btn btnclr' type='button' value='Add Row'><i class="fa fa-plus"></i></button>
-                                   &nbsp;<button class='delete_provider btn btn-danger' type='button'   id="delete_1"  value='Delete'><i class="fa fa-trash"></i></button>
-          
+                                             &nbsp;<button class='delete_provider btn btn-danger' type='button'   id="delete_1"  value='Delete'><i class="fa fa-trash"></i></button>
                                           </td>
                                        </tr>
                                     </tbody>
                                     <tfoot>
-
-
-
-
-
-
-
                                        <tr style="height:50px;">
                                           <td style="text-align:right;" colspan="3" ><b><?php echo display('total') ?>:</b></td>
                                           <td style="text-align:left;">
                                              <span class="input-symbol-euro"><input type="text" id="Total" class="form-control text-right mobile_price" placeholder="0.00"  style="width: 317px;"  min="0" name="total"    /> </span>
                                           </td>
                                        </tr>
-
-
-
-
-
-
-
-
-
-
                                        <table class="taxtab table table-bordered table-hover"   style="border:2px solid #d7d4d6;" >
                                           <tr>
                                              <td class="hiden " style="width:28%;border:none;text-align:end;font-weight:bold;">
@@ -1885,72 +1623,46 @@ input::-webkit-inner-spin-button {
                                           </tr>
                                        </table>
                                        <input type="hidden" id="paid_convert" name="paid_convert"/>   <input type="hidden" id="bal_convert" name="bal_convert"/>
-                                    
-                                    
-                                    
-                                    
                                        <table border="0"  class="overall table table-bordered table-hover"     style="border:2px solid #d7d4d6;table-layout: auto;"          >
                                           <tbody>
                                              <tr>
-                                             <td style="text-align:right;border:none;"></td>
-                                                <td style="text-align:right;border:none;"> </td>
-                                             <td colspan="2" style="vertical-align:top;text-align:right;border:none;"><b><?php echo display('TAX DETAILS');?> :</b></td>
-                                                <td colspan="1" style="border:none;padding-bottom: 40px;width:500px;"><span class="input-symbol-euro"><input type="text" class="form-control" style="width: 150px;" id="tax_detail" value="0.00" name="tax_detail" readonly="readonly" /> </span></td>
-                                               
-                                              
-                                             </tr>
-                                             <tr>
-                                             
                                                 <td style="text-align:right;border:none;"></td>
                                                 <td style="text-align:right;border:none;"> </td>
-
+                                                <td colspan="2" style="vertical-align:top;text-align:right;border:none;"><b><?php echo display('TAX DETAILS');?> :</b></td>
+                                                <td colspan="1" style="border:none;padding-bottom: 40px;width:500px;"><span class="input-symbol-euro"><input type="text" class="form-control" style="width: 150px;" id="tax_detail" value="0.00" name="tax_detail" readonly="readonly" /> </span></td>
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"> </td>
                                                 <td colspan="2" style="text-align:right;border:none;"><b>Grand Total :</b></td>
                                                 <td colspan="1" style="border:none;">  <span class="input-symbol-euro"> <input type="text" id="gtotals" class="form-control" style="width: 150px" name="gtotals" value="0.00" readonly="readonly" /></span></td>
                                              </tr>
-
-
-                                             <tr>                                            
-                                             <td style="text-align:right;border:none;"></td>
-                                             <td style="text-align:right;border:none;"> </td>
-                                             <td style="text-align:right;border:none;"></td>
-                                             <td style="text-align:right;border:none;"> </td>
+                                             <tr>
+                                                <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"> </td>
+                                                <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"> </td>
                                              </tr>
-
-
-
-                                              <tr>
-                                             
-                                             <td style="text-align:right;border:none;"></td>
-                                             <td style="text-align:right;border:none;"> </td>
-
-                                             <td colspan="2"  class="amt"   style="text-align:right;border:none;"><b><?php echo display('Amount Paid');?> :</b></td>
+                                             <tr>
+                                                <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"> </td>
+                                                <td colspan="2"  class="amt"   style="text-align:right;border:none;"><b><?php echo display('Amount Paid');?> :</b></td>
                                                 <td colspan="1"   class="amt"  style="border:none;"><span class="input-symbol-euro"> <input type="text" class="form-control" readonly id="amount_paids" style="width: 150px;" name="amount_paids" required /></td>
-                                          
-                                          </tr>
-
-                                            
-  <tr>                                            
-                                             <td style="text-align:right;border:none;"></td>
-                                             <td style="text-align:right;border:none;"> </td>
-                                             <td style="text-align:right;border:none;"></td>
-                                             <td style="text-align:right;border:none;"> </td>
                                              </tr>
-
+                                             <tr>
+                                                <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"> </td>
+                                                <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"> </td>
+                                             </tr>
                                              <tr style="height:50px;">
-                                             <td style="text-align:right;border:none;"></td>
+                                                <td style="text-align:right;border:none;"></td>
                                                 <td style="text-align:right;border:none;"> </td>
                                                 <td colspan="2" class="amt"  style="vertical-align:top;text-align:right;border:none;"><b>Balance Amount :</b></td>
                                                 <td colspan="1" class="amt"style="border:none;"><span class="input-symbol-euro"> <input type="text" class="form-control" style="width: 150px" readonly="" id="balances" name="balances" required="" /></td>
                                              </tr>
-
-
-
-
-                                             
                                              <input type="hidden" id="final_gtotal"  name="final_gtotal" />
                                              <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url();?>"/>
-                                            
-                                            
                                              <tr style="border-right:none;border-left:none;border-bottom:none;border-top:none">
                                                 <td colspan="21" style="text-align: end;">
                                                    <input type="submit" value="<?php echo  ('Make Payment') ?>"   class="btnclr btn btn-large" id="serpaypls" />
@@ -1958,16 +1670,6 @@ input::-webkit-inner-spin-button {
                                              </tr>
                                           </tbody>
                                        </table>
-
-
-
-
-
-
-
-
-
-
                                     </tfoot>
                                  </table>
                               </div>
@@ -1977,27 +1679,9 @@ input::-webkit-inner-spin-button {
                                     <textarea rows="4" cols="50" name="memo_details" class=" form-control"   style="border:2px solid #d7d4d6;"         placeholder="Memo/Details" id=""></textarea>
                                  </div>
                               </div>
-                           
-                           
-                           
-                           
-                           
                               <td>
-                                                                  <input type="submit" id="serviceprovider"   name="add_purchase"     class='btnclr final_submit_provider btn'  value="submit"  >
+                                 <input type="submit" id="serviceprovider"   name="add_purchase"     class='btnclr final_submit_provider btn'  value="submit"  >
                               </td>
-                              
-                              
-                              
-                              
-      
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
                            </form>
                         </div>
                      </div>
@@ -2684,15 +2368,6 @@ input::-webkit-inner-spin-button {
    </div>
    </div>
    </div><!-- /.modal -->
-
-
-
-
-
-
-
-
-
    <div class="modal fade" id="payment_modal" >
       <div class="modal-dialog">
          <!-- Modal content-->
@@ -2713,31 +2388,20 @@ input::-webkit-inner-spin-button {
                            <input class=" form-control" type="date"  name="payment_date" id="payment_date" required value="<?php echo html_escape($date); ?>" tabindex="4" />
                         </div>
                      </div>
-                     
-                     
                      <div class="form-group row">
-                     <label for="billing_address"          style="text-align: start;width: 30%;margin-left: 85px;"  class="col-sm-3 col-form-label"><?php echo 'Method of Payment';?></label>
-                     <div class="col-sm-5">
-                        <input class=" form-control" type="text"  name="m_payment" id="method_payment"    />
+                        <label for="billing_address"          style="text-align: start;width: 30%;margin-left: 85px;"  class="col-sm-3 col-form-label"><?php echo 'Method of Payment';?></label>
+                        <div class="col-sm-5">
+                           <input class=" form-control" type="text"  name="m_payment" id="method_payment"    />
+                        </div>
                      </div>
-                  </div>
-                     
-                     
                      <input type="hidden" id="cutomer_name" name="cutomer_name"/>
                      <input type="hidden"   class="payment_id"  name="payment_id"/>
-                   
-                   
-                   
                      <div class="form-group row">
                         <label for="billing_address"  style="text-align: start;width: 30%;margin-left: 85px;"  class="col-sm-3 col-form-label"><?php  echo  display('Reference No'); ?><i class="text-danger"></i></label>
                         <div class="col-sm-5">
                            <input class=" form-control" type="text"  name="ref_no" id="ref_no"    />
                         </div>
                      </div>
-                     
-                     
-                     
-                     
                      <div class="form-group row">
                         <label for="bank"  style="text-align: start;width: 30%;margin-left: 85px;"  class="col-sm-3 col-form-label"><?php  echo  display('Select Bank'); ?><i class="text-danger">*</i></label>
                         <a data-toggle="modal" href="#add_bank_info"    class="btn btnclr"><i class="fa fa-university"></i></a>
@@ -3395,59 +3059,59 @@ input::-webkit-inner-spin-button {
    });
    
    
-
-$(document).on('keyup','.sum',function() {
+   
+   $(document).on('keyup','.sum',function() {
     // Your other JavaScript code
-
+   
     // Your sum calculation code
-
-});
-
-
+   
+   });
+   
+   
    $(document).ready(function() {
     // Your existing script
     var sum = 0;
-
+   
     // Use the 'input' event instead of 'change'
     $(document).on('input', '.bundle_no, .description', function() {
         sum = 0; // Reset sum on every input
-
+   
         $(this).closest('table').find('tbody tr').each(function() {
             var bundleNo = parseFloat($(this).find('.bundle_no').val()) || 0;
             var description = parseFloat($(this).find('.description').val()) || 0;
             var sqft = (bundleNo * description) / 144;
-
+   
             // Update the amount in the specific input field with class 'sqfeet'
             $(this).find('.sqfeet').val(sqft.toFixed(2));
- 
+   
         });
     });
-});
-
-
-
-
-$(document).ready(function() {
+   });
+   
+   
+   
+   
+   $(document).ready(function() {
     // Your existing script
     var sum = 0;
-
+   
     // Use the 'input' event instead of 'change'
     $(document).on('input', '.rte', function() {
         sum = 0; // Reset sum on every input
-
+   
         $(this).closest('table').find('tbody tr').each(function() {
             var trate = parseFloat($(this).find('.rte').val()) || 0;
             var totalsqft = parseFloat($(this).find('.supplier_slab_no').val()) || 0;
-
+   
             // Perform calculations using the updated sqfeet value
             var tt = trate * totalsqft;  // Assuming sqft is a predefined variable
-
+   
             // Update the amount in the specific input field with class 'sum_amount'
             $(this).find('.sum_amount').val(tt.toFixed(2));
         });
-
-
-
+   
+   
+   
         var lcc=0;
         $('.table').each(function() {
    
@@ -3458,38 +3122,38 @@ $(document).ready(function() {
        }
        
               $(this).closest('table').find('.ov_total').val(lcc.toFixed(2));
-
+   
        
      });
    
     // $(this).closest('table').find('.ov_total').val(lcc).trigger('change');
              
- 
-
-
- 
-
-
+   
+   
+   
+   
+   
+   
    calculate();
-
- 
-
-});
-
-
-
-
+   
+   
+   
+   });
+   
+   
+   
+   
     });
-});
-
-
-
-
-
-
-
-$(document).on('click', '#delete_1', function(){
-
+   });
+   
+   
+   
+   
+   
+   
+   
+   $(document).on('click', '#delete_1', function(){
+   
    // debugger;
    var rowCount = $(this).closest('tbody').find('tr').length;
    if(rowCount>1){
@@ -3505,35 +3169,35 @@ $(document).on('click', '#delete_1', function(){
    $('.ov_total ').val(costpersqft).trigger('change');
    calculate();
    });
-
-
-
-
-
-
-
-
-
-
-
- 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
                            
          
    $(document).ready(function () {
-
-
-$(".cscheTable tbody").sortable();
-$(".cscheTable tbody").disableSelection();
-
-$(".ui-sortable").hover(function () {
-  //  add_stt();
-});
-
-$(".addrow").on("click", function () {
+   
+   
+   $(".cscheTable tbody").sortable();
+   $(".cscheTable tbody").disableSelection();
+   
+   $(".ui-sortable").hover(function () {
+   //  add_stt();
+   });
+   
+   $(".addrow").on("click", function () {
     var newRow = $(this).closest("tbody");
     var counter = newRow.find('tr').length + 1;
     
-
+   
     var cols = "<tr>";
     cols += '<td class="col-sm-1"><input type="text" name="prodt[]" class="form-control" /></td>';
     cols += '<input type="text" id="bundle_no_1" name="bundle_no[]"  class="bundle_no form-control" />';
@@ -3544,43 +3208,43 @@ $(".addrow").on("click", function () {
     cols += '<td class="col-sm-1"><button class="delete btn btn-danger" type="button" value="Delete"><i class="fa fa-trash"></i></button></td>';
     cols += '<td class="col-sm-1"><button class="ibtnDel btn-cSche delete" id="deleterow"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>';
     cols += "</tr>";
-
+   
     newRow.prepend(cols);
    // add_stt();
-});
-
-$(".cscheTable").on("click", ".ibtnDel", function (event) {
+   });
+   
+   $(".cscheTable").on("click", ".ibtnDel", function (event) {
     $(this).closest("tr").remove();
    // add_stt();
-});
-
-$(".cscheTable").on("click", ".addRowButton", function () {
+   });
+   
+   $(".cscheTable").on("click", ".addRowButton", function () {
     var newRow = $(this).closest("tr").clone();
     newRow.find('input').val(''); // Clear input values in the new row
     newRow.find('.delete').removeClass('delete').addClass('ibtnDel').html('<i class="fa fa-trash-o" aria-hidden="true"></i>');
     $(this).closest("tr").after(newRow);
- //   add_stt();
-});
-
-$(".cscheTable").on("click", ".ibtnDel", function () {
+   //   add_stt();
+   });
+   
+   $(".cscheTable").on("click", ".ibtnDel", function () {
     $(this).closest("tr").remove();
    // add_stt();
-});
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   });
+   });
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    $('#add_pay_type').submit(function(e){
    e.preventDefault();
@@ -3711,9 +3375,9 @@ $(".cscheTable").on("click", ".ibtnDel", function () {
    
    
    // $(document).on('click', '.delete_provider','#delete_1', function(){
-
+   
    //    debugger;
-
+   
    // var tid=$(this).closest('table').attr('id');
    // localStorage.setItem("delete_table",tid);
    // console.log(localStorage.getItem("delete_table"));
@@ -3737,48 +3401,48 @@ $(".cscheTable").on("click", ".ibtnDel", function () {
    
    
    // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///ddddd   Start   Service provider calculation --------------->
-
-
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   ///ddddd   Start   Service provider calculation --------------->
+   
+   
    $(document).on('click', '#delete_1', function(){
-// debugger;
-var rowCount = $(this).closest('tbody').find('tr').length;
-if(rowCount>1){
-$(this).closest('tr').remove();
-}
-var costpersqft=0;
-$('.table').find('.total_price').each(function() {
+   // debugger;
+   var rowCount = $(this).closest('tbody').find('tr').length;
+   if(rowCount>1){
+   $(this).closest('tr').remove();
+   }
+   var costpersqft=0;
+   $('.table').find('.total_price').each(function() {
     var precio = $(this).val();
     if (!isNaN(precio) && precio.length !== 0) {
       costpersqft += parseFloat(precio);
     }
-  });
-$('#Total').val(costpersqft).trigger('change');
-calculatetsp();
-});
-
-
-
-$(document).on('input', '#total_price_1', function() {
+   });
+   $('#Total').val(costpersqft).trigger('change');
+   calculatetsp();
+   });
+   
+   
+   
+   $(document).on('input', '#total_price_1', function() {
    //  debugger;
     var costpersqft = 0;
     // Iterate over elements with class '.total_price' within elements with class '.table'
@@ -3790,92 +3454,92 @@ $(document).on('input', '#total_price_1', function() {
     });
     $('#Total').val(costpersqft).trigger('change');
     calculatetsp();
-});
-
-
-
-
-
-function calculatetsp(){
+   });
+   
+   
+   
+   
+   
+   function calculatetsp(){
    
     // debugger;
     
      
-var total=$('#Total').val();
-var tax= $('#product_tax_taxes').val();
-var percent='';
-var hypen='-';
-if(tax.indexOf(hypen) != -1){
-var field = tax.split('-');
-
-var percent = field[1];
-
-}else if(tax=='Select the Tax'){
-
-percent="0";
-}
-
-else{
-percent=tax;
-}
-percent=percent.replace("%","");
-var answer = (percent / 100) * parseFloat(total);
-
-
-// var gtotal = parseFloat(total + answer);
-
-var gtotal = parseFloat(total) + parseFloat(answer);
-
-console.log("gtotal :" +gtotal);
-
-
-
-var final_g= $('#final_gtotal').val();
-
-
-var amt=parseFloat(answer)+parseFloat(total);
-var num = isNaN(parseFloat(amt)) ? 0 : parseFloat(amt)
-$('#gtotals').val(num); 
-
-
-
-
- $('#tax_detail').val(answer.toFixed(3) +" ( "+tax+" )");
-
-
- var alp = $('#amount_paids').val();
- 
- var bal_amt = parseFloat($('#gtotals').val()) - parseFloat(alp);
-
-// var bal_amt= #gtotals   -  $('#amount_paids').val();
-$('#balances').val(bal_amt);
-
-
-
-
-// if ($(alp).val() !== null && $(alp).val() !== undefined && $(alp).val() !== '') {
-//     $('#balances').val($('#gtotals').val());
-// }
-
-
-
-}
-
-
-///ddddd   End   Service provider calculation --------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
+   var total=$('#Total').val();
+   var tax= $('#product_tax_taxes').val();
+   var percent='';
+   var hypen='-';
+   if(tax.indexOf(hypen) != -1){
+   var field = tax.split('-');
+   
+   var percent = field[1];
+   
+   }else if(tax=='Select the Tax'){
+   
+   percent="0";
+   }
+   
+   else{
+   percent=tax;
+   }
+   percent=percent.replace("%","");
+   var answer = (percent / 100) * parseFloat(total);
+   
+   
+   // var gtotal = parseFloat(total + answer);
+   
+   var gtotal = parseFloat(total) + parseFloat(answer);
+   
+   console.log("gtotal :" +gtotal);
+   
+   
+   
+   var final_g= $('#final_gtotal').val();
+   
+   
+   var amt=parseFloat(answer)+parseFloat(total);
+   var num = isNaN(parseFloat(amt)) ? 0 : parseFloat(amt)
+   $('#gtotals').val(num); 
+   
+   
+   
+   
+   $('#tax_detail').val(answer.toFixed(3) +" ( "+tax+" )");
+   
+   
+   var alp = $('#amount_paids').val();
+   
+   var bal_amt = parseFloat($('#gtotals').val()) - parseFloat(alp);
+   
+   // var bal_amt= #gtotals   -  $('#amount_paids').val();
+   $('#balances').val(bal_amt);
+   
+   
+   
+   
+   // if ($(alp).val() !== null && $(alp).val() !== undefined && $(alp).val() !== '') {
+   //     $('#balances').val($('#gtotals').val());
+   // }
+   
+   
+   
+   }
+   
+   
+   ///ddddd   End   Service provider calculation --------------->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    $(document).on('click', '.delete', function(){
    
    var tid=$(this).closest('table').attr('id');
@@ -3960,8 +3624,8 @@ $('#balances').val(bal_amt);
    });
    
    
-
-
+   
+   
    $('#'+localStorage.getItem("delete_table")).find('.ov_total').val(lcc.toFixed(3));
                            var lcc=0;
         $('.table').each(function() {
@@ -3975,22 +3639,22 @@ $('#balances').val(bal_amt);
    
    // $(this).closest('table').find('.ov_total').val(lcc).trigger('change');
                });
-
-
-
+   
+   
+   
    
    
    });
-
-
-
-
-
-
-
-
-
-
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    $('#total_net').val(total_net.toFixed(3)).trigger('change');
    var overall_gs=0;
    $('.table').each(function() {
@@ -4054,24 +3718,24 @@ $('#balances').val(bal_amt);
    var csrfHash = '<?php echo $this->security->get_csrf_hash();?>';
    
    
-$('#serviceprovider').submit(function (event) {
+   $('#serviceprovider').submit(function (event) {
     event.preventDefault();
-
+   
    //  var csrfName = 'csrf_name'; // Replace with your actual CSRF token name
    //  var csrfHash = 'csrf_hash'; // Replace with your actual CSRF token value
-
-
+   
+   
    var dataString = {
    dataString : $("#serviceprovider").serialize()
    
    };
    dataString[csrfName] = csrfHash;
-
+   
    //  var dataString = $("#serviceprovider").serialize();
    //  var requestData = {};
    //  requestData[dataString] = dataString;
    //  requestData[csrfName] = csrfHash;
-
+   
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -4079,20 +3743,20 @@ $('#serviceprovider').submit(function (event) {
         data: $("#serviceprovider").serialize(),
         success: function (data) {
             console.log(data);
-
+   
             $('#download_provider').show();
             $('#final_submit_provider').show();
             $('#print_provider').show();
-
+   
             $('#servic_id_hidden').val(data);
-
+   
           
           
              $("#bodyModal1").html('<?php echo  ('Service Provider created Successfully');?>');
              $('#myModal1').modal('show');
-
- 
-
+   
+   
+   
                 window.setTimeout(function () {
                   $('.modal').modal('hide');
                 $('.modal-backdrop').remove();
@@ -4103,8 +3767,8 @@ $('#serviceprovider').submit(function (event) {
        
         }
     });
-});
-
+   });
+   
    
    
    
@@ -4199,56 +3863,128 @@ $('#serviceprovider').submit(function (event) {
    event.preventDefault();
    });
    
+      
    
+      
    
+   // $('#insert_purchase1').submit(function (event) {
+   // var dataString = {
+   // dataString : $("#insert_purchase1").serialize()
    
-   
-   
-   
-   
-   $('#insert_purchase1').submit(function (event) {
-   var dataString = {
-   dataString : $("#insert_purchase1").serialize()
-   
-   };
-   dataString[csrfName] = csrfHash;
-   
-   $.ajax({
-   type:"POST",
-   dataType:"json",
-   url:"<?php echo base_url(); ?>Cpurchase/insert_purchase",
-   data:$("#insert_purchase1").serialize(),
-   
-   success:function (data) {
-   console.log(data);
-   
-      var split = data.split("/");
-      $('#invoice_hdn1').val(split[0]);
-   console.log(split[0]+"---"+split[1]);
-   
-      $('#invoice_hdn').val(split[1]);
-      $("#bodyModal1").html('<?php echo display('New Expense Created Successfully')?>');
-   
-   $('.button_hide').show();
-   $('#myModal1').modal('show');
-   window.setTimeout(function(){
-   $('.modal').modal('hide');
-   
-   $('.modal-backdrop').remove();
-   $("#bodyModal1").html("");
+   // };
+   // dataString[csrfName] = csrfHash;
+   // $('input[name="supplier_slab_no[]"]').each(function() {
+   //          var slab_no = $(this).val().trim(); // Get value and trim whitespace
+   //          var errorMsg = $(this).next('.error-msg'); // Target the next small tag for error message
+            
+   //          if (slab_no === "") {
+   //              errorMsg.show().text("Enter Quantity"); // Show error message
+   //              isValid = false; // Set validation flag to false
+   //          }
+   //      });
 
-      window.location = "<?php  echo base_url(); ?>Cpurchase/manage_purchase";
-   }, 2500);
+   //      $('input[name="supplier_block_no[]"]').each(function() {
+   //          var block_no = $(this).val().trim(); 
+   //          var errorMsg = $(this).next('.error-msg'); 
+            
+   //          if (block_no === "") {
+   //              errorMsg.show().text("Enter Rate"); 
+   //              isValid = false; 
+   //          }
+   //      });
+
+
+
+   
+   // $.ajax({
+   // type:"POST",
+   // dataType:"json",
+   // url:"<?php echo base_url(); ?>Cpurchase/insert_purchase",
+   // data:$("#insert_purchase1").serialize(),
+   
+   // success:function (data) {
+   // console.log(data);
+   
+   //    var split = data.split("/");
+   //    $('#invoice_hdn1').val(split[0]);
+   // console.log(split[0]+"---"+split[1]);
+   
+   //    $('#invoice_hdn').val(split[1]);
+   //    $("#bodyModal1").html('<?php echo display('New Expense Created Successfully')?>');
+   
+   // $('.button_hide').show();
+   // $('#myModal1').modal('show');
+   // window.setTimeout(function(){
+   // $('.modal').modal('hide');
+   
+   // $('.modal-backdrop').remove();
+   // $("#bodyModal1").html("");
+   
+   //    window.location = "<?php  echo base_url(); ?>Cpurchase/manage_purchase";
+   // }, 2500);
    
    
-   }
+   // }
    
-   });
+   // });
    
-   event.preventDefault();
-   });
+   // event.preventDefault();
+   // });
    
-   
+   $(document).ready(function() {
+    $('#insert_purchase1').submit(function(event) {       
+        event.preventDefault();      
+        var isValid = true;       
+        $('.error-msg').hide();        
+        $('input[name="supplier_slab_no[]"]').each(function() {
+            var slab_no = $(this).val().trim(); 
+            var errorMsg = $(this).next('.error-msg');             
+            if (slab_no === "") {
+                errorMsg.show().text("Enter Quantity"); 
+                isValid = false; 
+            }
+        });     
+        $('input[name="supplier_block_no[]"]').each(function() {
+            var block_no = $(this).val().trim();
+            var errorMsg = $(this).next('.error-msg');            
+            if (block_no === "") {
+                errorMsg.show().text("Enter Rate");
+                isValid = false; 
+            }
+        });        
+        if (!isValid) {
+            return; 
+        }        
+        var dataString = $("#insert_purchase1").serialize(); 
+        dataString += "&" + csrfName + "=" + csrfHash;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "<?php echo base_url(); ?>Cpurchase/insert_purchase",
+            data: dataString,
+            success: function(data) {
+                console.log(data);           
+                var split = data.split("/");
+                $('#invoice_hdn1').val(split[0]);
+                $('#invoice_hdn').val(split[1]);
+                $("#bodyModal1").html('<?php echo display('New Expense Created Successfully')?>');
+
+                $('.button_hide').show();
+                $('#myModal1').modal('show');              
+                window.setTimeout(function() {
+                    $('.modal').modal('hide');
+                    $('.modal-backdrop').remove();
+                    $("#bodyModal1").html("");
+                    window.location = "<?php echo base_url(); ?>Cpurchase/manage_purchase"; 
+                }, 2500);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error during AJAX request:", textStatus, errorThrown);
+            }
+        });
+    });
+});
+
    
    $('#insert_purchase1').submit(function(e) {
               var form_data = new FormData();
@@ -4260,18 +3996,18 @@ $('#serviceprovider').submit(function (event) {
                   form_data.append("files[]", document.getElementById('attachment').files[x]);
               }
               $.ajax({
-                  url: '<?php echo base_url(); ?>Cpurchase/expense_file_upload', // point to server-side controller method
-                  dataType: 'text', // what to expect back from the server
+                  url: '<?php echo base_url(); ?>Cpurchase/expense_file_upload', 
+                  dataType: 'text',
                   cache: false,
                   contentType: false,
                   processData: false,
                   data: form_data,
                   type: 'post',
                   success: function (response) {
-                      $('#msg').html(response); // display success response from the server
+                      $('#msg').html(response);
                   },
                   error: function (response) {
-                      $('#msg').html(response); // display error response from the server
+                      $('#msg').html(response); 
                   }
               });
           });
@@ -4294,7 +4030,7 @@ $('#serviceprovider').submit(function (event) {
    //Total
    $(document).ready(function(){
    //$('#expense_drop').hide();
- //  $('#service_provider_data').hide();
+   //  $('#service_provider_data').hide();
       $('#download_provider').hide();
      $('#final_submit_provider').show();
       $('#print_provider').hide();
@@ -4349,7 +4085,7 @@ $('#serviceprovider').submit(function (event) {
    var bal= $('#gtotal').val() - data.amt_paid;
    // $('#balance').val(bal);
    $('#balance').val(parseFloat(bal));
-
+   
    if(amtpd){
    $('#amount_paid').val(parseFloat(amtpd));
    }else{
@@ -4427,8 +4163,8 @@ $('#serviceprovider').submit(function (event) {
    
    
     //   $('#method_payment').val($('#paytype_drop'));
-$('#method_payment').val($('#paytype_drop').val());
-
+   $('#method_payment').val($('#paytype_drop').val());
+   
    
    $('#amount_to_pay').val($('#gtotal').val()-$('#amount_paid').val());
    $('#payment_modal').modal('show');
@@ -4794,34 +4530,34 @@ $('#method_payment').val($('#paytype_drop').val());
    }, 2500);
    
    });
-//   $('.final_submit').on('click', function (e) {
+   //   $('.final_submit').on('click', function (e) {
    
-//   //window.btn_clicked = true;      //set btn_clicked to true
-//       var input_hdn="<?php echo   ('Expenses  Created Successfully');?>";
-
-//   console.log(input_hdn);
+   //   //window.btn_clicked = true;      //set btn_clicked to true
+   //       var input_hdn="<?php echo   ('Expenses  Created Successfully');?>";
    
-//   $("#bodyModal1").html(input_hdn);
-//   $('#myModal1').modal('show');
-//   window.setTimeout(function(){
-//   $('.modal').modal('hide');
+   //   console.log(input_hdn);
    
-//   $('.modal-backdrop').remove();
-//   },2500);
-//   window.setTimeout(function(){
+   //   $("#bodyModal1").html(input_hdn);
+   //   $('#myModal1').modal('show');
+   //   window.setTimeout(function(){
+   //   $('.modal').modal('hide');
+   
+   //   $('.modal-backdrop').remove();
+   //   },2500);
+   //   window.setTimeout(function(){
    
    
-//   window.location = "<?php  echo base_url(); ?>Cpurchase/manage_purchase";
-//   }, 2500);
+   //   window.location = "<?php  echo base_url(); ?>Cpurchase/manage_purchase";
+   //   }, 2500);
    
-//   });
-
-
-
+   //   });
+   
+   
+   
    $('#final_submit_provider').on('click', function (e) {
    
    var input_hdn="<?php echo ('Service Provider Created Successfully');?>";
-
+   
    $("#bodyModal1").html(input_hdn);
    $('#myModal1').modal('show');
    window.setTimeout(function(){
@@ -4829,15 +4565,15 @@ $('#method_payment').val($('#paytype_drop').val());
    
    $('.modal-backdrop').remove();
    },2500);
-
-
-
+   
+   
+   
    window.setTimeout(function(){
    window.location = "<?php  echo base_url(); ?>Cpurchase/manage_purchase";
    }, 2500);
    
    });
-
+   
    
    
    $('#download_purchase').on('click', function (e) {
@@ -4874,14 +4610,14 @@ $('#method_payment').val($('#paytype_drop').val());
    }
    
    });
-
+   
    $(document).ready(function() {
       // debugger;
    $('.serv_provider').hide();
    $('#product_supplier').show();
-});
+   });
        $('#po').on('change', function (e) {
-
+   
    $('#purchaseTable1 tbody').empty();
    
    // if($('#po').val() !=="Not Available"){
@@ -4902,8 +4638,8 @@ $('#method_payment').val($('#paytype_drop').val());
    // $('#main').hide();
      
    // }
-
-if ($('#po').val() !== "product_supplier") {
+   
+   if ($('#po').val() !== "product_supplier") {
    $('#service_provider_data').show();
    $('.without_po').hide();
    $('.with_po').hide();
@@ -4912,23 +4648,23 @@ if ($('#po').val() !== "product_supplier") {
    var data = {
       po: $('#po').val()
    };
-} else {
+   } else {
    $('#product_supplier').show(); // Fix the class name here
    $('.with_po').hide();
    $('.without_po').show();
    $('#service_provider_data').hide();
    $('#expense_drop').show();
    $('#main').show();
-}
+   }
    });
-
-
-
-
-
-
-
-
+   
+   
+   
+   
+   
+   
+   
+   
    $('#expense_drop').on('change', function (e) {
    
    $('#purchaseTable1 tbody').empty();
@@ -5155,7 +4891,7 @@ if ($('#po').val() !== "product_supplier") {
    // var total=$('#Over_all_Total').val();
     
       var total=$('.ov_total').val();
-
+   
    var tax= $('#product_tax').val();
    if(tax.indexOf(hypen) != -1){
    var field = tax.split('-');
@@ -5171,7 +4907,7 @@ if ($('#po').val() !== "product_supplier") {
    percent=tax;
    }
    //  var field = tax.split('-');
-  // amount_to_pay
+   // amount_to_pay
    //  var percent = field[1];
    
    percent=percent.replace("%","");
@@ -5548,9 +5284,9 @@ if ($('#po').val() !== "product_supplier") {
    $(this).css("display","none");
    $(this).closest('table').find('.removebundle').css("display","inline-block;");
    });
-
-
-
+   
+   
+   
    // $(document).on('keyup','.normalinvoice tbody tr:last',function (e) {
    
    // var tid=$(this).closest('table').attr('id');
@@ -6243,8 +5979,8 @@ if ($('#po').val() !== "product_supplier") {
    $('#amt').hide();
    $('#bal').hide();
    });
-
-
+   
+   
    function calculate(){
    
       debugger;
@@ -6269,11 +6005,11 @@ if ($('#po').val() !== "product_supplier") {
    var answer = (percent / 100) * parseFloat(total);
    
    
-//   var gtotal = parseFloat(total + answer);
+   //   var gtotal = parseFloat(total + answer);
    
    
    var gtotal = (parseFloat(total) + parseFloat(answer)).toFixed(2);
-
+   
    
    
    console.log("gtotal :" +gtotal);
@@ -6382,7 +6118,7 @@ if ($('#po').val() !== "product_supplier") {
    var acc_dep = ['ACCUM DEPR Buildings', 'ACCUM DEPR Machinery & Equipment', 'ACCUM DEPR Vehicles','ACCUM DEPR Computer Equipment','ACCUM DEPR Furniture & Fixtures','ACCUM DEPR Leasehold Improvements'];
    var noncurrenctreceivables = ['NCA – Notes Receivable', 'NCA – Installment Receivables', 'NCA – Retainage Withheld'];
    var intercompany_receivables = ['Organization Costs', 'Patents & Licenses', 'Intangible Assets – Capitalized Software Costs'];
-var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage Withheld', 'Current Maturities of Long-Term Debt', 'Bank Notes Payable', 'Construction Loans Payable'];
+   var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage Withheld', 'Current Maturities of Long-Term Debt', 'Bank Notes Payable', 'Construction Loans Payable'];
    var accrued_compensation = ['Accrued – Payroll', 'Accrued – Commissions', 'Accrued – FICA','Accrued – Unemployment Taxes','Accrued – Workmen’s Comp'];
    var other_accrued_expenses = ['Accrued – Rent', 'Accrued – Interest', 'Accrued – Property Taxes', 'Accrued – Warranty Expense'];
    var accrued_taxes= ['Accrued – Federal Income Taxes', 'Accrued – State Income Taxes', 'Accrued – Franchise Taxes','Deferred – FIT Current','Deferred – State Income Taxes'];
@@ -6527,48 +6263,46 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-
-
-      $('#supplier_name').on('change', function (e) {
-                    //  localStorage.setItem("sale_supplier_id",$('#supplier_id').val());
-                    //  alert($('#supplier_name').val());
-                      var data = {
-                          value: $('#supplier_name').val()
-                  
-                       };
-                      data[csrfName] = csrfHash;
-                      $.ajax({
-                          type:'POST',
-                          data: data,
-                        dataType:"json",
-                          url:'<?php echo base_url();?>Cinvoice/getvendor',
-                          success: function(result, statut) {
-                              console.log(result);
-                              if(result.csrfName){
-                                csrfName = result.csrfName;
-                                 csrfHash = result.csrfHash;
-                              }
-                           console.log(result[0]['currency_type']);
-                          $(".custocurrency_rate").html(result[0]['currency_type']);
-                          $("#autocomplete_supplier_id").val(result[0]['supplier_id']);
-                          $("label[for='custocurrency']").html(result[0]['currency_type']);
-                       
-                         $.getJSON('https://open.er-api.com/v6/latest/<?php echo $curn_info_default; ?>', 
-                  function(data) {
-                   var custo_currency=result[0]['currency_type'];
-                      var x=data['rates'][custo_currency];
-                   var Rate =parseFloat(x).toFixed(3);
-                   Rate = isNaN(Rate) ? 0 : Rate;
-                    console.log(Rate);
-                    $('.hiden').show();
-                    $(".custocurrency_rate").val(Rate);
-                  });
-                        
-                          }
-                      });
-                  <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-                  
-                  });
+   $('#supplier_name').on('change', function (e) {
+                 //  localStorage.setItem("sale_supplier_id",$('#supplier_id').val());
+                 //  alert($('#supplier_name').val());
+                   var data = {
+                       value: $('#supplier_name').val()
+               
+                    };
+                   data[csrfName] = csrfHash;
+                   $.ajax({
+                       type:'POST',
+                       data: data,
+                     dataType:"json",
+                       url:'<?php echo base_url();?>Cinvoice/getvendor',
+                       success: function(result, statut) {
+                           console.log(result);
+                           if(result.csrfName){
+                             csrfName = result.csrfName;
+                              csrfHash = result.csrfHash;
+                           }
+                        console.log(result[0]['currency_type']);
+                       $(".custocurrency_rate").html(result[0]['currency_type']);
+                       $("#autocomplete_supplier_id").val(result[0]['supplier_id']);
+                       $("label[for='custocurrency']").html(result[0]['currency_type']);
+                    
+                      $.getJSON('https://open.er-api.com/v6/latest/<?php echo $curn_info_default; ?>', 
+               function(data) {
+                var custo_currency=result[0]['currency_type'];
+                   var x=data['rates'][custo_currency];
+                var Rate =parseFloat(x).toFixed(3);
+                Rate = isNaN(Rate) ? 0 : Rate;
+                 console.log(Rate);
+                 $('.hiden').show();
+                 $(".custocurrency_rate").val(Rate);
+               });
+                     
+                       }
+                   });
+               <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+               
+               });
    
    
    
@@ -6577,7 +6311,6 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
    
    
 </script>
-
 <div class="modal fade" id="service_payment_modal" >
    <div class="modal-dialog">
       <!-- Modal content-->
@@ -6598,40 +6331,20 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
                         <input class=" form-control" type="date"  name="payment_date" id="payment_date" required value="<?php echo html_escape($date); ?>" tabindex="4" />
                      </div>
                   </div>
-                  
-                  
-                  
-                  
-                 <div class="form-group row">
+                  <div class="form-group row">
                      <label for="billing_address"          style="text-align: start;width: 30%;margin-left: 85px;"  class="col-sm-3 col-form-label"><?php echo 'Method of Payment';?></label>
                      <div class="col-sm-5">
                         <input class=" form-control" type="text"  name="m_payment" id="method_payments"    />
                      </div>
                   </div>
-
-                  
-                  
-                  
-                  
-                  
                   <input type="hidden" id="cutomer_name" name="cutomer_name"/>
                   <input type="hidden"   class="payment_id_service"  name="payment_id_service"  value="<?php echo $payment_id_service ?>"  />
-                 
-                 
-                 
-                 
-                 
-                 
                   <div class="form-group row">
                      <label for="billing_address" style="text-align: start;width: 30%;margin-left: 85px;"    class="col-sm-3 col-form-label"><?php  echo  display('Reference No'); ?><i class="text-danger"></i></label>
                      <div class="col-sm-5">
                         <input class=" form-control" type="text"  name="ref_no" id="ref_no"    />
                      </div>
                   </div>
-                  
-                  
-                  
-                  
                   <div class="form-group row">
                      <label for="bank" style="text-align: start;width: 30%;margin-left: 85px;" class="col-sm-3 col-form-label"><?php  echo  display('Select Bank'); ?>:<i class="text-danger">*</i></label>
                      <a data-toggle="modal" href="#add_bank_info"    class="btn  btnclr"><i class="fa fa-university"></i></a>
@@ -6747,8 +6460,6 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
                   </div>
                   <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                   <input class=" form-control" type="hidden"  readonly name="customer_name_modal" id="customer_name_modal" required   />    
-                
-                
                   <div class="form-group row">
                      <label for="billing_address" style="text-align: start;width: 30%;margin-left: 85px;" class="col-sm-3 col-form-label"><?php  echo display('Amount to be paid'); ?>  </label>
                      <div class="col-sm-5">
@@ -6760,12 +6471,6 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
                         </table>
                      </div>
                   </div>
-                  
-                  
-                  
-                  
-                  
-                  
                   <div class="form-group row" style="display:none;">
                      <label for="billing_address" style="text-align: start;width: 30%;margin-left: 85px;"  class="col-sm-3 col-form-label"><?php  echo display('Amount Received'); ?></label>
                      <div class="col-sm-5">
@@ -7119,12 +6824,12 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
       e.preventDefault();
       
             debugger;
-
+   
     //   $('#method_payments').val($('.spayterms').val());
       
             //  $('#method_payments').val($('#spayment_terms').val());
        $('#method_payments').val($('.spayment_terms').val());
- 
+   
        $('#amount_to_pays').val($('#gtotals').val()-$('#amount_paid').val());
        $('#service_payment_modal').modal('show');
      e.preventDefault();
@@ -7421,54 +7126,43 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
    ddl.options.add(opt);
    }
 </script>
-
 <style>
-    @media only screen and (min-width:1024px){
-        .mobile_vendor{
-            position: relative;
-            right: 20px;
-        }
-        
-        .mobile_price{
-            width: 75% !important;
-        }
-    }
-
-    
+   @media only screen and (min-width:1024px){
+   .mobile_vendor{
+   position: relative;
+   right: 20px;
+   }
+   .mobile_price{
+   width: 75% !important;
+   }
+   }
 </style>
-
-
 <style>
-                                       input{
-                                       border:none;
-                                       }
-                                       textarea:focus, input:focus{
-                                       outline: none;
-                                       }
-                                       .text-right {
-                                       text-align: left; 
-                                       }
-                                       .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-                                       padding:5px;
-                                       }
-                                       th,
-                                       td {
-                                       word-wrap: break-word
-                                       border: 1px solid black;
-                                       /* width: 100px; */
-                                       }
-                                       .select2 {
-                                       display:none;
-                                       }
-                                       #download_select:focus option:first-of-type , #print_select:focus option:first-of-type{
-                                       display: none;
-                                       }
-                                    </style>
-                                    
-                                    
-                                    
-
-
+   input{
+   border:none;
+   }
+   textarea:focus, input:focus{
+   outline: none;
+   }
+   .text-right {
+   text-align: left; 
+   }
+   .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+   padding:5px;
+   }
+   th,
+   td {
+   word-wrap: break-word
+   border: 1px solid black;
+   /* width: 100px; */
+   }
+   .select2 {
+   display:none;
+   }
+   #download_select:focus option:first-of-type , #print_select:focus option:first-of-type{
+   display: none;
+   }
+</style>
 <script type="text/javascript">
    const dt = new DataTransfer(); 
    
@@ -7532,7 +7226,3 @@ var liabilities = ['A/P Trade', 'A/P Accrued Accounts Payable', 'A/P Retainage W
    border-color: #38469f !important;
    }
 </style>
-
-
-
-
