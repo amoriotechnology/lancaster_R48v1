@@ -167,7 +167,7 @@
                      </div>
                      <div class="Column" style="float: right;">
                         <form id="histroy" method="post" >
-                           <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+                           <input type="hidden" class="txt_csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
                            <input type="hidden"  value="<?php if($payment_id){ echo $payment_id; }else{ echo $payment_id_new;}?>" name="payment_id" class="payment_id" id="payment_id"/>
                            <input type="hidden" id='current_in_id' name="current_in_id"/>
                            <input type="hidden" value="<?php  echo  $supplier_id ; ?>" name="supplier_id_payment"/>
@@ -181,7 +181,7 @@
                </div>
             </div>
             <div class="panel-body">
-               <form id="insert_purchase"  method="post">
+               <form id="insert_purchase"  method="post" enctype="multipart/form-data">
                   <div class="row">
                      <div class="col-sm-6">
                         <br/>
@@ -277,10 +277,10 @@
                               <label for="payment_type" class="col-sm-4 col-form-label"><?php echo display('Attachments');?>
                               </label>
                               <div class="col-sm-5">
-                                 <input type="file" name="files[]" id="edit_attachment" style="width:165%;border: 2px solid #d7d4d6;" class="form-control" multiple/>
+                                 <input type="file" name="files[]" style="width:165%;border: 2px solid #d7d4d6;" class="form-control" multiple/>
                                  <br>
                                  <?php if(!empty($Attachment)){ foreach ($Attachment as $key => $value) {  ?>
-                                 <p><a href="<?php echo base_url('uploads/'). $value['files']; ?>" target="_blank"><?php echo $value['files']; ?></a></p>
+                                 <p><a href="<?php echo base_url('uploads/expense/'). $value['files']; ?>" target="_blank"><?php echo $value['files']; ?></a></p>
                                  <?php } } ?>
                               </div>
                            </div>
@@ -355,7 +355,7 @@
 
                               <td >
                                  <input type="hidden" id="net_height_1" name="net_height[]" class="net_height form-control" />
-                                 <span class="input-symbol-euro"><input  type="text" class="sum_amount total_price form-control"  style="width: 116px;"    value="<?php  echo $inv['total_amount'];  ?>"  id="total_<?php  echo $m.$n; ?>"     name="total_amount[]"/></span>
+                                 <span class="input-symbol-euro"><input  type="text" class="sum_amount total_price form-control"  style="width: 116px;"    value="<?php  echo $inv['total_amount'];  ?>"  id="total_<?php  echo $m.$n; ?>"     name="total_amount[]" readonly/></span>
                               </td>
                               <td style="text-align:center;">
                                  <!-- <button  class='delete btn btn-danger' id="delete_1" type='button' value='Delete'><i class="fa fa-trash"></i></button> -->
@@ -1781,9 +1781,7 @@
 $('#insert_purchase').submit(function (event) {
     event.preventDefault();
     
-    var isValid = true; // Flag to track if the form is valid
-    
-    // Loop through each Supplier Slab No input and validate
+    var isValid = true; 
     $("input[name='supplier_slab_no[]']").each(function() {
         var slabNo = $(this).val();
         var inputId = $(this).attr('id'); // Get the ID of the input field
@@ -1813,16 +1811,14 @@ $('#insert_purchase').submit(function (event) {
 
     // If all fields are valid, proceed with AJAX submission
     if (isValid) {
-        var dataString = {
-            dataString : $("#insert_purchase").serialize()
-        };
-        dataString[csrfName] = csrfHash;
-
+      var formData = new FormData($(this)[0]);
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "<?php echo base_url(); ?>Cpurchase/insert_purchase",
-            data: $("#insert_purchase").serialize(),
+            data:formData,
+            contentType: false,
+            processData: false,
             success: function (data) {
                 console.log(data);
                 var split = data.split("/");

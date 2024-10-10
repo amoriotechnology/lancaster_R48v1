@@ -2102,7 +2102,6 @@ public function ret_company_info() {
 
     //Count purchase
  public function purchase_entry() { 
-  //print_r($_POST) ;die();
      $pur_id=$this->input->post('purchase_id',TRUE);
       $purchase_id='';
      if(empty($pur_id)){
@@ -2133,22 +2132,6 @@ public function ret_company_info() {
        }else{
            $bankcoaid = '';
        }
-       if(!empty($_FILES['attachments']['name'])){
-        $config['upload_path'] = 'my-assets/productnewimg/';
-        $config['allowed_types'] = 'jpg|jpeg|png|gif';
-        $config['file_name'] = $_FILES['attachments']['name'];
-        //Load upload library and initialize here configuration
-        $this->load->library('upload',$config);
-        $this->upload->initialize($config);
-        if($this->upload->do_upload('attachments')){
-            $uploadData = $this->upload->data();
-            $profile_img = $uploadData['file_name'];
-        }else{
-            $profile_img = '';
-        }
-    }else{
-        $profile_img = '';
-    }
         //supplier & product id relation ship checker.
         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
             $product_id = $p_id[$i];
@@ -2163,62 +2146,70 @@ $msg=$this->input->post('message_invoice',TRUE);
         }else{
           $msg='Product Purchased on '.$this->input->post('bill_date',TRUE);
         }
-       $data = array(
-           'purchase_id'        => $purchase_id,
-
-
-           'phone_num'        => $this->input->post('vendor_type',TRUE),
-           'ven_add'        => $this->input->post('vendor_add',TRUE),
-
-            'po_number'        => $this->input->post('po_number',TRUE),
-            'vtype'        => $this->input->post('vtype',TRUE),
-
-            'create_by'       =>  $this->session->userdata('user_id'),
-           'chalan_no'          => $this->input->post('invoice_no',TRUE),
-           'supplier_id'        => $this->input->post('supplier_id',TRUE),
-           'total_amt' => $this->input->post('overall_total',TRUE),
-           'grand_total_amount' => $this->input->post('gtotal',TRUE),
-           'g_weight'   =>$this->input->post('hidden_weight',TRUE),
-           'total_discount'     => $this->input->post('discount',TRUE),
-           'purchase_date'      => $this->input->post('bill_date',TRUE),
-           'purchase_details'   => $this->input->post('purchase_details',TRUE),
-            'payment_due_date'   => $this->input->post('payment_due_date',TRUE),
-           'remarks'            => $this->input->post('remark',TRUE),
-           'message_invoice'    => $msg,
-            'total_tax'  =>  $this->input->post('tax_details',TRUE),
-            'packing_id' => $this->input->post('packing_id',TRUE),
-           'etd'   => $this->input->post('etd',TRUE),
-           'eta'   => $this->input->post('eta',TRUE),
-           'gtotal_preferred_currency'  => $this->input->post('vendor_gtotal',TRUE),
-           'shipping_line'   => $this->input->post('shipping_line',TRUE),
-            'container_no'   => $this->input->post('container_no',TRUE),
-           'bl_number'   => $this->input->post('bl_number',TRUE),
-           'isf_filling'   => $this->input->post('isf_no',TRUE),
-            'paid_amount'    => $this->input->post('amount_paid',TRUE),
-           'balance'    => $this->input->post('balance',TRUE),
-            'payment_id'    => $this->input->post('payment_id',TRUE),
-            'status'             => 1,
-            'bank_id'            =>  $this->input->post('bank_id',TRUE),
-            'packing_id'            =>  $this->input->post('packing_id',TRUE),
-            
-            
-            'grand_total_amount'  => $this->input->post('total',TRUE)[0],
-             'total_amt'  => $this->input->post('total_price',TRUE)[0],
-
-
-            'payment_type'       =>  $this->input->post('paytype_drop',TRUE),
-            'total_gross' =>  $this->input->post('total_gross',TRUE),
-            'total_net' =>  $this->input->post('total_net',TRUE),
-            'total_weight' => $this->input->post('total_weight',TRUE),
-            'payment_terms'       =>  $this->input->post('payment_terms',TRUE),
-            'Port_of_discharge'       =>  $this->input->post('Port_of_discharge',TRUE),
-            'amount_pay_usd'=>$this->input->post('paid_convert'),
-            'due_amount_usd'=>$this->input->post('bal_convert'),
-            'account_category'=>$this->input->post('account_category'),
-            'sub_category'=>$this->input->post('sub_category'),
-            'account_subcat'=>$this->input->post('account_subcat'),
-            'image'              =>  $profile_img,
+        $data = array(
+            'purchase_id'           => $purchase_id,
+            'phone_num'             => $this->input->post('vendor_type', TRUE),
+            'ven_add'               => $this->input->post('vendor_add', TRUE),
+            'po_number'             => $this->input->post('po_number', TRUE),
+            'vtype'                 => $this->input->post('vtype', TRUE),
+            'create_by'             => $this->session->userdata('user_id'),
+            'chalan_no'             => $this->input->post('invoice_no', TRUE),
+            'supplier_id'           => $this->input->post('supplier_id', TRUE),
+            'total_amt'             => $this->input->post('total_price', TRUE)[0], // Updated for multiple entries
+            'grand_total_amount'    => $this->input->post('total', TRUE)[0],       // Updated for multiple entries
+            'g_weight'              => $this->input->post('hidden_weight', TRUE),
+            'total_discount'        => $this->input->post('discount', TRUE),
+            'purchase_date'         => $this->input->post('bill_date', TRUE),
+            'purchase_details'      => $this->input->post('purchase_details', TRUE),
+            'payment_due_date'      => $this->input->post('payment_due_date', TRUE),
+            'remarks'               => $this->input->post('remark', TRUE),
+            'message_invoice'       => $msg,
+            'total_tax'             => $this->input->post('tax_details', TRUE),
+            'packing_id'            => $this->input->post('packing_id', TRUE),     // Only once
+            'etd'                   => $this->input->post('etd', TRUE),
+            'eta'                   => $this->input->post('eta', TRUE),
+            'gtotal_preferred_currency' => $this->input->post('vendor_gtotal', TRUE),
+            'shipping_line'         => $this->input->post('shipping_line', TRUE),
+            'container_no'          => $this->input->post('container_no', TRUE),
+            'bl_number'             => $this->input->post('bl_number', TRUE),
+            'isf_filling'           => $this->input->post('isf_no', TRUE),
+            'paid_amount'           => $this->input->post('amount_paid', TRUE),
+            'balance'               => $this->input->post('balance', TRUE),
+            'payment_id'            => $this->input->post('payment_id', TRUE),
+            'status'                => 1,
+            'bank_id'               => $this->input->post('bank_id', TRUE),
+            'payment_type'          => $this->input->post('paytype_drop', TRUE),
+            'total_gross'           => $this->input->post('total_gross', TRUE),
+            'total_net'             => $this->input->post('total_net', TRUE),
+            'total_weight'          => $this->input->post('total_weight', TRUE),
+            'payment_terms'         => $this->input->post('payment_terms', TRUE),
+            'Port_of_discharge'     => $this->input->post('Port_of_discharge', TRUE),
+            'amount_pay_usd'        => $this->input->post('paid_convert', TRUE),
+            'due_amount_usd'        => $this->input->post('bal_convert', TRUE),
+            'account_category'      => $this->input->post('account_category', TRUE),
+            'sub_category'          => $this->input->post('sub_category', TRUE),
+            'account_subcat'        => $this->input->post('account_subcat', TRUE),
+            'image'                 => $profile_img,
         );
+        
+        // Now handle file uploads
+        if ($data['purchase_id'] != "") {
+            if (!empty($_FILES['files'])) {
+                $fileCount = count($_FILES['files']['name']);
+                for ($i = 0; $i < $fileCount; $i++) {
+                    $upload_data = multiple_file_upload('files', $i, 'expense', EXPENSE_IMG_PATH);
+                    if ($upload_data['upload_data']['file_name'] != "") {
+                        insertAttachments(
+                            $data['purchase_id'], 
+                            $upload_data['upload_data']['file_name'], 
+                            EXPENSE_IMG_PATH,  
+                            $this->session->userdata('user_id'), 
+                            'expense'
+                        );
+                    }
+                }
+            }
+        }
         $purchase_id_1 = $this->db->where('purchase_id',$this->input->post('purchase_id',TRUE));
         $q=$this->db->get('product_purchase');
         $row = $q->row_array();
