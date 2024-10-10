@@ -323,25 +323,11 @@
    
     <script src="https://cdn.jsdelivr.net/npm/table2excel@1.0.4/dist/table2excel.min.js"></script>
   
-   <!--<script src="<?php echo base_url()?>assets/js/jquery.bootgrid.min.js"></script>-->
-  
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.0-alpha.1/jspdf.plugin.autotable.js"></script>-->
-   <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>-->
-   <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>-->
-   <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js'></script>-->
-   <!--<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>-->
-   <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>-->
-    <!--<script type="text/javascript" src="<?php echo base_url()?>my-assets/js/profarma.js"></script>-->
-   <!-- <script src="<?php echo base_url()?>assets/js/jquery.bootgrid.min.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>-->
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.0-alpha.1/jspdf.plugin.autotable.js"></script>-->
-   
-   <!--<script type="text/javascript" src="<?php echo base_url()?>my-assets/js/profarma.js"></script>-->
+   <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+   <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+   <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+   <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
    <!-- The Modal Column Switch -->
    <div id="myModal_colSwitch" class="modal_colSwitch" >
    <div class="modal-content_colSwitch" style="width:10%;height:25%;">
@@ -669,8 +655,30 @@ function populateTable(response) {
             "</tr>"
         );
     }
-    // Re-initialize DataTable
-    ProfarmaInvList.DataTable();
+      $('#ProfarmaInvList').DataTable({
+          dom: 'Bfrtip',  
+          buttons: [
+              'copy', 'csv', 'pdf', 
+              {
+                  extend: 'print',
+                  title: 'State Overall Summary', 
+                  customize: function (win) {
+                      $(win.document.body)
+                          .css('font-size', '10pt')
+                          .prepend(
+                              '<h3 style="text-align:center;">State Overall Summary</h3>'
+                          );
+                      
+                      $(win.document.body).find('table')
+                          .addClass('compact')
+                          .css('font-size', 'inherit');
+                  }
+              },
+              'colvis'
+          ]
+      });
+
+
 
 }
 
